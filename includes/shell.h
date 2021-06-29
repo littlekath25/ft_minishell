@@ -6,7 +6,7 @@
 /*   By: pspijkst <pspijkst@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/05/05 13:17:29 by pspijkst      #+#    #+#                 */
-/*   Updated: 2021/05/05 16:36:27 by pspijkst      ########   odam.nl         */
+/*   Updated: 2021/06/29 15:19:36 by pspijkst      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,13 @@ typedef struct s_tree
 	t_command		*commands;
 	struct s_tree	*next;
 }	t_tree;
+
+typedef struct s_shell
+{
+	char	**env;
+	char	**paths;
+}	t_shell;
+
 
 t_tree		*init_parser(char *buffer);
 void		init_execute(t_tree *trees);
