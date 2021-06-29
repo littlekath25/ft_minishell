@@ -6,18 +6,15 @@
 #    By: kfu <kfu@student.codam.nl>                   +#+                      #
 #                                                    +#+                       #
 #    Created: 2020/11/14 23:09:58 by kfu           #+#    #+#                  #
-#    Updated: 2021/05/05 15:58:47 by kfu           ########   odam.nl          #
+#    Updated: 2021/06/29 13:19:43 by kfu           ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
 NAME	= 	minishell
 CC		= 	gcc
 RM		=	rm -f
-FLAGS	= 	-Wall -Wextra -Werror -I includes/
+FLAGS	= 	-Wall -Wextra -Werror
 LIBS	=	-Llibft -lft -o
-
-H_FILES	= 	libft.h
-H_PATH	=	includes/
 
 S_SRC	= 	main.c
 S_PATH	=	src/
@@ -32,16 +29,17 @@ OBJ_FILES = $(L_OBJ) $(P_OBJ) $(S_OBJ)
 all: $(NAME)
 
 $(NAME): $(OBJ_FILES)
-	cd libft && make
+	make -C libft
 	$(CC) $(OBJ_FILES) $(LIBS) $(NAME)
 
 %.o: %.c
-	$(CC) $(FLAGS) -c -o $@ $<
+	$(CC) $(FLAGS) -c -o $@ $< -I includes/
 
 clean:
 	$(RM) $(OBJ_FILES)
 
 fclean: clean
-	$(RM) $(NAME) && cd libft && make fclean
+	make -C libft fclean
+	$(RM) $(NAME)
 
 re: fclean all
