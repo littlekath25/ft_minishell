@@ -6,7 +6,7 @@
 #    By: kfu <kfu@student.codam.nl>                   +#+                      #
 #                                                    +#+                       #
 #    Created: 2020/11/14 23:09:58 by kfu           #+#    #+#                  #
-#    Updated: 2021/05/05 15:43:54 by kfu           ########   odam.nl          #
+#    Updated: 2021/06/29 16:29:02 by kfu           ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,7 +15,7 @@ AR =		ar
 H_FILES = 	libft.h
 CC = 		gcc
 RM =		rm -f
-CFLAGS = 	-Wall -Wextra -Werror
+CFLAGS = 	-Wall -Wextra -Werror -I ../includes/
 O_FILES = 	$(SRC:.c=.o)
 SRC = 		ft_atoi.c\
 			ft_atof.c\

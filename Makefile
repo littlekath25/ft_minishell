@@ -6,25 +6,29 @@
 #    By: kfu <kfu@student.codam.nl>                   +#+                      #
 #                                                    +#+                       #
 #    Created: 2020/11/14 23:09:58 by kfu           #+#    #+#                  #
-#    Updated: 2021/06/29 13:19:43 by kfu           ########   odam.nl          #
+#    Updated: 2021/06/29 17:16:54 by kfu           ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
 NAME	= 	minishell
 CC		= 	gcc
 RM		=	rm -f
-FLAGS	= 	-Wall -Wextra -Werror
-LIBS	=	-Llibft -lft -o
+# FLAGS	= 	-Wall -Wextra -Werror
+LIBS	=	-Llibft -lft -lreadline -o 
 
 S_SRC	= 	main.c
 S_PATH	=	src/
 S_OBJ	=	$(S_SRC:%.c=$(S_PATH)%.o)
 
+U_SRC	= 	error.c
+U_PATH	=	src/utils/
+U_OBJ	=	$(U_SRC:%.c=$(U_PATH)%.o)
+
 P_SRC	=	parsing.c
 P_PATH	=	src/parsing/
 P_OBJ	=	$(P_SRC:%.c=$(P_PATH)%.o)
 
-OBJ_FILES = $(L_OBJ) $(P_OBJ) $(S_OBJ)
+OBJ_FILES = $(L_OBJ) $(P_OBJ) $(S_OBJ) $(U_OBJ)
 
 all: $(NAME)
 
