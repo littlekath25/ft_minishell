@@ -1,27 +1,39 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   env.c                                              :+:    :+:            */
+/*   echo.c                                             :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: pspijkst <pspijkst@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2021/06/29 17:04:56 by pspijkst      #+#    #+#                 */
-/*   Updated: 2021/07/01 18:34:37 by pspijkst      ########   odam.nl         */
+/*   Created: 2021/07/01 17:39:36 by pspijkst      #+#    #+#                 */
+/*   Updated: 2021/07/01 18:43:49 by pspijkst      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdlib.h>
 #include <stdio.h>
+#include "../../../libft/libft.h"
 
 /*
-	Print env.
-	Env is loaded on startup and is stored in t_shell.
+	Print the argument specified in argv to the stdout, with a trailing newline.
 */
-void	_env_(char **argv)
+void	_echo_(char **argv)
 {
+	char	newline;
+
+	newline = 1;
+	argv++;
+	if (ft_strcmp(*argv, "-n") == 0)
+	{
+		argv++;
+		newline = 0;
+	}
 	while (*argv)
 	{
-		printf("%s\n", *argv);
+		printf("%s", *argv);
 		argv++;
+		if (*argv)
+			printf(" ");
 	}
+	if (newline)
+		printf("\n");
 }

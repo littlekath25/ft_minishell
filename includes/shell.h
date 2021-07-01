@@ -6,12 +6,14 @@
 /*   By: pspijkst <pspijkst@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/05/05 13:17:29 by pspijkst      #+#    #+#                 */
-/*   Updated: 2021/06/29 15:19:36 by pspijkst      ########   odam.nl         */
+/*   Updated: 2021/07/01 18:27:47 by pspijkst      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef SHELL_H
 # define SHELL_H
+
+# include "builtin.h"
 
 typedef enum e_bool
 {
@@ -19,18 +21,12 @@ typedef enum e_bool
 	true
 }	t_bool;
 
-typedef struct s_token
-{
-	struct s_token	*next;
-	char			*data;
-}	t_token;
-
 typedef struct s_command
 {
-	struct s_command	*out;
-	struct s_command	*in;
-	struct s_command	*pipe;
-	t_token				*tokens;
+	struct s_command	*prev;
+	struct s_command	*next;
+	char				**argv;
+	char				**env;
 	int					outfd;
 	int					infd;
 }	t_command;
@@ -44,9 +40,7 @@ typedef struct s_tree
 typedef struct s_shell
 {
 	char	**env;
-	char	**paths;
 }	t_shell;
-
 
 t_tree		*init_parser(char *buffer);
 void		init_execute(t_tree *trees);

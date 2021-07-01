@@ -6,7 +6,7 @@
 /*   By: pspijkst <pspijkst@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/05/05 16:38:19 by pspijkst      #+#    #+#                 */
-/*   Updated: 2021/07/01 13:52:16 by pspijkst      ########   odam.nl         */
+/*   Updated: 2021/07/01 18:38:43 by pspijkst      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 #include <stdio.h>
 #include <unistd.h>
 
-char	**get_paths()
+char	**get_paths(void)
 {
 	char	*path;
 	char	**paths;
@@ -92,7 +92,14 @@ char	ft_strcontains(char *str, char c)
 void	distr_input(char **tokens)
 {
 	pid_t	pid;
+	void	(*f)(char **argv);
 
+	f = get_builtin(*tokens);
+	if (f)
+	{
+		f(tokens);
+		return;
+	}
 	pid = fork();
 	if (pid == 0)
 	{

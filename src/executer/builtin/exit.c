@@ -1,28 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   builtin_table.c                                    :+:    :+:            */
+/*   exit.c                                             :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: pspijkst <pspijkst@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2021/06/29 17:27:24 by pspijkst      #+#    #+#                 */
-/*   Updated: 2021/07/01 12:47:18 by pspijkst      ########   odam.nl         */
+/*   Created: 2021/07/01 17:48:13 by pspijkst      #+#    #+#                 */
+/*   Updated: 2021/07/01 18:38:16 by pspijkst      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/builtin.h"
+#include <stdlib.h>
+#include <stdio.h>
 
-void	*get_builtin(const char *key)
+void	_exit_(char **argv)
 {
-	static t_dict	builtins[] = \
-	{
-		(t_dict){ .key = "env", .f = env }
-	};
-	int				i;
-
-	i = 0;
-	while (i < 1)
-	{
-		
-	}
+	(void)argv;
+	exit(0);
 }

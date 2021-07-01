@@ -6,7 +6,7 @@
 /*   By: pspijkst <pspijkst@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/06/29 17:32:58 by pspijkst      #+#    #+#                 */
-/*   Updated: 2021/07/01 12:49:17 by pspijkst      ########   odam.nl         */
+/*   Updated: 2021/07/01 18:30:22 by pspijkst      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,14 @@ typedef struct s_dict
 	void	(*f)(char **argv);
 }	t_dict;
 
-void	env(char **env);
+void	*get_builtin(const char *key);
+
+void	_cd_(char **argv);
+void	_echo_(char **argv);
+void	_env_(char **argv);
+void	_exit_(char **argv);
+void	_export_(char **argv);
+void	_pwd_(char **argv);
+void	_unset_(char **argv);
 
 #endif

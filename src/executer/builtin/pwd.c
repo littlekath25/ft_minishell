@@ -1,27 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   env.c                                              :+:    :+:            */
+/*   pwd.c                                              :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: pspijkst <pspijkst@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2021/06/29 17:04:56 by pspijkst      #+#    #+#                 */
-/*   Updated: 2021/07/01 18:34:37 by pspijkst      ########   odam.nl         */
+/*   Created: 2021/07/01 17:24:37 by pspijkst      #+#    #+#                 */
+/*   Updated: 2021/07/01 18:34:24 by pspijkst      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdlib.h>
 #include <stdio.h>
+#include <unistd.h>
+#include <stdlib.h>
 
 /*
-	Print env.
-	Env is loaded on startup and is stored in t_shell.
+	Print the current working directory.
 */
-void	_env_(char **argv)
+void	_pwd_(char **argv)
 {
-	while (*argv)
-	{
-		printf("%s\n", *argv);
-		argv++;
-	}
+	char	*cwd;
+
+	cwd = getcwd(NULL, 0);
+	if (!cwd)
+		exit(0);
+	printf("%s\n", cwd);
 }

@@ -1,27 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   env.c                                              :+:    :+:            */
+/*   cd.c                                               :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: pspijkst <pspijkst@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2021/06/29 17:04:56 by pspijkst      #+#    #+#                 */
-/*   Updated: 2021/07/01 18:34:37 by pspijkst      ########   odam.nl         */
+/*   Created: 2021/07/01 17:29:26 by pspijkst      #+#    #+#                 */
+/*   Updated: 2021/07/01 18:34:42 by pspijkst      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdlib.h>
-#include <stdio.h>
+#include <unistd.h>
 
 /*
-	Print env.
-	Env is loaded on startup and is stored in t_shell.
+	Change current working directory.
+	If there is no path given, navigate to HOME.
+	HOME from env is stored in t_shell.
 */
-void	_env_(char **argv)
+void	_cd_(char **argv)
 {
-	while (*argv)
-	{
-		printf("%s\n", *argv);
-		argv++;
-	}
+	chdir(argv[1]);
 }
