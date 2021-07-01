@@ -6,7 +6,7 @@
 /*   By: pspijkst <pspijkst@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/05/05 16:38:19 by pspijkst      #+#    #+#                 */
-/*   Updated: 2021/06/29 15:59:49 by pspijkst      ########   odam.nl         */
+/*   Updated: 2021/07/01 13:52:16 by pspijkst      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,39 +15,11 @@
 #include <stdio.h>
 #include <unistd.h>
 
-void	init_execute(t_tree *trees)
-{
-	
-}
-
-char	*get_envvar(char **env, char *key)
-{
-	int	len;
-
-	len = ft_strlen(key);
-	while (*env)
-	{
-		if (!ft_memcmp(*env, key, len))
-		{
-			if (*(*env + len) == '=')
-				return (*env + len + 1);
-		}
-		env++;
-	}
-	return (0);
-}
-
-char	**get_paths(char **env)
+char	**get_paths()
 {
 	char	*path;
 	char	**paths;
 
-	path = get_envvar(env, "PATH");
-	if (!path)
-	{
-		printf("Failed to fetch PATH, terminating program.\n");
-		exit(0);
-	}
 	paths = ft_split(path, ':');
 	if (!paths)
 	{
@@ -57,79 +29,95 @@ char	**get_paths(char **env)
 	return (paths);
 }
 
-void	ft_strcpy(char *dest, const char *src)
-{
-	while (*src)
-	{
-		*dest = *src;
-		dest++;
-		src++;
-	}
-	*dest = 0;
-}
-
-void	ft_strcat(char *dest, const char *src)
-{
-	while (*dest)
-		dest++;
-	while (*src)
-	{
-		*dest = *src;
-		dest++;
-		src++;
-	}
-	*dest = 0;
-}
-
-char	*path_combine(char *base, char *execname)
+char	*ft_pathcombine(char *base, char *file)
 {
 	char	*path;
-	int		baselen;
-	int		execnamelen;
+	int		i;
 
-	baselen = ft_strlen(base);
-	execnamelen = ft_strlen(execname);
-	path = malloc(baselen + execnamelen + 2);
+	path = malloc(ft_strlen(base) + ft_strlen(file) + 2);
 	if (!path)
 		exit(0);
-	ft_strcpy(path, base);
-	ft_strcat(path, "/");
-	ft_strcat(path, execname);
+	i = 0;
+	while (base[i])
+	{
+		path[i] = base[i];
+		i++;
+	}
+	path[i] = '/';
+	i++;
+	while (*file)
+	{
+		path[i] = *file;
+		file++;
+		i++;
+	}
+	path[i] = 0;
 	return (path);
 }
 
-void	execute(char **paths, char *name)
+void	exec_abs(char **tokens)
 {
-	char	*argv[2];
+	execv(*tokens, tokens);
+}
+
+void	exec_rel(char **tokens)
+{
 	char	*path;
+	char	**paths;
+
+	path = getenv("PATH");
+	if (!path)
+		path = "";
+	paths = ft_split(path, ':');
+	while (*paths)
+	{
+		path = ft_pathcombine(*paths, *tokens);
+		// printf("Path: %s\n", path);
+		execv(path, tokens);
+		paths++;
+	}
+}
+
+char	ft_strcontains(char *str, char c)
+{
+	while (*str)
+	{
+		if (*str == c)
+			return (1);
+		str++;
+	}
+	return (0);
+}
+
+void	distr_input(char **tokens)
+{
 	pid_t	pid;
 
 	pid = fork();
 	if (pid == 0)
 	{
-		argv[0] = name;
-		argv[1] = 0;
-		while (*paths)
-		{
-			path = path_combine(*paths, name);
-			// printf("Path: %s\n", path);
-			execv(path, argv);
-			paths++;
-		}
-		printf("%s: command not found\n", name);
+		if (ft_strcontains(*tokens, '/'))
+			exec_abs(tokens);
+		else
+			exec_rel(tokens);
+		printf("%s: command not found\n", *tokens);
 	}
 }
 
 void	loop(t_shell *shell)
 {
-	char	input[10000];
+	char	input[1000];
+	char	**tokens;
 	int		readc;
 
 	while (1)
 	{
-		readc = read(0, input, 10000);
+		readc = read(0, input, 1000);
 		input[readc - 1] = 0;
-		execute(shell->paths, input);
+		tokens = ft_split(input, ' ');
+		if (!tokens || !*tokens)
+			continue ;
+		distr_input(tokens);
 	}
 }
 
@@ -138,6 +126,5 @@ int	main(int argc, char **args, char **env)
 	t_shell	shell;
 
 	shell.env = env;
-	shell.paths = get_paths(env);
 	loop(&shell);
 }
