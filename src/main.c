@@ -6,7 +6,7 @@
 /*   By: kfu <kfu@student.codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/05/05 15:51:53 by kfu           #+#    #+#                 */
-/*   Updated: 2021/07/02 10:58:28 by kfu           ########   odam.nl         */
+/*   Updated: 2021/07/02 11:02:11 by kfu           ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,10 @@
 #include <readline/readline.h>
 #include <readline/history.h>
 
+void	add_command(char *line, t_shell *shell)
+{
+	
+}
 
 void	read_commands(t_shell *shell)
 {
