@@ -6,7 +6,7 @@
 /*   By: kfu <kfu@student.codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/07/02 12:16:16 by kfu           #+#    #+#                 */
-/*   Updated: 2021/07/02 17:17:12 by kfu           ########   odam.nl         */
+/*   Updated: 2021/07/02 17:39:04 by kfu           ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,10 +31,16 @@ void	add_back_command(t_command *dest, t_command *new)
 	else
 	{
 		ptr = dest;
-		while (ptr != NULL)
+		while (ptr->next != NULL)
 			ptr = ptr->next;
-		ptr = new;
+		ptr->next = new;
+		new->previous = ptr;
 	}
+}
+
+void	delete_one_command(t_command *to_delete)
+{
+	
 }
 
 t_command	*create_new_command(t_command *new)
@@ -59,19 +65,5 @@ void	create_commands_list(char *line, t_shell *shell)
 	{
 		printf("split: %s\n", split[i]);
 		i++;
-	}
-}
-
-void	read_commands(t_shell *shell)
-{
-	char	*line;
-
-	while (1)
-	{
-		line = readline("minishell> ");
-		create_commands_list(line, shell);
-		if (!ft_strcmp(line, "exit"))
-			break ;
-		free(line);
 	}
 }
