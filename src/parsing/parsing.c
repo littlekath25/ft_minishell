@@ -6,8 +6,9 @@
 /*   By: kfu <kfu@student.codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/05/05 15:51:53 by kfu           #+#    #+#                 */
-/*   Updated: 2021/06/29 12:46:27 by kfu           ########   odam.nl         */
+/*   Updated: 2021/07/02 16:59:33 by kfu           ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "shell.h"
+

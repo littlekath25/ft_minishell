@@ -6,7 +6,7 @@
 /*   By: kfu <kfu@student.codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/07/02 12:16:16 by kfu           #+#    #+#                 */
-/*   Updated: 2021/07/02 12:31:58 by kfu           ########   odam.nl         */
+/*   Updated: 2021/07/02 17:17:12 by kfu           ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,27 +22,56 @@ void	init_command(t_command *new)
 	new->next = NULL;
 }
 
-void	add_back_command(t_shell *shell, t_command *new)
+void	add_back_command(t_command *dest, t_command *new)
 {
 	t_command	*ptr;
 
-	if (shell->commands == NULL)
-		shell->commands = new;
+	if (dest == NULL)
+		dest = new;
 	else
 	{
-		ptr = shell->commands;
+		ptr = dest;
 		while (ptr != NULL)
 			ptr = ptr->next;
 		ptr = new;
 	}
 }
 
-void	add_new_command(char *line, t_shell *shell)
+t_command	*create_new_command(t_command *new)
+{
+	new = (t_command *)ft_calloc(1, sizeof(t_command));
+	if (new == NULL)
+		error_and_exit(2);
+	init_command(new);
+	return (new);
+}
+
+void	create_commands_list(char *line, t_shell *shell)
 {
 	t_command	*new;
-	t_command	*ptr;
+	char		**split;
+	t_bool		quote;
+	int			i;
 
-	new = (t_command *)ft_calloc(1, sizeof(t_command));
-	init_command(new);
-	add_back_command(shell, new);
+	i = 0;
+	split = ft_split(line, '"');
+	while (split[i])
+	{
+		printf("split: %s\n", split[i]);
+		i++;
+	}
+}
+
+void	read_commands(t_shell *shell)
+{
+	char	*line;
+
+	while (1)
+	{
+		line = readline("minishell> ");
+		create_commands_list(line, shell);
+		if (!ft_strcmp(line, "exit"))
+			break ;
+		free(line);
+	}
 }

@@ -1,19 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   ft_lstadd_front.c                                  :+:    :+:            */
+/*   tokens.c                                           :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: kfu <kfu@student.codam.nl>                   +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2020/11/13 14:02:09 by kfu           #+#    #+#                 */
-/*   Updated: 2020/11/14 10:36:42 by kfu           ########   odam.nl         */
+/*   Created: 2021/07/02 13:58:25 by kfu           #+#    #+#                 */
+/*   Updated: 2021/07/02 16:41:12 by kfu           ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "shell.h"
 
-void	ft_lstadd_front(t_list **lst, t_list *new)
+void	expand_tokens(char **tokens)
 {
-	new->next = *lst;
-	*lst = new;
+	
+}
+
+void	create_tokens(t_shell *shell, char *line)
+{	
 }
