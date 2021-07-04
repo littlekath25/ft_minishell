@@ -6,7 +6,7 @@
 /*   By: pspijkst <pspijkst@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/05/05 13:17:29 by pspijkst      #+#    #+#                 */
-/*   Updated: 2021/07/02 16:59:27 by kfu           ########   odam.nl         */
+/*   Updated: 2021/07/04 17:53:56 by pspijkst      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 # include <stdio.h>
 # include <readline/readline.h>
 # include <readline/history.h>
+# include "builtin.h"
 
 typedef enum e_bool
 {
@@ -59,5 +60,28 @@ void		add_back_command(t_command *dest, t_command *new);
 // TOKEN FUNCTIONS
 void		expand_tokens(char **tokens);
 void		create_tokens(t_shell *shell, char *line);
+typedef struct s_command
+{
+	struct s_command	*prev;
+	struct s_command	*next;
+	char				**argv;
+	char				**env;
+	int					outfd;
+	int					infd;
+}	t_command;
+
+typedef struct s_tree
+{
+	t_command		*commands;
+	struct s_tree	*next;
+}	t_tree;
+
+typedef struct s_shell
+{
+	char	**env;
+}	t_shell;
+
+t_tree		*init_parser(char *buffer);
+void		init_execute(t_tree *trees);
 
 #endif
