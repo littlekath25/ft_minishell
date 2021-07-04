@@ -6,12 +6,12 @@
 /*   By: pspijkst <pspijkst@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/06/29 17:27:24 by pspijkst      #+#    #+#                 */
-/*   Updated: 2021/07/01 18:31:55 by pspijkst      ########   odam.nl         */
+/*   Updated: 2021/07/04 18:07:38 by pspijkst      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../includes/builtin.h"
-#include "../../../libft/libft.h"
+#include "../../../includes/libft.h"
 
 void	*get_builtin(const char *key)
 {

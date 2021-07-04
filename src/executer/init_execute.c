@@ -6,12 +6,13 @@
 /*   By: pspijkst <pspijkst@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/05/05 16:38:19 by pspijkst      #+#    #+#                 */
-/*   Updated: 2021/07/04 17:15:25 by pspijkst      ########   odam.nl         */
+/*   Updated: 2021/07/04 18:06:54 by pspijkst      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/shell.h"
-#include "../../libft/libft.h"
+#include "../../includes/libft.h"
+#include <sys/wait.h>
 #include <stdio.h>
 #include <unistd.h>
 
@@ -93,6 +94,7 @@ void	distr_input(char **tokens)
 {
 	int		pid;
 	void	(*f)(char **argv);
+	int		status;
 
 	f = get_builtin(*tokens);
 	if (f)
@@ -110,7 +112,7 @@ void	distr_input(char **tokens)
 		printf("%s: command not found\n", *tokens);
 		return ;
 	}
-	waitpid(pid);
+	wait(&status);
 }
 
 void	loop(t_shell *shell)
