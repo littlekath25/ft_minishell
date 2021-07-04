@@ -6,7 +6,7 @@
 /*   By: pspijkst <pspijkst@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/05/05 16:38:19 by pspijkst      #+#    #+#                 */
-/*   Updated: 2021/07/01 18:38:43 by pspijkst      ########   odam.nl         */
+/*   Updated: 2021/07/04 17:15:25 by pspijkst      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,14 +91,14 @@ char	ft_strcontains(char *str, char c)
 
 void	distr_input(char **tokens)
 {
-	pid_t	pid;
+	int		pid;
 	void	(*f)(char **argv);
 
 	f = get_builtin(*tokens);
 	if (f)
 	{
 		f(tokens);
-		return;
+		return ;
 	}
 	pid = fork();
 	if (pid == 0)
@@ -108,7 +108,9 @@ void	distr_input(char **tokens)
 		else
 			exec_rel(tokens);
 		printf("%s: command not found\n", *tokens);
+		return ;
 	}
+	waitpid(pid);
 }
 
 void	loop(t_shell *shell)
