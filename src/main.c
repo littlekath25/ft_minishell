@@ -6,37 +6,21 @@
 /*   By: kfu <kfu@student.codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/05/05 15:51:53 by kfu           #+#    #+#                 */
-/*   Updated: 2021/06/29 17:45:17 by kfu           ########   odam.nl         */
+/*   Updated: 2021/07/05 10:19:20 by katherine     ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-#include <stdio.h>
-#include <readline/readline.h>
-#include <readline/history.h>
-
-void	add_command(char *line, t_shell *shell)
-{
-	t_tree		*tree;
-	t_command	*new;
-	t_command	*ptr;
-
-	tree = (t_tree *)ft_calloc(1, sizeof(t_tree));
-	new = (t_command *)ft_calloc(1, sizeof(t_command));
-	ptr = tree->commands;
-	while (ptr != NULL)
-		ptr = tree->commands->next;
-	new->command = line;
-	ptr->next = new;
-}
 
 void	read_from_stdin(t_shell *shell)
 {
 	char	*line;
+	char	**split;
 
 	while (1)
 	{
 		line = readline("minishell> ");
+		split = ft_split(line, ' ');
 		add_command(line, shell);
 		free(line);
 	}
