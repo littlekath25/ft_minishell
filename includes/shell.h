@@ -6,7 +6,7 @@
 /*   By: pspijkst <pspijkst@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/05/05 13:17:29 by pspijkst      #+#    #+#                 */
-/*   Updated: 2021/07/04 17:53:56 by pspijkst      ########   odam.nl         */
+/*   Updated: 2021/07/05 14:32:15 by katherine     ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ typedef struct s_command
 	int					in_fd;
 	int					out_fd;
 	t_tokens			*tokens;
-	struct s_command	*previous;
+	struct s_command	*prev;
 	struct s_command	*next;
 }	t_command;
 
@@ -48,40 +48,21 @@ typedef struct s_shell
 	t_command	*commands;
 }	t_shell;
 
+t_shell		*g_shell;
+
 void		error_and_exit(int error);
 
 // COMMAND FUNCTIONS
-void		read_commands(t_shell *shell);
-void		create_commands_list(char *line, t_shell *shell);
-t_command	*create_new_command(t_command *new);
-void		add_new_command(char *line, t_shell *shell);
-void		add_back_command(t_command *dest, t_command *new);
+void		read_commands(void);
+void		create_commands_list(char *line);
+t_command	*create_new_command(void);
+void		add_new_command(char *line);
+void		add_back_command(t_command **dest, t_command *new);
+void		delete_one_command(t_command **src, t_command *node);
 
 // TOKEN FUNCTIONS
-void		expand_tokens(char **tokens);
-void		create_tokens(t_shell *shell, char *line);
-typedef struct s_command
-{
-	struct s_command	*prev;
-	struct s_command	*next;
-	char				**argv;
-	char				**env;
-	int					outfd;
-	int					infd;
-}	t_command;
-
-typedef struct s_tree
-{
-	t_command		*commands;
-	struct s_tree	*next;
-}	t_tree;
-
-typedef struct s_shell
-{
-	char	**env;
-}	t_shell;
-
-t_tree		*init_parser(char *buffer);
-void		init_execute(t_tree *trees);
+t_tokens	*create_new_token(void);
+void		expand_tokens(t_tokens *tokens);
+void		fill_in_tokens(char *line, t_tokens *tokens);
 
 #endif
