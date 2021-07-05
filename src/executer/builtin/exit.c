@@ -1,19 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   ft_lstadd_front.c                                  :+:    :+:            */
+/*   exit.c                                             :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: kfu <kfu@student.codam.nl>                   +#+                     */
+/*   By: pspijkst <pspijkst@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2020/11/13 14:02:09 by kfu           #+#    #+#                 */
-/*   Updated: 2020/11/14 10:36:42 by kfu           ########   odam.nl         */
+/*   Created: 2021/07/01 17:48:13 by pspijkst      #+#    #+#                 */
+/*   Updated: 2021/07/01 18:38:16 by pspijkst      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include <stdlib.h>
+#include <stdio.h>
 
-void	ft_lstadd_front(t_list **lst, t_list *new)
+void	_exit_(char **argv)
 {
-	new->next = *lst;
-	*lst = new;
+	(void)argv;
+	exit(0);
 }

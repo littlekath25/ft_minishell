@@ -1,30 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   ft_lstclear.c                                      :+:    :+:            */
+/*   tokens.c                                           :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: kfu <kfu@student.codam.nl>                   +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2020/11/14 14:22:49 by kfu           #+#    #+#                 */
-/*   Updated: 2021/05/05 15:32:17 by kfu           ########   odam.nl         */
+/*   Created: 2021/07/02 13:58:25 by kfu           #+#    #+#                 */
+/*   Updated: 2021/07/02 16:41:12 by kfu           ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "shell.h"
 
-void	ft_lstclear(t_list **lst, void (*del)(void *))
+void	expand_tokens(char **tokens)
 {
-	t_list	*ptr;
+	
+}
 
-	ptr = *lst;
-	if (!lst || !*lst || !del)
-		return ;
-	while (lst && *lst)
-	{
-		ptr = (*lst)->next;
-		del((*lst)->content);
-		free(*lst);
-		*lst = ptr;
-	}
-	*lst = NULL;
+void	create_tokens(t_shell *shell, char *line)
+{	
 }

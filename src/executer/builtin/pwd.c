@@ -1,24 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   ft_lstiter.c                                       :+:    :+:            */
+/*   pwd.c                                              :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: kfu <kfu@student.codam.nl>                   +#+                     */
+/*   By: pspijkst <pspijkst@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2020/11/14 16:04:07 by kfu           #+#    #+#                 */
-/*   Updated: 2020/11/17 15:04:28 by kfu           ########   odam.nl         */
+/*   Created: 2021/07/01 17:24:37 by pspijkst      #+#    #+#                 */
+/*   Updated: 2021/07/01 18:34:24 by pspijkst      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include <stdio.h>
+#include <unistd.h>
+#include <stdlib.h>
 
-void	ft_lstiter(t_list *lst, void (*f)(void *))
+/*
+	Print the current working directory.
+*/
+void	_pwd_(char **argv)
 {
-	if (!lst || !f)
-		return ;
-	while (lst)
-	{
-		f(lst->content);
-		lst = lst->next;
-	}
+	char	*cwd;
+
+	cwd = getcwd(NULL, 0);
+	if (!cwd)
+		exit(0);
+	printf("%s\n", cwd);
 }

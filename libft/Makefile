@@ -6,7 +6,7 @@
 #    By: kfu <kfu@student.codam.nl>                   +#+                      #
 #                                                    +#+                       #
 #    Created: 2020/11/14 23:09:58 by kfu           #+#    #+#                  #
-#    Updated: 2021/06/29 16:29:02 by kfu           ########   odam.nl          #
+#    Updated: 2021/07/02 16:44:41 by kfu           ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -57,16 +57,8 @@ SRC = 		ft_atoi.c\
 			ft_tolower.c\
 			ft_toupper.c\
 			get_next_line.c
-BONUS =		ft_lstnew.c ft_lstadd_front.c ft_lstsize.c ft_lstlast.c\
-			ft_lstadd_back.c ft_lstdelone.c ft_lstclear.c ft_lstiter.c\
-			ft_lstmap.c
-BO_FILES =	$(BONUS:.c=.o)
 
-ifdef WITH_BONUS
-OBJ_FILES = $(O_FILES) $(BO_FILES)
-else
 OBJ_FILES = $(O_FILES)
-endif
 
 all: $(NAME)
 
@@ -81,8 +73,5 @@ clean:
 
 fclean: clean
 	$(RM) $(NAME)
-
-bonus:
-	$(MAKE) WITH_BONUS=1 all
 
 re: fclean all

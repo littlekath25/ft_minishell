@@ -1,25 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   ft_lstnew.c                                        :+:    :+:            */
+/*   unset.c                                            :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: kfu <kfu@student.codam.nl>                   +#+                     */
+/*   By: pspijkst <pspijkst@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2020/11/10 17:50:48 by kfu           #+#    #+#                 */
-/*   Updated: 2021/05/05 15:32:12 by kfu           ########   odam.nl         */
+/*   Created: 2021/07/01 18:06:07 by pspijkst      #+#    #+#                 */
+/*   Updated: 2021/07/01 18:34:27 by pspijkst      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include <stdio.h>
 
-t_list	*ft_lstnew(void *content)
+/*
+	unset an environment variable.
+	_unset should receive a pointer to env, to remove it manually?
+*/
+void	_unset_(char **argv)
 {
-	t_list	*new;
-
-	new = (t_list *)malloc(sizeof(t_list));
-	if (new == NULL)
-		return (NULL);
-	new->content = content;
-	new->next = NULL;
-	return (new);
+	printf("export is not yet implemented.\n");
+	
 }

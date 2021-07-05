@@ -1,24 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   ft_lstdelone.c                                     :+:    :+:            */
+/*   export.c                                           :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: kfu <kfu@student.codam.nl>                   +#+                     */
+/*   By: pspijkst <pspijkst@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2020/11/14 14:06:24 by kfu           #+#    #+#                 */
-/*   Updated: 2020/11/14 19:14:31 by kfu           ########   odam.nl         */
+/*   Created: 2021/07/01 17:50:10 by pspijkst      #+#    #+#                 */
+/*   Updated: 2021/07/01 18:34:32 by pspijkst      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include <stdio.h>
 
-void	ft_lstdelone(t_list *lst, void (*del)(void *))
+/*
+	Sets environment variable.
+	_export should receive a pointer to env, to add it manually?
+*/
+void	_export_(char **argv)
 {
-	if (!lst)
-		return ;
-	if (lst != NULL)
-	{
-		del(lst->content);
-	}
-	free(lst);
+	printf("export is not yet implemented.\n");
 }

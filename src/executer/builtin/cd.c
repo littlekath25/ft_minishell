@@ -1,30 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   ft_lstadd_back.c                                   :+:    :+:            */
+/*   cd.c                                               :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: kfu <kfu@student.codam.nl>                   +#+                     */
+/*   By: pspijkst <pspijkst@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2020/11/13 18:55:59 by kfu           #+#    #+#                 */
-/*   Updated: 2021/05/05 15:32:55 by kfu           ########   odam.nl         */
+/*   Created: 2021/07/01 17:29:26 by pspijkst      #+#    #+#                 */
+/*   Updated: 2021/07/01 18:34:42 by pspijkst      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include <unistd.h>
 
-void	ft_lstadd_back(t_list **lst, t_list *new)
+/*
+	Change current working directory.
+	If there is no path given, navigate to HOME.
+	HOME from env is stored in t_shell.
+*/
+void	_cd_(char **argv)
 {
-	t_list	*node;
-
-	node = *lst;
-	if (node != NULL)
-	{
-		while (node->next != NULL)
-		{
-			node = node->next;
-		}
-		node->next = new;
-	}
-	else
-		*lst = new;
+	chdir(argv[1]);
 }

@@ -6,7 +6,7 @@
 /*   By: kfu <kfu@student.codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/06/29 16:42:28 by kfu           #+#    #+#                 */
-/*   Updated: 2021/06/29 16:46:52 by kfu           ########   odam.nl         */
+/*   Updated: 2021/07/02 13:56:38 by kfu           ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,4 +16,7 @@ void	error_and_exit(int error)
 {
 	if (error == 1)
 		printf("Please execute without arguments\n");
+	if (error == 2)
+		printf("Malloc fail\n");
+	exit(0);
 }
