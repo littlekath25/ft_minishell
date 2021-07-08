@@ -6,12 +6,13 @@
 /*   By: pspijkst <pspijkst@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/06/29 17:04:56 by pspijkst      #+#    #+#                 */
-/*   Updated: 2021/07/01 18:34:37 by pspijkst      ########   odam.nl         */
+/*   Updated: 2021/07/08 15:07:01 by pspijkst      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdlib.h>
 #include <stdio.h>
+#include "../../../includes/shell.h"
 
 /*
 	Print env.
@@ -19,9 +20,12 @@
 */
 void	_env_(char **argv)
 {
-	while (*argv)
+	char	**env;
+
+	env = g_shell->env;
+	while (*env)
 	{
-		printf("%s\n", *argv);
-		argv++;
+		printf("%s\n", *env);
+		env++;
 	}
 }
