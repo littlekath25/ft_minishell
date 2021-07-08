@@ -6,7 +6,7 @@
 /*   By: kfu <kfu@student.codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/07/02 13:58:25 by kfu           #+#    #+#                 */
-/*   Updated: 2021/07/05 16:24:21 by katherine     ########   odam.nl         */
+/*   Updated: 2021/07/08 15:46:48 by katherine     ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,12 @@
 
 void	expand_tokens(t_tokens *tokens)
 {
-	
+	char	**new;
+
+	tokens->allocated *= 2;
+	new = (char **)ft_calloc(tokens->allocated, sizeof(char *));
+	ft_memcpy(tokens->items, tokens->new, tokens->size);
+	free(tokens->items);
 }
 
 void	set_tokens(char *line, t_tokens *tokens)
@@ -46,7 +51,7 @@ t_tokens	*create_new_token(void)
 		error_and_exit(1);
 	new->size = 0;
 	new->allocated = 10;
-	new->items = (char **)ft_calloc(10, sizeof(char *));
+	new->items = (char **)ft_calloc(tokens->allocated, sizeof(char *));
 	if (!new->items)
 		error_and_exit(1);
 	return (new);
