@@ -6,16 +6,18 @@
 /*   By: kfu <kfu@student.codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/06/29 12:40:32 by kfu           #+#    #+#                 */
-/*   Updated: 2021/06/29 17:35:48 by kfu           ########   odam.nl         */
+/*   Updated: 2021/06/30 13:51:37 by katherine     ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
-# include "stdio.h"
-# include "unistd.h"
 # include "libft.h"
+# include <stdio.h>
+# include <unistd.h>
+# include <readline/readline.h>
+# include <readline/history.h>
 
 typedef enum e_bool
 {
@@ -34,9 +36,6 @@ typedef struct s_command
 	int					outfd;
 	int					infd;
 	char				*command;
-	struct s_command	*out;
-	struct s_command	*in;
-	struct s_command	*pipe;
 	t_token				*tokens;
 	struct s_command	*next;
 }	t_command;

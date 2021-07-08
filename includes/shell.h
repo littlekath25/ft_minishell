@@ -6,7 +6,7 @@
 /*   By: pspijkst <pspijkst@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/05/05 13:17:29 by pspijkst      #+#    #+#                 */
-/*   Updated: 2021/07/04 18:05:59 by pspijkst      ########   odam.nl         */
+/*   Updated: 2021/07/08 13:08:12 by pspijkst      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,14 +48,17 @@ typedef struct s_shell
 	t_command	*commands;
 }	t_shell;
 
+t_shell		*g_shell;
+
 void		error_and_exit(int error);
 
 // COMMAND FUNCTIONS
-void		read_commands(t_shell *shell);
-void		create_commands_list(char *line, t_shell *shell);
-t_command	*create_new_command(t_command *new);
-void		add_new_command(char *line, t_shell *shell);
-void		add_back_command(t_command *dest, t_command *new);
+void		read_commands(void);
+void		create_commands_list(char *line);
+t_command	*create_new_command(void);
+void		add_new_command(char *line);
+void		add_back_command(t_command **dest, t_command *new);
+void		delete_one_command(t_command **src, t_command *node);
 
 // TOKEN FUNCTIONS
 void		expand_tokens(char **tokens);
@@ -69,5 +72,8 @@ typedef struct s_tree
 
 t_tree		*init_parser(char *buffer);
 void		init_execute(t_tree *trees);
+t_tokens	*create_new_token(void);
+void		expand_tokens(t_tokens *tokens);
+void		fill_in_tokens(char *line, t_tokens *tokens);
 
 #endif
