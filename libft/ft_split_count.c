@@ -1,29 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   ft_free_split.c                                    :+:    :+:            */
+/*   ft_split_count.c                                   :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: kfu <kfu@student.codam.nl>                   +#+                     */
+/*   By: pspijkst <pspijkst@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2021/03/02 19:26:22 by kfu           #+#    #+#                 */
-/*   Updated: 2021/07/08 15:35:11 by pspijkst      ########   odam.nl         */
+/*   Created: 2021/07/08 15:29:42 by pspijkst      #+#    #+#                 */
+/*   Updated: 2021/07/08 15:30:30 by pspijkst      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdlib.h>
 
-void	ft_free_split(char **split)
+int	ft_split_count(char **splits)
 {
-	int	i;
+	int	count;
 
-	i = 0;
-	if (!split)
-		return ;
-	while (split[i])
-	{
-		free(split[i]);
-		i++;
-	}
-	free(split);
-	return ;
+	count = 0;
+	while (splits[count])
+		count++;
+	return (count);
 }

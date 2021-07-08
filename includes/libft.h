@@ -6,7 +6,7 @@
 /*   By: kfu <kfu@student.codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/29 18:46:35 by kfu           #+#    #+#                 */
-/*   Updated: 2021/05/05 15:39:49 by kfu           ########   odam.nl         */
+/*   Updated: 2021/07/08 15:29:27 by pspijkst      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,5 +84,10 @@ void			ft_lstclear(t_list **lst, void (*del)(void *));
 void			ft_lstiter(t_list *lst, void (*f)(void *));
 t_list			*ft_lstmap(t_list *lst, void *(*f)(void *), \
 				void (*del)(void *));
+
+void			*ft_realloc(void *ptr, size_t size);
+void			*ft_realloc_double(void *src, int srcsize);
+void			ft_split_free(char **splits);
+int				ft_split_count(char **splits);
 
 #endif

@@ -1,29 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   ft_free_split.c                                    :+:    :+:            */
+/*   ft_realloc.c                                       :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: kfu <kfu@student.codam.nl>                   +#+                     */
+/*   By: pspijkst <pspijkst@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2021/03/02 19:26:22 by kfu           #+#    #+#                 */
-/*   Updated: 2021/07/08 15:35:11 by pspijkst      ########   odam.nl         */
+/*   Created: 2021/01/12 13:17:57 by pspijkst      #+#    #+#                 */
+/*   Updated: 2021/04/22 12:40:13 by pspijkst      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "libft.h"
 #include <stdlib.h>
 
-void	ft_free_split(char **split)
+void	*ft_realloc(void *ptr, size_t size)
 {
-	int	i;
+	char	*cpy;
 
-	i = 0;
-	if (!split)
-		return ;
-	while (split[i])
+	if (!ptr)
+		return (0);
+	if (size > 0)
 	{
-		free(split[i]);
-		i++;
+		cpy = ft_calloc(1, size);
+		if (cpy)
+			ft_memcpy(cpy, ptr, size);
 	}
-	free(split);
-	return ;
+	else
+		cpy = 0;
+	free(ptr);
+	return (cpy);
 }
