@@ -6,7 +6,7 @@
 /*   By: kfu <kfu@student.codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/07/02 13:58:25 by kfu           #+#    #+#                 */
-/*   Updated: 2021/07/05 16:13:19 by katherine     ########   odam.nl         */
+/*   Updated: 2021/07/05 16:24:21 by katherine     ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,11 @@ void	expand_tokens(t_tokens *tokens)
 void	set_tokens(char *line, t_tokens *tokens)
 {
 	char	**split;
+	int		tokens;
 
-	split = ft_split_words(line, ' ');
-	
+	split = ft_split_words(line, ' ', &tokens);
+	if (tokens > tokens->allocated)
+		expand_tokens(tokens);
 }
 
 void	fill_in_tokens(char *line, t_tokens *tokens)
