@@ -6,7 +6,7 @@
 /*   By: pspijkst <pspijkst@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/05/05 13:17:29 by pspijkst      #+#    #+#                 */
-/*   Updated: 2021/07/08 13:08:12 by pspijkst      ########   odam.nl         */
+/*   Updated: 2021/07/08 13:11:27 by pspijkst      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,16 +60,13 @@ void		add_new_command(char *line);
 void		add_back_command(t_command **dest, t_command *new);
 void		delete_one_command(t_command **src, t_command *node);
 
-// TOKEN FUNCTIONS
-void		expand_tokens(char **tokens);
-void		create_tokens(t_shell *shell, char *line);
-
 typedef struct s_tree
 {
 	t_command		*commands;
 	struct s_tree	*next;
 }	t_tree;
 
+// TOKEN FUNCTIONS
 t_tree		*init_parser(char *buffer);
 void		init_execute(t_tree *trees);
 t_tokens	*create_new_token(void);
