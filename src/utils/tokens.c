@@ -6,7 +6,7 @@
 /*   By: kfu <kfu@student.codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/07/02 13:58:25 by kfu           #+#    #+#                 */
-/*   Updated: 2021/07/11 17:24:16 by katherine     ########   odam.nl         */
+/*   Updated: 2021/07/11 17:31:27 by katherine     ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,10 +31,12 @@ void	fill_in_tokens(char *line, t_tokens *tokens)
 {
 	char		*ptr;
 	char		*start_of_word;
+	int			argc;
 	t_states	state;
 
 	state = DULL;
 	ptr = line;
+	argc = 0;
 	while (*ptr)
 	{
 		if (state == DULL)
@@ -59,9 +61,10 @@ void	fill_in_tokens(char *line, t_tokens *tokens)
 		{
 			if (*ptr == '"')
 			{
-				printf("%s\n", ft_substr(start_of_word, 0, ptr - start_of_word));
+				tokens->items[argc] = ft_substr(start_of_word, 0, ptr - start_of_word);
 				ptr + 2;
 				state = DULL;
+				argc++;
 			}
 		}
 		else if (state == IN_WORD)
@@ -69,13 +72,14 @@ void	fill_in_tokens(char *line, t_tokens *tokens)
 			if (*ptr == ' ')
 			{
 				state = DULL;
-				printf("%s\n", ft_substr(start_of_word, 0, ptr - start_of_word));
+				tokens->items[argc] = ft_substr(start_of_word, 0, ptr - start_of_word);
+				argc++;
 			}
 		}
 		ptr++;
 	}
 	if (state != DULL && *ptr == '\0')
-        printf("%s\n", ft_substr(start_of_word, 0, ptr - start_of_word));
+		tokens->items[argc] = ft_substr(start_of_word, 0, ptr - start_of_word);
 }
 
 t_tokens	*create_new_token(void)
@@ -87,7 +91,7 @@ t_tokens	*create_new_token(void)
 		error_and_exit(1);
 	new->size = 0;
 	new->allocated = 10;
-	new->items = (char *)ft_calloc(new->allocated, sizeof(char *));
+	// new->items = (char *)ft_calloc(new->allocated, sizeof(char *));
 	if (!new->items)
 		error_and_exit(1);
 	return (new);
