@@ -6,7 +6,7 @@
 /*   By: kfu <kfu@student.codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/05/05 15:51:53 by kfu           #+#    #+#                 */
-/*   Updated: 2021/07/05 13:43:41 by katherine     ########   odam.nl         */
+/*   Updated: 2021/07/11 16:17:54 by katherine     ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,4 +27,3 @@ int	main(int argc, char **argv, char **env)
 		error_and_exit(1);
 	return (0);
 }
- 

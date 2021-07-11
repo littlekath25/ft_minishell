@@ -6,7 +6,7 @@
 /*   By: kfu <kfu@student.codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/07/02 13:58:25 by kfu           #+#    #+#                 */
-/*   Updated: 2021/07/10 16:05:35 by katherine     ########   odam.nl         */
+/*   Updated: 2021/07/11 16:37:00 by katherine     ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,12 +29,51 @@ void	expand_tokens(t_tokens *tokens)
 
 void	fill_in_tokens(char *line, t_tokens *tokens)
 {
-	char	delimiter;
-	char	quotes;
+	char		*ptr;
+	char		*start_of_word;
+	int			c;
+	t_states	state;
 
-	delimiter = ' ';
-	quotes = '"';
-	parse_line(line, delimiter, quotes);
+	state = DULL;
+	ptr = line;
+	while (*ptr)
+	{
+		if (state == DULL)
+		{
+			if (*ptr == ' ')
+			{
+				ptr++;
+				continue ;
+			}
+			else if (*ptr == '"')
+			{
+				state = IN_STRING;
+				start_of_word = ptr + 1;
+			}
+			else
+			{
+				state = IN_WORD;
+				start_of_word = ptr;
+			}
+		}
+		if (state == IN_STRING)
+		{
+			if (*ptr == '"')
+			{
+				*ptr = '\0';
+				state = DULL;
+			}
+		}
+		if (state == IN_WORD)
+		{
+			if (*ptr == ' ')
+			{
+				*ptr = '\0';
+				state = DULL;
+			}
+		}
+		ptr++;
+	}
 }
 
 t_tokens	*create_new_token(void)

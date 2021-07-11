@@ -6,7 +6,7 @@
 /*   By: pspijkst <pspijkst@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/05/05 13:17:29 by pspijkst      #+#    #+#                 */
-/*   Updated: 2021/07/08 16:35:50 by katherine     ########   odam.nl         */
+/*   Updated: 2021/07/11 16:09:17 by katherine     ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,13 @@
 # include <readline/readline.h>
 # include <readline/history.h>
 # include "builtin.h"
+
+typedef enum e_states
+{
+	DULL,
+	IN_WORD,
+	IN_STRING
+}	t_states;
 
 typedef enum e_bool
 {
