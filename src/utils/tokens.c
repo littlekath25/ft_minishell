@@ -6,7 +6,7 @@
 /*   By: kfu <kfu@student.codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/07/02 13:58:25 by kfu           #+#    #+#                 */
-/*   Updated: 2021/07/11 16:53:02 by katherine     ########   odam.nl         */
+/*   Updated: 2021/07/11 17:24:16 by katherine     ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,20 +55,19 @@ void	fill_in_tokens(char *line, t_tokens *tokens)
 				start_of_word = ptr;
 			}
 		}
-		if (state == IN_STRING)
+		else if (state == IN_STRING)
 		{
 			if (*ptr == '"')
 			{
-				*ptr = '\0';
-				state = DULL;
 				printf("%s\n", ft_substr(start_of_word, 0, ptr - start_of_word));
+				ptr + 2;
+				state = DULL;
 			}
 		}
-		if (state == IN_WORD)
+		else if (state == IN_WORD)
 		{
 			if (*ptr == ' ')
 			{
-				*ptr = '\0';
 				state = DULL;
 				printf("%s\n", ft_substr(start_of_word, 0, ptr - start_of_word));
 			}
