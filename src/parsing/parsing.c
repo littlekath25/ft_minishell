@@ -6,7 +6,7 @@
 /*   By: kfu <kfu@student.codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/05/05 15:51:53 by kfu           #+#    #+#                 */
-/*   Updated: 2021/07/05 14:44:30 by katherine     ########   odam.nl         */
+/*   Updated: 2021/07/08 17:02:10 by katherine     ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,9 +36,4 @@ void	create_commands_list(char *line)
 	add_back_command(&g_shell->commands, new_command);
 	new_command->tokens = create_new_token();
 	fill_in_tokens(line, new_command->tokens);
-	while (new_command->tokens->items[i])
-	{
-		printf("TOKEN: %s\n", new_command->tokens->items[i]);
-		i++;
-	}
 }

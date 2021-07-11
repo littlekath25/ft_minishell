@@ -6,11 +6,11 @@
 /*   By: kfu <kfu@student.codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/06/29 16:42:28 by kfu           #+#    #+#                 */
-/*   Updated: 2021/07/02 13:56:38 by kfu           ########   odam.nl         */
+/*   Updated: 2021/07/08 17:02:22 by katherine     ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "shell.h"
 
 void	error_and_exit(int error)
 {
