@@ -6,7 +6,7 @@
 /*   By: pspijkst <pspijkst@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/05/05 13:17:29 by pspijkst      #+#    #+#                 */
-/*   Updated: 2021/07/14 15:10:03 by katherine     ########   odam.nl         */
+/*   Updated: 2021/07/14 16:38:38 by katherine     ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,14 @@ typedef struct s_tokens
 	size_t	allocated;
 	char	*items[10];
 }	t_tokens;
+
+typedef struct s_parsing
+{
+	char		*ptr;
+	char		*start;
+	int			argc;
+	t_states	state;
+}	t_parsing;
 
 typedef struct s_command
 {

@@ -6,86 +6,62 @@
 /*   By: kfu <kfu@student.codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/07/02 13:58:25 by kfu           #+#    #+#                 */
-/*   Updated: 2021/07/14 15:11:16 by katherine     ########   odam.nl         */
+/*   Updated: 2021/07/14 16:49:35 by katherine     ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shell.h"
 
-// void	remove_one_token(t_tokens *tokens, int index)
-// {
-// }
+void	change_states(t_parsing *info)
+{
+	if (*(info->ptr) == ' ')
+		return ;
+	else if (*(info->ptr) == '"')
+	{
+		info->state = IN_STRING;
+		info->start = info->ptr + 1;
+	}
+	else
+	{
+		info->state = IN_WORD;
+		info->start = info->ptr;
+	}
+}
 
-// void	expand_tokens(t_tokens *tokens)
-// {
-// 	char	*new_array;
+void	create_and_fill_pipe(t_parsing *info)
+{
+	t_command	*new_pipe;
 
-// 	tokens->allocated *= 2;
-// 	new_array = (char *)ft_calloc(tokens->allocated, sizeof(char *));
-// 	ft_memcpy(tokens->items, new_array, tokens->size);
-// 	free(tokens->items);
-// 	tokens->items = new_array;
-// }
+	new_pipe = create_new_command();
+	add_back_command(&g_shell->commands->pipe, new_pipe);
+	new_pipe->tokens = create_new_token();
+	fill_in_tokens(info->ptr, new_pipe->tokens);
+}
 
 void	fill_in_tokens(char *line, t_tokens *tokens)
 {
-	char		*ptr;
-	char		*start_of_word;
-	int			argc;
-	t_states	state;
+	t_parsing	*info;
 
-	state = DULL;
-	ptr = line;
-	argc = 0;
-	while (*ptr)
+	info = (t_parsing *)ft_calloc(sizeof(t_parsing), 1);
+	info->ptr = line;
+	while (*(info->ptr))
 	{
-		if (state == DULL)
+		if (info->state == DULL)
+			change_states(info);
+		else if ((info->state == IN_STRING && *(info->ptr) == '"') || \
+		(info->state == IN_WORD && *(info->ptr) == ' '))
 		{
-			if (*ptr == ' ')
-			{
-				ptr++;
-				continue ;
-			}
-			else if (*ptr == '"')
-			{
-				state = IN_STRING;
-				start_of_word = ptr + 1;
-			}
-			else
-			{
-				state = IN_WORD;
-				start_of_word = ptr;
-			}
+			tokens->items[info->argc] = \
+			ft_substr(info->start, 0, info->ptr - info->start);
+			info->state = DULL;
+			info->argc++;
 		}
-		else if (state == IN_STRING)
-		{
-			if (*ptr == '"')
-			{
-				tokens->items[argc] = ft_substr(start_of_word, 0, ptr - start_of_word);
-				ptr ++;
-				state = DULL;
-				argc++;
-			}
-		}
-		else if (state == IN_WORD)
-		{
-			if (*ptr == ' ')
-			{
-				state = DULL;
-				tokens->items[argc] = ft_substr(start_of_word, 0, ptr - start_of_word);
-				argc++;
-			}
-		}
-		ptr++;
+		else if (*(info->ptr) == '|')
+			create_and_fill_pipe(info);
+		info->ptr++;
 	}
-	if (state != DULL && *ptr == '\0')
-		tokens->items[argc] = ft_substr(start_of_word, 0, ptr - start_of_word);
-	int i = 0;
-	while (tokens->items[i])
-	{
-		printf("LINE: %s\n", tokens->items[i]);
-		i++;
-	}
+	if (info->state != DULL && *info->ptr == '\0')
+		tokens->items[info->argc] = ft_substr(info->start, 0, info->ptr - info->start);
 }
 
 t_tokens	*create_new_token(void)
