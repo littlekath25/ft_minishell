@@ -6,7 +6,7 @@
 /*   By: kfu <kfu@student.codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/05/05 15:51:53 by kfu           #+#    #+#                 */
-/*   Updated: 2021/07/08 17:02:10 by katherine     ########   odam.nl         */
+/*   Updated: 2021/07/14 14:11:37 by katherine     ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,9 +29,7 @@ void	read_commands(void)
 void	create_commands_list(char *line)
 {
 	t_command	*new_command;
-	int			i;
 
-	i = 0;
 	new_command = create_new_command();
 	add_back_command(&g_shell->commands, new_command);
 	new_command->tokens = create_new_token();
