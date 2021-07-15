@@ -1,34 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   vector_realloc.c                                   :+:    :+:            */
+/*   vector_remove.c                                    :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: pspijkst <pspijkst@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2021/04/21 17:53:02 by pspijkst      #+#    #+#                 */
-/*   Updated: 2021/07/08 16:30:59 by pspijkst      ########   odam.nl         */
+/*   Created: 2021/07/08 16:47:39 by pspijkst      #+#    #+#                 */
+/*   Updated: 2021/07/08 17:00:50 by pspijkst      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdlib.h>
 #include "../../../includes/vector.h"
 
-t_vector	*vector_realloc(t_vector *vector)
+char	vector_remove(t_vector *vect, int index)
 {
-	void	*newmemb;
+	char	*dest;
 
-	vector->size *= 2;
-	newmemb = ft_calloc(vector->size, vector->bytesize);
-	if (!newmemb)
-	{
-		if (vector->isptr)
-			vector_freeptr(vector);
-		else
-			vector_free(vector);
-		return (0);
-	}
-	ft_memcpy(newmemb, vector->memb, vector->nmemb * vector->bytesize);
-	free(vector->memb);
-	vector->memb = newmemb;
-	return (vector);
+	dest = (char *)vect->memb + (index * vect->bytesize);
+	ft_memmove(dest, dest + vect->bytesize, (vect->nmemb - index) * vect->bytesize);
+	vect->nmemb--;
 }

@@ -1,17 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   varray_add.c                                       :+:    :+:            */
+/*   vector_add.c                                       :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: pspijkst <pspijkst@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/04/21 17:00:20 by pspijkst      #+#    #+#                 */
-/*   Updated: 2021/07/08 15:58:07 by pspijkst      ########   odam.nl         */
+/*   Updated: 2021/07/08 16:30:36 by pspijkst      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdlib.h>
-#include "../../includes/vector.h"
+#include "../../../includes/vector.h"
 
 //	Add data to vector. If vector needs more memory, it will reallocate.
 //	Returns 1 on succes or 0 on error.

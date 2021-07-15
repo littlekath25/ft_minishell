@@ -6,12 +6,12 @@
 /*   By: pspijkst <pspijkst@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/04/21 15:26:06 by pspijkst      #+#    #+#                 */
-/*   Updated: 2021/07/08 16:00:11 by pspijkst      ########   odam.nl         */
+/*   Updated: 2021/07/08 16:30:55 by pspijkst      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdlib.h>
-#include "../../includes/vector.h"
+#include "../../../includes/vector.h"
 
 t_vector	*vector_new(int bytesize)
 {
