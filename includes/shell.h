@@ -6,7 +6,7 @@
 /*   By: pspijkst <pspijkst@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/05/05 13:17:29 by pspijkst      #+#    #+#                 */
-/*   Updated: 2021/07/14 16:38:38 by katherine     ########   odam.nl         */
+/*   Updated: 2021/07/16 12:15:10 by katherine     ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,6 +86,6 @@ t_tree		*init_parser(char *buffer);
 void		init_execute(t_tree *trees);
 t_tokens	*create_new_token(void);
 void		expand_tokens(t_tokens *tokens);
-void		fill_in_tokens(char *line, t_tokens *tokens);
+void		fill_in_tokens(t_parsing *info, t_tokens *tokens);
 
 #endif

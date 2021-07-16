@@ -6,7 +6,7 @@
 /*   By: kfu <kfu@student.codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/07/02 13:58:25 by kfu           #+#    #+#                 */
-/*   Updated: 2021/07/14 16:49:35 by katherine     ########   odam.nl         */
+/*   Updated: 2021/07/16 12:15:24 by katherine     ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,15 +35,11 @@ void	create_and_fill_pipe(t_parsing *info)
 	new_pipe = create_new_command();
 	add_back_command(&g_shell->commands->pipe, new_pipe);
 	new_pipe->tokens = create_new_token();
-	fill_in_tokens(info->ptr, new_pipe->tokens);
+	fill_in_tokens(info, new_pipe->tokens);
 }
 
-void	fill_in_tokens(char *line, t_tokens *tokens)
+void	fill_in_tokens(t_parsing *info, t_tokens *tokens)
 {
-	t_parsing	*info;
-
-	info = (t_parsing *)ft_calloc(sizeof(t_parsing), 1);
-	info->ptr = line;
 	while (*(info->ptr))
 	{
 		if (info->state == DULL)
@@ -56,8 +52,6 @@ void	fill_in_tokens(char *line, t_tokens *tokens)
 			info->state = DULL;
 			info->argc++;
 		}
-		else if (*(info->ptr) == '|')
-			create_and_fill_pipe(info);
 		info->ptr++;
 	}
 	if (info->state != DULL && *info->ptr == '\0')
