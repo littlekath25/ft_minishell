@@ -6,11 +6,30 @@
 /*   By: kfu <kfu@student.codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/05/05 15:51:53 by kfu           #+#    #+#                 */
-/*   Updated: 2021/07/19 11:34:38 by katherine     ########   odam.nl         */
+/*   Updated: 2021/07/19 15:05:44 by katherine     ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shell.h"
+
+void	read_commands(void)
+{
+	char	*line;
+
+	while (1)
+	{
+		line = readline("minishell> ");
+		if (line && *line)
+		{
+			add_history(line);
+			create_commands_list(line);
+			print_tokens();
+			if (!ft_strcmp(line, "exit"))
+				break ;
+		}
+		free(line);
+	}
+}
 
 t_parsing	*create_new_info(char *line)
 {
@@ -24,21 +43,6 @@ t_parsing	*create_new_info(char *line)
 	new->argc = 0;
 	new->state = DULL;
 	return (new);
-}
-
-void	read_commands(void)
-{
-	char	*line;
-
-	while (1)
-	{
-		line = readline("minishell> ");
-		create_commands_list(line);
-		print_tokens();
-		if (!ft_strcmp(line, "exit"))
-			break ;
-		free(line);
-	}
 }
 
 t_command	*create_new_command_and_tokens(t_command **dest)

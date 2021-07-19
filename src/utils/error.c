@@ -6,7 +6,7 @@
 /*   By: kfu <kfu@student.codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/06/29 16:42:28 by kfu           #+#    #+#                 */
-/*   Updated: 2021/07/19 11:51:54 by katherine     ########   odam.nl         */
+/*   Updated: 2021/07/19 14:31:03 by katherine     ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,15 +16,20 @@ void	print_tokens(void)
 {
 	int i = 0;
 	int	j = 0;
-	t_command *ptr;
+	t_command	*ptr;
+	t_command	*command_ptr;
 
-	if (g_shell->commands)
+	command_ptr = g_shell->commands;
+	while (command_ptr)
 	{
-		while (g_shell->commands->tokens->items[i])
+		i = 0;
+		while (command_ptr->tokens->items[i])
 		{
-			printf("LINE: %s\n", g_shell->commands->tokens->items[i]);
+			printf("LINE %i: %s\n", j, command_ptr->tokens->items[i]);
 			i++;
 		}
+		j++;
+		command_ptr = command_ptr->next;
 	}
 	i = 0;
 	ptr = g_shell->commands->pipe;
