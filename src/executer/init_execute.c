@@ -6,7 +6,7 @@
 /*   By: pspijkst <pspijkst@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/05/05 16:38:19 by pspijkst      #+#    #+#                 */
-/*   Updated: 2021/07/19 09:05:39 by pspijkst      ########   odam.nl         */
+/*   Updated: 2021/07/19 12:42:57 by pspijkst      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,7 +114,7 @@ void	distr_input(char **tokens)
 	wait(&status);
 }
 
-void	loop(t_shell *shell)
+void	loop()
 {
 	char	input[1000];
 	char	**tokens;
@@ -133,8 +133,12 @@ void	loop(t_shell *shell)
 
 int	main(int argc, char **args, char **env)
 {
-	t_shell	shell;
-
-	shell.env = env;
-	loop(&shell);
+	g_shell = malloc(sizeof(t_shell));
+	g_shell->env = vector_newptr();
+	while (*env)
+	{
+		vector_add(g_shell->env, *env);
+		env++;
+	}
+	loop();
 }
