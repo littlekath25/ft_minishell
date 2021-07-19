@@ -1,19 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   vector_getptr.c                                    :+:    :+:            */
+/*   vector_removeat.c                                  :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: pspijkst <pspijkst@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2021/04/21 17:02:06 by pspijkst      #+#    #+#                 */
-/*   Updated: 2021/07/08 16:30:50 by pspijkst      ########   odam.nl         */
+/*   Created: 2021/07/08 16:47:39 by pspijkst      #+#    #+#                 */
+/*   Updated: 2021/07/19 10:40:58 by pspijkst      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../includes/vector.h"
 
-//	Returns a pointer to index in the vector.
-void	*vector_getptr(t_vector *vector, int index)
+/*
+	Remove element index from t_vector.
+	IMPORTANT: Does not free the memory in case of a pointer!
+	The function may overflow, depending on index value.
+*/
+void	vector_removeat(t_vector *vect, int index)
 {
-	return (vector->memb + index * vector->bytesize);
+	char	*dest;
+
+	dest = (char *)vect->memb + (index * vect->bytesize);
+	ft_memmove(dest, dest + vect->bytesize, (vect->nmemb - index) * vect->bytesize);
+	vect->nmemb--;
 }

@@ -5,15 +5,13 @@
 /*                                                     +:+                    */
 /*   By: pspijkst <pspijkst@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2021/07/08 15:55:47 by pspijkst      #+#    #+#                 */
-/*   Updated: 2021/07/08 22:09:52 by pspijkst      ########   odam.nl         */
+/*   Created: 2021/07/19 09:19:39 by pspijkst      #+#    #+#                 */
+/*   Updated: 2021/07/19 11:02:12 by pspijkst      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef VECTOR_H
 # define VECTOR_H
-
-# include "libft.h"
 
 typedef struct s_vector
 {
@@ -24,16 +22,17 @@ typedef struct s_vector
 	int		size;
 }	t_vector;
 
-char		vector_add(t_vector *vector, void *data);
+#include "libft.h"
+
+t_vector	*vector_new(unsigned int bytesize);
 void		*vector_getvalue(t_vector *vector, int index);
-t_vector	*vector_new(int bytesize);
-void		*vector_getptr(t_vector *vector, int index);
+char		**vector_tostrarray(t_vector *vect);
 t_vector	*vector_newptr(void);
-void		vector_freeptr(t_vector *vector);
-void		*vector_getvalue(t_vector *vector, int index);
+void		vector_removeat(t_vector *vect, int index);
+char		vector_add(t_vector *vector, void *data);
 void		vector_free(t_vector *vector);
 t_vector	*vector_realloc(t_vector *vector);
-char		vector_remove(t_vector *vect, int index);
-char		**vector_tostrarray(t_vector *vect);
+void		vector_clear(t_vector *vect);
+int			vector_indexof(t_vector *vect, void *data, unsigned int len);
 
 #endif

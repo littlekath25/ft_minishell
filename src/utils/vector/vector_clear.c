@@ -1,27 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   vector_freeptr.c                                   :+:    :+:            */
+/*   vector_clear.c                                     :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: pspijkst <pspijkst@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2021/04/30 15:47:48 by pspijkst      #+#    #+#                 */
-/*   Updated: 2021/07/08 16:30:48 by pspijkst      ########   odam.nl         */
+/*   Created: 2021/07/19 10:32:02 by pspijkst      #+#    #+#                 */
+/*   Updated: 2021/07/19 10:32:10 by pspijkst      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdlib.h>
 #include "../../../includes/vector.h"
+#include <stdlib.h>
 
-void	vector_freeptr(t_vector *vector)
+/*
+	This is a pointers-vector only function!
+	Free's all pointers stored in memb and sets nmemb to 0.
+*/
+void	vector_clear(t_vector *vect)
 {
 	int	i;
 
-	i = 0;
-	while (i < vector->nmemb)
+	if (vect->isptr)
 	{
-		free(vector_getptr(vector, i));
-		i++;
+		i = 0;
+		while (i < vect->nmemb)
+		{
+			free(vector_getvalue(vect, i));
+			i++;
+		}
+		vect->nmemb = 0;
 	}
-	free(vector);
 }

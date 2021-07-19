@@ -12,6 +12,15 @@ void	print_items(t_vector *vect)
 	}
 }
 
+void	print_strings(char **strs)
+{
+	while (*strs)
+	{
+		printf("%s\n", *strs);
+		strs++;
+	}
+}
+
 int	main(void)
 {
 	t_vector	*vect;
@@ -19,9 +28,9 @@ int	main(void)
 	char		*str1;
 	char		*str2;
 
-	str = "Hello";
-	str1 = "Warld";
-	str2 = "World";
+	str = ft_strdup("Hello");
+	str1 = ft_strdup("Warlda");
+	str2 = ft_strdup("Worldb");
 
 	vect = vector_newptr();
 	vector_add(vect, str);
@@ -30,27 +39,25 @@ int	main(void)
 	// print_items(vect);
 
 
-	vector_remove(vect, 1);
+	// vector_remove(vect, 1);
 	// print_items(vect);
 
 
-	vector_add(vect, str);
-	vector_add(vect, str1);
-	vector_add(vect, str2);
 	// print_items(vect);
 
 
-	vector_remove(vect, vect->nmemb);
-	vector_remove(vect, vect->nmemb);
-	print_items(vect);
+	// vector_remove(vect, vect->nmemb);
+	// vector_remove(vect, vect->nmemb);
+	// print_items(vect);
 
 	printf("\n\n");
 
 	char	**strs;
 	strs = vector_tostrarray(vect);
-	while (*strs)
-	{
-		printf("%s\n", *strs);
-		strs++;
-	}
+
+	printf("Index: %d\n", vector_indexof(vect, "Warlda", 6));
+
+	vector_clear(vect);
+	vector_free(vect);
+	free(strs);
 }

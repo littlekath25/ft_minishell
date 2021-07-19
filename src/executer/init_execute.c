@@ -6,7 +6,7 @@
 /*   By: pspijkst <pspijkst@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/05/05 16:38:19 by pspijkst      #+#    #+#                 */
-/*   Updated: 2021/07/04 18:06:54 by pspijkst      ########   odam.nl         */
+/*   Updated: 2021/07/19 09:05:39 by pspijkst      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,6 @@ void	exec_rel(char **tokens)
 	while (*paths)
 	{
 		path = ft_pathcombine(*paths, *tokens);
-		// printf("Path: %s\n", path);
 		execv(path, tokens);
 		paths++;
 	}
