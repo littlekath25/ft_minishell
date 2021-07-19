@@ -6,7 +6,7 @@
 /*   By: kfu <kfu@student.codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/07/02 13:58:25 by kfu           #+#    #+#                 */
-/*   Updated: 2021/07/19 13:48:20 by katherine     ########   odam.nl         */
+/*   Updated: 2021/07/19 20:22:59 by katherine     ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,9 +67,7 @@ void	fill_in_tokens(t_parsing *info, t_tokens *tokens)
 void	expand_token(t_tokens *token)
 {
 	char	**new;
-	int		i;
 
-	i = 0;
 	token->size = token->allocated;
 	token->allocated *= 2;
 	new = (char **)ft_calloc(token->allocated, sizeof(char *));
