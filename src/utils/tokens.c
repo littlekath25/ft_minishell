@@ -6,7 +6,7 @@
 /*   By: kfu <kfu@student.codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/07/02 13:58:25 by kfu           #+#    #+#                 */
-/*   Updated: 2021/07/19 11:47:58 by katherine     ########   odam.nl         */
+/*   Updated: 2021/07/19 11:58:41 by katherine     ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,8 +59,26 @@ void	fill_in_tokens(t_parsing *info, t_tokens *tokens)
 		info->ptr++;
 	}
 	if (info->state != DULL && *(info->ptr) == '\0')
-		tokens->items[info->argc] = ft_substr(info->start, 0, info->ptr - info->start);
+		tokens->items[info->argc] = \
+		ft_substr(info->start, 0, info->ptr - info->start);
 	info->state = DONE;
+}
+
+void	expand_token(t_tokens *token)
+{
+	char	**new;
+	int		i;
+
+	i = 0;
+	token->allocated *= 2;
+	new = (char **)ft_calloc(token->allocated, sizeof(char *));
+	while (token->items[i])
+	{
+		new[i] = token->items[i];
+		i++;
+	}
+	free(token->items);
+	token->items = new;
 }
 
 t_tokens	*create_new_token(void)
