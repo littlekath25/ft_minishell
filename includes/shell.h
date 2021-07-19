@@ -6,7 +6,7 @@
 /*   By: pspijkst <pspijkst@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/05/05 13:17:29 by pspijkst      #+#    #+#                 */
-/*   Updated: 2021/07/16 12:15:10 by katherine     ########   odam.nl         */
+/*   Updated: 2021/07/19 11:12:12 by katherine     ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,9 @@ typedef enum e_states
 {
 	DULL,
 	IN_WORD,
-	IN_STRING
+	IN_STRING,
+	IN_PIPE,
+	DONE
 }	t_states;
 
 typedef enum e_bool
@@ -36,7 +38,7 @@ typedef struct s_tokens
 {
 	size_t	size;
 	size_t	allocated;
-	char	*items[10];
+	char	**items;
 }	t_tokens;
 
 typedef struct s_parsing
@@ -66,6 +68,7 @@ typedef struct s_shell
 t_shell		*g_shell;
 
 void		error_and_exit(int error);
+void		print_tokens(void);
 
 // COMMAND FUNCTIONS
 void		read_commands(void);
@@ -75,15 +78,7 @@ void		add_new_command(char *line);
 void		add_back_command(t_command **dest, t_command *new);
 void		delete_one_command(t_command **src, t_command *node);
 
-typedef struct s_tree
-{
-	t_command		*commands;
-	struct s_tree	*next;
-}	t_tree;
-
 // TOKEN FUNCTIONS
-t_tree		*init_parser(char *buffer);
-void		init_execute(t_tree *trees);
 t_tokens	*create_new_token(void);
 void		expand_tokens(t_tokens *tokens);
 void		fill_in_tokens(t_parsing *info, t_tokens *tokens);

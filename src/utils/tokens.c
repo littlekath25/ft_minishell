@@ -6,7 +6,7 @@
 /*   By: kfu <kfu@student.codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/07/02 13:58:25 by kfu           #+#    #+#                 */
-/*   Updated: 2021/07/16 12:15:24 by katherine     ########   odam.nl         */
+/*   Updated: 2021/07/19 11:33:02 by katherine     ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,13 @@ void	change_states(t_parsing *info)
 {
 	if (*(info->ptr) == ' ')
 		return ;
+	else if (*(info->ptr) == '|')
+	{
+		info->ptr++;
+		if (*(info->ptr) != '\0')
+			info->state = IN_PIPE;
+		return ;
+	}
 	else if (*(info->ptr) == '"')
 	{
 		info->state = IN_STRING;
@@ -28,22 +35,19 @@ void	change_states(t_parsing *info)
 	}
 }
 
-void	create_and_fill_pipe(t_parsing *info)
-{
-	t_command	*new_pipe;
-
-	new_pipe = create_new_command();
-	add_back_command(&g_shell->commands->pipe, new_pipe);
-	new_pipe->tokens = create_new_token();
-	fill_in_tokens(info, new_pipe->tokens);
-}
-
 void	fill_in_tokens(t_parsing *info, t_tokens *tokens)
 {
+	info->state = DULL;
 	while (*(info->ptr))
 	{
 		if (info->state == DULL)
+		{
 			change_states(info);
+			if (info->state == IN_PIPE)
+				return ;
+			if (*(info->ptr) == '\0')
+				break ;
+		}
 		else if ((info->state == IN_STRING && *(info->ptr) == '"') || \
 		(info->state == IN_WORD && *(info->ptr) == ' '))
 		{
@@ -54,12 +58,13 @@ void	fill_in_tokens(t_parsing *info, t_tokens *tokens)
 		}
 		info->ptr++;
 	}
-	if (info->state != DULL && *info->ptr == '\0')
+	if (info->state != DULL && *(info->ptr) == '\0')
 		tokens->items[info->argc] = ft_substr(info->start, 0, info->ptr - info->start);
+	info->state = DONE;
 }
 
 t_tokens	*create_new_token(void)
-{	
+{
 	t_tokens	*new;
 
 	new = (t_tokens *)ft_calloc(1, sizeof(t_tokens));
@@ -67,6 +72,7 @@ t_tokens	*create_new_token(void)
 		error_and_exit(1);
 	new->size = 0;
 	new->allocated = 10;
+	new->items = (char **)ft_calloc(new->allocated, sizeof(char *));
 	if (!new->items)
 		error_and_exit(1);
 	return (new);
