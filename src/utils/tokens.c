@@ -6,11 +6,23 @@
 /*   By: kfu <kfu@student.codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/07/02 13:58:25 by kfu           #+#    #+#                 */
-/*   Updated: 2021/07/19 20:22:59 by katherine     ########   odam.nl         */
+/*   Updated: 2021/07/19 20:46:19 by katherine     ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shell.h"
+
+void	expand_token(t_tokens *token)
+{
+	char	**new;
+
+	token->size = token->allocated;
+	token->allocated *= 2;
+	new = (char **)ft_calloc(token->allocated, sizeof(char *));
+	ft_memcpy(new, token->items, token->size);
+	free(token->items);
+	token->items = new;
+}
 
 void	change_states(t_parsing *info)
 {
@@ -21,6 +33,8 @@ void	change_states(t_parsing *info)
 		info->ptr++;
 		if (*(info->ptr) != '\0')
 			info->state = IN_PIPE;
+		else
+			error_and_exit(3);
 		return ;
 	}
 	else if (*(info->ptr) == '"')
@@ -40,13 +54,13 @@ void	fill_in_tokens(t_parsing *info, t_tokens *tokens)
 	info->state = DULL;
 	while (*(info->ptr))
 	{
+		if (info->argc >= tokens->allocated)
+			expand_token(tokens);
 		if (info->state == DULL)
 		{
 			change_states(info);
 			if (info->state == IN_PIPE)
 				return ;
-			if (*(info->ptr) == '\0')
-				break ;
 		}
 		else if ((info->state == IN_STRING && *(info->ptr) == '"') || \
 		(info->state == IN_WORD && *(info->ptr) == ' '))
@@ -62,18 +76,6 @@ void	fill_in_tokens(t_parsing *info, t_tokens *tokens)
 		tokens->items[info->argc] = \
 		ft_substr(info->start, 0, info->ptr - info->start);
 	info->state = DONE;
-}
-
-void	expand_token(t_tokens *token)
-{
-	char	**new;
-
-	token->size = token->allocated;
-	token->allocated *= 2;
-	new = (char **)ft_calloc(token->allocated, sizeof(char *));
-	ft_memcpy(new, token->items, token->size);
-	free(token->items);
-	token->items = new;
 }
 
 t_tokens	*create_new_token(void)

@@ -6,7 +6,7 @@
 /*   By: pspijkst <pspijkst@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/05/05 13:17:29 by pspijkst      #+#    #+#                 */
-/*   Updated: 2021/07/19 20:14:06 by katherine     ########   odam.nl         */
+/*   Updated: 2021/07/19 20:35:08 by katherine     ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,8 @@ typedef enum e_bool
 
 typedef struct s_tokens
 {
-	size_t	size;
-	size_t	allocated;
+	int		size;
+	int		allocated;
 	char	**items;
 }	t_tokens;
 

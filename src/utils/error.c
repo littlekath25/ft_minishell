@@ -6,7 +6,7 @@
 /*   By: kfu <kfu@student.codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/06/29 16:42:28 by kfu           #+#    #+#                 */
-/*   Updated: 2021/07/19 14:31:03 by katherine     ########   odam.nl         */
+/*   Updated: 2021/07/19 20:44:47 by katherine     ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	print_tokens(void)
 	t_command	*command_ptr;
 
 	command_ptr = g_shell->commands;
-	while (command_ptr)
+	if (command_ptr)
 	{
 		i = 0;
 		while (command_ptr->tokens->items[i])
@@ -29,7 +29,6 @@ void	print_tokens(void)
 			i++;
 		}
 		j++;
-		command_ptr = command_ptr->next;
 	}
 	i = 0;
 	ptr = g_shell->commands->pipe;
@@ -55,5 +54,7 @@ void	error_and_exit(int error)
 		printf("Please execute without arguments\n");
 	if (error == 2)
 		printf("Malloc fail\n");
+	if (error == 3)
+		printf("Nothing after the pipe\n");
 	exit(0);
 }
