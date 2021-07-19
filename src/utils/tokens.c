@@ -6,39 +6,65 @@
 /*   By: kfu <kfu@student.codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/07/02 13:58:25 by kfu           #+#    #+#                 */
-/*   Updated: 2021/07/05 16:24:21 by katherine     ########   odam.nl         */
+/*   Updated: 2021/07/19 11:33:02 by katherine     ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shell.h"
 
-void	expand_tokens(t_tokens *tokens)
+void	change_states(t_parsing *info)
 {
-	
+	if (*(info->ptr) == ' ')
+		return ;
+	else if (*(info->ptr) == '|')
+	{
+		info->ptr++;
+		if (*(info->ptr) != '\0')
+			info->state = IN_PIPE;
+		return ;
+	}
+	else if (*(info->ptr) == '"')
+	{
+		info->state = IN_STRING;
+		info->start = info->ptr + 1;
+	}
+	else
+	{
+		info->state = IN_WORD;
+		info->start = info->ptr;
+	}
 }
 
-void	set_tokens(char *line, t_tokens *tokens)
+void	fill_in_tokens(t_parsing *info, t_tokens *tokens)
 {
-	char	**split;
-	int		tokens;
-
-	split = ft_split_words(line, ' ', &tokens);
-	if (tokens > tokens->allocated)
-		expand_tokens(tokens);
-}
-
-void	fill_in_tokens(char *line, t_tokens *tokens)
-{
-	char	**split;
-	int		pipes;
-
-	split = ft_split_words(line, '|', &words);
-	set_tokens(split[0], tokens);
-	ft_free_split(split);
+	info->state = DULL;
+	while (*(info->ptr))
+	{
+		if (info->state == DULL)
+		{
+			change_states(info);
+			if (info->state == IN_PIPE)
+				return ;
+			if (*(info->ptr) == '\0')
+				break ;
+		}
+		else if ((info->state == IN_STRING && *(info->ptr) == '"') || \
+		(info->state == IN_WORD && *(info->ptr) == ' '))
+		{
+			tokens->items[info->argc] = \
+			ft_substr(info->start, 0, info->ptr - info->start);
+			info->state = DULL;
+			info->argc++;
+		}
+		info->ptr++;
+	}
+	if (info->state != DULL && *(info->ptr) == '\0')
+		tokens->items[info->argc] = ft_substr(info->start, 0, info->ptr - info->start);
+	info->state = DONE;
 }
 
 t_tokens	*create_new_token(void)
-{	
+{
 	t_tokens	*new;
 
 	new = (t_tokens *)ft_calloc(1, sizeof(t_tokens));
@@ -46,7 +72,7 @@ t_tokens	*create_new_token(void)
 		error_and_exit(1);
 	new->size = 0;
 	new->allocated = 10;
-	new->items = (char **)ft_calloc(10, sizeof(char *));
+	new->items = (char **)ft_calloc(new->allocated, sizeof(char *));
 	if (!new->items)
 		error_and_exit(1);
 	return (new);
