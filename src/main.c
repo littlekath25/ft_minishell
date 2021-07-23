@@ -6,7 +6,7 @@
 /*   By: kfu <kfu@student.codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/05/05 15:51:53 by kfu           #+#    #+#                 */
-/*   Updated: 2021/07/23 13:35:25 by katherine     ########   odam.nl         */
+/*   Updated: 2021/07/23 13:54:00 by katherine     ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ int	main(int argc, char **argv, char **env)
 			error_and_exit(2);
 		g_shell->env = env;
 		read_commands();
+		free(g_shell);
 		exit(0);
 	}
 	else
