@@ -6,7 +6,7 @@
 /*   By: kfu <kfu@student.codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/05/05 15:51:53 by kfu           #+#    #+#                 */
-/*   Updated: 2021/07/23 13:50:07 by katherine     ########   odam.nl         */
+/*   Updated: 2021/07/23 14:34:37 by katherine     ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,10 @@ void	read_commands(void)
 		if (line && *line)
 		{
 			if (!ft_strcmp(line, "exit"))
+			{
+				free(line);
 				break ;
+			}
 			add_history(line);
 			create_commands_list(line);
 			print_tokens();
