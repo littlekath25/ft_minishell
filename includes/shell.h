@@ -6,7 +6,7 @@
 /*   By: pspijkst <pspijkst@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/05/05 13:17:29 by pspijkst      #+#    #+#                 */
-/*   Updated: 2021/07/19 20:35:08 by katherine     ########   odam.nl         */
+/*   Updated: 2021/07/23 11:04:47 by katherine     ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 # include <readline/readline.h>
 # include <readline/history.h>
 # include "builtin.h"
+# include "vector.h"
 
 typedef enum e_states
 {
@@ -60,7 +61,7 @@ typedef struct s_command
 
 typedef struct s_shell
 {
-	char		**env;
+	t_vector	*env;
 	t_command	*commands;
 }	t_shell;
 

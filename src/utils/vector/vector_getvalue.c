@@ -6,13 +6,16 @@
 /*   By: pspijkst <pspijkst@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/04/21 17:01:21 by pspijkst      #+#    #+#                 */
-/*   Updated: 2021/07/08 16:00:06 by pspijkst      ########   odam.nl         */
+/*   Updated: 2021/07/19 10:27:23 by pspijkst      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/vector.h"
+#include "../../../includes/vector.h"
 
-//	Returns a pointer to index in the vector.
+/*
+	Returns the value stored on index.
+	The function may overflow, depending on index value.
+*/
 void	*vector_getvalue(t_vector *vector, int index)
 {
 	if (vector->isptr)

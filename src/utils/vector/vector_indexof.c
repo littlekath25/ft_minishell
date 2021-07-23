@@ -1,28 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   vector_newptr.c                                    :+:    :+:            */
+/*   vector_indexof.c                                   :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: pspijkst <pspijkst@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2021/04/21 17:58:01 by pspijkst      #+#    #+#                 */
-/*   Updated: 2021/07/19 10:36:02 by pspijkst      ########   odam.nl         */
+/*   Created: 2021/07/19 10:41:39 by pspijkst      #+#    #+#                 */
+/*   Updated: 2021/07/19 11:06:01 by pspijkst      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../includes/vector.h"
 
 /*
-	Initializes a new t_vector struct with element size of parameter bytesize.
-	For vectors storing raw data instead of pointers, use vector_new.
-	Returns NULL on error.
+	Seeks in t_vector->memb for specified data, comparing at most len bytes.
+	Returns the index of the first element that matches the comparison,
+	or -1 if no match has been found.
 */
-t_vector	*vector_newptr(void)
+int	vector_indexof(t_vector *vect, void *data, unsigned int len)
 {
-	t_vector	*vector;
+	int	i;
 
-	vector = vector_new(sizeof(void *));
-	if (vector)
-		vector->isptr = 1;
-	return (vector);
+	if (len == 0)
+		return (-1);
+	i = 0;
+	while (i < vect->nmemb)
+	{
+		if (ft_memcmp(vector_getvalue(vect, i), data, len) == 0)
+			return (i);
+		i++;
+	}
+	return (-1);
 }
