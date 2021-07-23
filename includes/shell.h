@@ -6,7 +6,7 @@
 /*   By: pspijkst <pspijkst@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/05/05 13:17:29 by pspijkst      #+#    #+#                 */
-/*   Updated: 2021/07/23 11:04:47 by katherine     ########   odam.nl         */
+/*   Updated: 2021/07/23 11:06:02 by katherine     ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ typedef struct s_command
 
 typedef struct s_shell
 {
-	t_vector	*env;
+	char		**env;
 	t_command	*commands;
 }	t_shell;
 
