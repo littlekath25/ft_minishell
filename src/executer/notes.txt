@@ -1,4 +1,0 @@
-environment variables functions:
-	expand env memory
-	add with export, delete with unset
-	also set global env pointer, not just g_shell->env! (for getenv)
