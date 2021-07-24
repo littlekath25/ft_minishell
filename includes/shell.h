@@ -6,7 +6,7 @@
 /*   By: pspijkst <pspijkst@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/05/05 13:17:29 by pspijkst      #+#    #+#                 */
-/*   Updated: 2021/07/23 11:06:02 by katherine     ########   odam.nl         */
+/*   Updated: 2021/07/24 12:17:06 by katherine     ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,9 @@
 # include <readline/history.h>
 # include "builtin.h"
 # include "vector.h"
+# include <errno.h>
+# include <sys/stat.h>
+# include <fcntl.h>
 
 typedef enum e_states
 {
@@ -82,5 +85,17 @@ void		delete_one_command(t_command **src, t_command *node);
 t_tokens	*create_new_token(void);
 void		expand_tokens(t_tokens *tokens);
 void		fill_in_tokens(t_parsing *info, t_tokens *tokens);
+void		delete_redirect_token(char **pointers, int i);
+
+// REDIRECT FUNCTIONS
+void		set_redirects(void);
+void		set_input_output(t_command *command);
+void		set_input(t_command *command, int i);
+void		set_output(t_command *command, int i);
+
+// FREE FUNCTIONS
+void		free_command_and_tokens(void);
+void		free_command(void);
+void		free_pipes(void);
 
 #endif

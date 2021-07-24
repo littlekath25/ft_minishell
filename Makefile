@@ -6,7 +6,7 @@
 #    By: kfu <kfu@student.codam.nl>                   +#+                      #
 #                                                    +#+                       #
 #    Created: 2020/11/14 23:09:58 by kfu           #+#    #+#                  #
-#    Updated: 2021/07/23 14:32:30 by katherine     ########   odam.nl          #
+#    Updated: 2021/07/24 11:24:48 by katherine     ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,7 +22,9 @@ S_OBJ	=	$(S_SRC:%.c=$(S_PATH)%.o)
 
 U_SRC	= 	error.c\
 			commands.c\
-			tokens.c
+			tokens.c\
+			free.c\
+			redirects.c
 U_PATH	=	src/utils/
 U_OBJ	=	$(U_SRC:%.c=$(U_PATH)%.o)
 

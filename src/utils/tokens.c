@@ -6,11 +6,16 @@
 /*   By: kfu <kfu@student.codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/07/02 13:58:25 by kfu           #+#    #+#                 */
-/*   Updated: 2021/07/23 13:37:13 by katherine     ########   odam.nl         */
+/*   Updated: 2021/07/24 12:16:30 by katherine     ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shell.h"
+
+void	delete_redirect_token(char **pointers, int i)
+{
+	pointers[i] = pointers[i + 1];
+}
 
 void	expand_token(t_tokens *token)
 {

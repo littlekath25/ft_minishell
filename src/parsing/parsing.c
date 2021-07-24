@@ -6,56 +6,11 @@
 /*   By: kfu <kfu@student.codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/05/05 15:51:53 by kfu           #+#    #+#                 */
-/*   Updated: 2021/07/23 14:34:37 by katherine     ########   odam.nl         */
+/*   Updated: 2021/07/24 11:02:21 by katherine     ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shell.h"
-
-void	free_pipes(void)
-{	
-	int			i;
-	t_command	*ptr;
-
-	while (g_shell->commands->pipe != NULL)
-	{
-		i = 0;
-		ptr = g_shell->commands->pipe->next;
-		while (g_shell->commands->pipe->tokens->items[i])
-		{
-			free(g_shell->commands->pipe->tokens->items[i]);
-			i++;
-		}
-		free(g_shell->commands->pipe->tokens->items);
-		free(g_shell->commands->pipe->tokens);
-		free(g_shell->commands->pipe);
-		g_shell->commands->pipe = ptr;
-	}
-}
-
-void	free_command(void)
-{
-	int	i;
-
-	i = 0;
-	while (g_shell->commands->tokens->items[i])
-	{
-		free(g_shell->commands->tokens->items[i]);
-		i++;
-	}
-	free(g_shell->commands->tokens->items);
-	free(g_shell->commands->tokens);
-	free(g_shell->commands);
-	g_shell->commands = NULL;
-}
-
-void	free_command_and_tokens(void)
-{
-	if (g_shell->commands->pipe != NULL)
-		free_pipes();
-	if (g_shell->commands->tokens != NULL)
-		free_command();
-}
 
 void	read_commands(void)
 {
@@ -73,6 +28,7 @@ void	read_commands(void)
 			}
 			add_history(line);
 			create_commands_list(line);
+			set_redirects();
 			print_tokens();
 			free_command_and_tokens();
 		}
