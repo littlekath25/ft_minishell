@@ -6,7 +6,7 @@
 /*   By: kfu <kfu@student.codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/07/02 13:58:25 by kfu           #+#    #+#                 */
-/*   Updated: 2021/07/24 12:16:30 by katherine     ########   odam.nl         */
+/*   Updated: 2021/07/24 12:24:16 by katherine     ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,13 @@
 
 void	delete_redirect_token(char **pointers, int i)
 {
-	pointers[i] = pointers[i + 1];
+	free(pointers[i]);
+	while (pointers[i + 1] != NULL)
+	{
+		pointers[i] = pointers[i + 1];
+		i++;
+	}
+	pointers[i] = NULL;
 }
 
 void	expand_token(t_tokens *token)

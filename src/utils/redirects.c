@@ -6,7 +6,7 @@
 /*   By: katherine <katherine@student.codam.nl>       +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/07/24 11:06:03 by katherine     #+#    #+#                 */
-/*   Updated: 2021/07/24 12:17:04 by katherine     ########   odam.nl         */
+/*   Updated: 2021/07/24 12:24:38 by katherine     ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ void	set_output(t_command *command, int i)
 	{
 		command->out_fd = fd;
 		delete_redirect_token(command->tokens->items, i);
+		delete_redirect_token(command->tokens->items, i);
 	}
 }
 
@@ -36,6 +37,7 @@ void	set_input(t_command *command, int i)
 	else
 	{
 		command->in_fd = fd;
+		delete_redirect_token(command->tokens->items, i);
 		delete_redirect_token(command->tokens->items, i);
 	}
 }

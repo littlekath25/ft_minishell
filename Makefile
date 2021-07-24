@@ -6,14 +6,14 @@
 #    By: kfu <kfu@student.codam.nl>                   +#+                      #
 #                                                    +#+                       #
 #    Created: 2020/11/14 23:09:58 by kfu           #+#    #+#                  #
-#    Updated: 2021/07/24 11:24:48 by katherine     ########   odam.nl          #
+#    Updated: 2021/07/24 12:23:12 by katherine     ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
 NAME	= 	minishell
 CC		= 	gcc
 RM		=	rm -f
-FLAGS	= 	-Wall -Wextra -g3
+FLAGS	= 	-Wall -Wextra -g3 -fsanitize=address
 LIBS	=	-Llibft -lft -lreadline -o 
 
 S_SRC	= 	main.c
@@ -38,7 +38,7 @@ all: $(NAME)
 
 $(NAME): $(OBJ_FILES)
 	make -C libft
-	$(CC) $(OBJ_FILES) $(LIBS) $(NAME) -g3
+	$(CC) $(OBJ_FILES) $(LIBS) $(NAME) -g3 -fsanitize=address
 
 %.o: %.c
 	$(CC) $(FLAGS) -c -o $@ $< -I includes/
