@@ -6,7 +6,7 @@
 /*   By: pspijkst <pspijkst@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/05/05 13:17:29 by pspijkst      #+#    #+#                 */
-/*   Updated: 2021/07/25 15:53:32 by pspijkst      ########   odam.nl         */
+/*   Updated: 2021/07/25 16:20:51 by pspijkst      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,11 +71,7 @@ typedef struct s_command
 
 typedef struct s_shell
 {
-	struct s_env
-	{
-		t_vector	*env;
-		char		***bltin;
-	}	env;
+	t_vector	*env;
 	t_command	*cmd;
 }	t_shell;
 
@@ -84,7 +80,7 @@ t_shell		*g_shell;
 void		error_and_exit(int error);
 void		print_tokens(void);
 
-void		init_shell(char ***env);
+void		init_shell(char **env);
 void		init_prompt(void);
 
 // COMMAND FUNCTIONS

@@ -1,35 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   shell_init.c                                       :+:    :+:            */
+/*   init_shell.c                                       :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: pspijkst <pspijkst@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/07/25 11:51:31 by pspijkst      #+#    #+#                 */
-/*   Updated: 2021/07/25 15:52:14 by pspijkst      ########   odam.nl         */
+/*   Updated: 2021/07/25 16:50:07 by pspijkst      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shell.h"
 
-static void	st_init_vect(char **env)
+void	init_shell(char **env)
 {
-	while (*env)
-	{
-		if (vector_add(g_shell->env.env, *env) == false)
-			error_and_exit(err_malloc);
-		env++;
-	}
-}
+	char	*dup;
 
-void	init_shell(char ***env)
-{
 	g_shell = ft_calloc(1, sizeof(t_shell));
 	if (!g_shell)
 		error_and_exit(err_malloc);
-	g_shell->env.env = vector_newptr();
-	if (!g_shell->env.env)
+	g_shell->env = vector_newptr();
+	if (!g_shell->env)
 		error_and_exit(err_malloc);
-	g_shell->env.bltin = env;
-	st_init_vect(*env);
+	while (*env)
+	{
+		dup = ft_strdup(*env);
+		if (!dup)
+			error_and_exit(err_malloc);
+		if (vector_add(g_shell->env, dup) == false)
+			error_and_exit(err_malloc);
+		env++;
+	}
 }
