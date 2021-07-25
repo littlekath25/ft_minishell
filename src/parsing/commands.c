@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   commands.c                                         :+:    :+:            */
+/*   cmd.c                                         :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: kfu <kfu@student.codam.nl>                   +#+                     */
 /*                                                   +#+                      */
@@ -84,11 +84,11 @@ void	create_commands_list(char *line)
 		if (info->state == DONE)
 			break ;
 		else if (info->state == DULL)
-			dest = &g_shell->commands;
+			dest = &g_shell->cmd;
 		else if (info->state == IN_PIPE)
 		{
 			info->argc = 0;
-			dest = &g_shell->commands->pipe;
+			dest = &g_shell->cmd->pipe;
 		}
 		fill_in_tokens(info, create_new_command_and_tokens(dest)->tokens);
 	}

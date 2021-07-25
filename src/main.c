@@ -6,7 +6,7 @@
 /*   By: kfu <kfu@student.codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/05/05 15:51:53 by kfu           #+#    #+#                 */
-/*   Updated: 2021/07/23 13:54:00 by katherine     ########   odam.nl         */
+/*   Updated: 2021/07/25 15:51:52 by pspijkst      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,17 +14,12 @@
 
 int	main(int argc, char **argv, char **env)
 {
-	if (argc == 1 && argv[0])
+	if (argc == 1 && argv[0]) // && argv[0]? wat?
 	{
-		g_shell = (t_shell *)ft_calloc(1, sizeof(t_shell));
-		if (g_shell == NULL)
-			error_and_exit(2);
-		g_shell->env = env;
-		read_commands();
-		free(g_shell);
-		exit(0);
+		init_shell(&env);
+		init_prompt();
 	}
 	else
-		error_and_exit(1);
+		error_and_exit(err_args);
 	return (0);
 }

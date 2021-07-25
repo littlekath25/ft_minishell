@@ -6,7 +6,7 @@
 /*   By: pspijkst <pspijkst@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/07/01 18:06:07 by pspijkst      #+#    #+#                 */
-/*   Updated: 2021/07/08 15:52:22 by pspijkst      ########   odam.nl         */
+/*   Updated: 2021/07/25 12:27:05 by pspijkst      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,5 +17,6 @@
 */
 void	_unset_(char **argv)
 {
+	(void)argv;
 	printf("unset is not yet implemented.\n");
 }

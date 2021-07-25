@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   init_execute.c                                     :+:    :+:            */
+/*   execute.c                                          :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: pspijkst <pspijkst@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/05/05 16:38:19 by pspijkst      #+#    #+#                 */
-/*   Updated: 2021/07/19 12:42:57 by pspijkst      ########   odam.nl         */
+/*   Updated: 2021/07/25 15:31:23 by pspijkst      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,20 +15,6 @@
 #include <sys/wait.h>
 #include <stdio.h>
 #include <unistd.h>
-
-char	**get_paths(void)
-{
-	char	*path;
-	char	**paths;
-
-	paths = ft_split(path, ':');
-	if (!paths)
-	{
-		printf("Failed to split PATH into PATHS, terminating program.\n");
-		exit(0);
-	}
-	return (paths);
-}
 
 char	*ft_pathcombine(char *base, char *file)
 {
@@ -89,7 +75,7 @@ char	ft_strcontains(char *str, char c)
 	return (0);
 }
 
-void	distr_input(char **tokens)
+static void	st_execute(char **tokens)
 {
 	int		pid;
 	void	(*f)(char **argv);
@@ -114,31 +100,15 @@ void	distr_input(char **tokens)
 	wait(&status);
 }
 
-void	loop()
+void	init_executor(void)
 {
-	char	input[1000];
-	char	**tokens;
-	int		readc;
+	t_command	*cmd;
+	int			i;
 
-	while (1)
+	cmd = g_shell->cmd;
+	while (cmd)
 	{
-		readc = read(0, input, 1000);
-		input[readc - 1] = 0;
-		tokens = ft_split(input, ' ');
-		if (!tokens || !*tokens)
-			continue ;
-		distr_input(tokens);
+		st_execute(cmd->tokens->items);
+		cmd = cmd->next;
 	}
-}
-
-int	main(int argc, char **args, char **env)
-{
-	g_shell = malloc(sizeof(t_shell));
-	g_shell->env = vector_newptr();
-	while (*env)
-	{
-		vector_add(g_shell->env, *env);
-		env++;
-	}
-	loop();
 }

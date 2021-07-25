@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   vector_toarray.c                                   :+:    :+:            */
+/*   vector_tostrarray.c                                :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: pspijkst <pspijkst@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/07/08 16:50:56 by pspijkst      #+#    #+#                 */
-/*   Updated: 2021/07/19 10:31:19 by pspijkst      ########   odam.nl         */
+/*   Updated: 2021/07/25 12:26:22 by pspijkst      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,6 @@ char	**vector_tostrarray(t_vector *vect)
 {
 	char	**strs;
 	int		i;
-	int		j;
 
 	strs = malloc((vect->nmemb + 1) * sizeof(char *) );
 	if (!strs)

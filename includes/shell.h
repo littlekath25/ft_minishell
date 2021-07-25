@@ -6,7 +6,7 @@
 /*   By: pspijkst <pspijkst@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/05/05 13:17:29 by pspijkst      #+#    #+#                 */
-/*   Updated: 2021/07/24 12:17:06 by katherine     ########   odam.nl         */
+/*   Updated: 2021/07/25 15:53:32 by pspijkst      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,13 @@ typedef enum e_states
 	IN_PIPE,
 	DONE
 }	t_states;
+
+typedef enum e_error
+{
+	err_args = 1,
+	err_malloc,
+	err_pipe
+}	t_error;
 
 typedef enum e_bool
 {
@@ -64,8 +71,12 @@ typedef struct s_command
 
 typedef struct s_shell
 {
-	char		**env;
-	t_command	*commands;
+	struct s_env
+	{
+		t_vector	*env;
+		char		***bltin;
+	}	env;
+	t_command	*cmd;
 }	t_shell;
 
 t_shell		*g_shell;
@@ -73,8 +84,11 @@ t_shell		*g_shell;
 void		error_and_exit(int error);
 void		print_tokens(void);
 
+void		init_shell(char ***env);
+void		init_prompt(void);
+
 // COMMAND FUNCTIONS
-void		read_commands(void);
+void		read_command(void);
 void		create_commands_list(char *line);
 t_command	*create_new_command(void);
 void		add_new_command(char *line);
@@ -97,5 +111,8 @@ void		set_output(t_command *command, int i);
 void		free_command_and_tokens(void);
 void		free_command(void);
 void		free_pipes(void);
+
+// Executor
+void		init_executor(void);
 
 #endif

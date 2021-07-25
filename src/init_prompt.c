@@ -6,13 +6,13 @@
 /*   By: kfu <kfu@student.codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/05/05 15:51:53 by kfu           #+#    #+#                 */
-/*   Updated: 2021/07/24 11:02:21 by katherine     ########   odam.nl         */
+/*   Updated: 2021/07/25 15:53:06 by pspijkst      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shell.h"
 
-void	read_commands(void)
+void	init_prompt(void)
 {
 	char	*line;
 
@@ -21,15 +21,11 @@ void	read_commands(void)
 		line = readline("minishell> ");
 		if (line && *line)
 		{
-			if (!ft_strcmp(line, "exit"))
-			{
-				free(line);
-				break ;
-			}
 			add_history(line);
 			create_commands_list(line);
 			set_redirects();
-			print_tokens();
+			// print_tokens();
+			init_executor();
 			free_command_and_tokens();
 		}
 		free(line);

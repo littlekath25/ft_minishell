@@ -6,7 +6,7 @@
 /*   By: pspijkst <pspijkst@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/07/01 17:50:10 by pspijkst      #+#    #+#                 */
-/*   Updated: 2021/07/19 12:40:37 by pspijkst      ########   odam.nl         */
+/*   Updated: 2021/07/25 12:18:22 by pspijkst      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,10 +49,9 @@ void	_export_(char **argv)
 		}
 		else
 			i = strlen;
-		i = vector_indexof(g_shell->env, argv[1], i);
+		i = vector_indexof(g_shell->env.env, argv[1], i);
 		if (i != -1)
 		{
-
 		}
 		argv++;
 	}
