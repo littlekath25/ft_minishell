@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   parsing.c                                          :+:    :+:            */
+/*   init_prompt.c                                      :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: kfu <kfu@student.codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/05/05 15:51:53 by kfu           #+#    #+#                 */
-/*   Updated: 2021/07/25 15:53:06 by pspijkst      ########   odam.nl         */
+/*   Updated: 2021/07/26 20:35:02 by katherine     ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,8 @@ void	init_prompt(void)
 			add_history(line);
 			create_commands_list(line);
 			set_redirects();
-			// print_tokens();
-			init_executor();
+			print_tokens();
+			// init_executor();
 			free_command_and_tokens();
 		}
 		free(line);

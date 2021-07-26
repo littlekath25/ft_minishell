@@ -6,7 +6,7 @@
 /*   By: pspijkst <pspijkst@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/05/05 16:38:19 by pspijkst      #+#    #+#                 */
-/*   Updated: 2021/07/25 15:31:23 by pspijkst      ########   odam.nl         */
+/*   Updated: 2021/07/26 20:55:08 by katherine     ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,7 +103,6 @@ static void	st_execute(char **tokens)
 void	init_executor(void)
 {
 	t_command	*cmd;
-	int			i;
 
 	cmd = g_shell->cmd;
 	while (cmd)
