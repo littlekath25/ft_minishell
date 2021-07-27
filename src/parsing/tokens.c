@@ -6,7 +6,7 @@
 /*   By: kfu <kfu@student.codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/07/02 13:58:25 by kfu           #+#    #+#                 */
-/*   Updated: 2021/07/27 21:00:01 by katherine     ########   odam.nl         */
+/*   Updated: 2021/07/27 21:18:52 by katherine     ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,31 +28,13 @@ void	change_pipe_state(t_parsing *info)
 	info->ptr++;
 	if (g_shell->cmd->tokens->items[0] == NULL)
 	{
-		printf("syntax error near unexpected token '|'\n"); 
+		printf("syntax error near unexpected token `|'\n");
 		info->state = ERROR;
 	}
 	else if (*(info->ptr) != '\0')
 		info->state = IN_PIPE;
 	else
 		error_and_exit(3);
-}
-
-void	expand_token(t_tokens *token)
-{
-	char	**new;
-	int		i;
-
-	i = 0;
-	token->size = token->allocated;
-	token->allocated *= 2;
-	new = (char **)ft_calloc(token->allocated, sizeof(char *));
-	while (token->items[i])
-	{
-		new[i] = token->items[i];
-		i++;
-	}
-	free(token->items);
-	token->items = new;
 }
 
 void	change_states(t_parsing *info)
@@ -79,21 +61,15 @@ void	fill_in_tokens(t_parsing *info, t_tokens *tokens)
 	while (*(info->ptr))
 	{
 		if (info->argc == (tokens->allocated - 2))
-			expand_token(tokens);
+			expand_items(tokens);
 		if (info->state == DULL)
 		{
 			change_states(info);
 			if (info->state == IN_PIPE || info->state == ERROR)
 				return ;
 		}
-		else if ((info->state == IN_STRING && *(info->ptr) == '"') || \
-		(info->state == IN_WORD && *(info->ptr) == ' '))
-		{
-			tokens->items[info->argc] = \
-			ft_substr(info->start, 0, info->ptr - info->start);
-			info->state = DULL;
-			info->argc++;
-		}
+		else if (check_if_makes_new_item(info) == 1)
+			make_new_item(info, tokens);
 		info->ptr++;
 	}
 	if (info->state != DULL && *(info->ptr) == '\0')
@@ -110,7 +86,7 @@ t_tokens	*create_new_token(void)
 	if (!new)
 		error_and_exit(1);
 	new->size = 0;
-	new->allocated = 10;
+	new->allocated = 15;
 	new->items = (char **)ft_calloc(new->allocated, sizeof(char *));
 	if (!new->items)
 		error_and_exit(1);

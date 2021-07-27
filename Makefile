@@ -6,7 +6,7 @@
 #    By: kfu <kfu@student.codam.nl>                   +#+                      #
 #                                                    +#+                       #
 #    Created: 2020/11/14 23:09:58 by kfu           #+#    #+#                  #
-#    Updated: 2021/07/25 16:01:16 by pspijkst      ########   odam.nl          #
+#    Updated: 2021/07/27 21:18:15 by katherine     ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -43,7 +43,8 @@ VECT_OBJ	=	$(VECT_SRC:%.c=$(VECT_PATH)%.o)
 P_PATH		=	src/parsing/
 P_SRC		=	commands.c\
 				redirects.c\
-				tokens.c
+				tokens.c\
+				items.c
 P_OBJ		=	$(P_SRC:%.c=$(P_PATH)%.o)
 
 EXEC_PATH	=	src/executor/
