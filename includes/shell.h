@@ -6,7 +6,7 @@
 /*   By: pspijkst <pspijkst@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/05/05 13:17:29 by pspijkst      #+#    #+#                 */
-/*   Updated: 2021/07/25 16:20:51 by pspijkst      ########   odam.nl         */
+/*   Updated: 2021/07/27 20:21:27 by katherine     ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,8 @@ typedef enum e_states
 	IN_WORD,
 	IN_STRING,
 	IN_PIPE,
-	DONE
+	DONE,
+	ERROR
 }	t_states;
 
 typedef enum e_error

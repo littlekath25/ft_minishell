@@ -81,7 +81,7 @@ void	create_commands_list(char *line)
 	info = create_new_info(line);
 	while (info->state != DONE)
 	{
-		if (info->state == DONE)
+		if (info->state == DONE || info->state == ERROR)
 			break ;
 		else if (info->state == DULL)
 			dest = &g_shell->cmd;
