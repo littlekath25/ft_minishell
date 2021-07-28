@@ -6,7 +6,7 @@
 /*   By: pspijkst <pspijkst@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/05/05 13:17:29 by pspijkst      #+#    #+#                 */
-/*   Updated: 2021/07/28 10:56:52 by pspijkst      ########   odam.nl         */
+/*   Updated: 2021/07/28 21:04:54 by katherine     ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,8 @@ typedef enum e_states
 	IN_WORD,
 	IN_STRING,
 	IN_PIPE,
-	DONE
+	DONE,
+	ERROR
 }	t_states;
 
 typedef enum e_error
@@ -65,6 +66,7 @@ typedef struct s_command
 	struct s_command	*pipe;
 	int					in_fd;
 	int					out_fd;
+	int					append;
 	t_tokens			*tokens;
 	struct s_command	*next;
 }	t_command;
@@ -94,9 +96,15 @@ void		delete_one_command(t_command **src, t_command *node);
 
 // TOKEN FUNCTIONS
 t_tokens	*create_new_token(void);
-void		expand_tokens(t_tokens *tokens);
+void		change_states(t_parsing *info);
+void		change_pipe_state(t_parsing *info);
 void		fill_in_tokens(t_parsing *info, t_tokens *tokens);
 void		delete_redirect_token(char **pointers, int i);
+
+// ITEM FUNCTIONS
+void		make_new_item(t_parsing *info, t_tokens *tokens);
+int			check_if_makes_new_item(t_parsing *info);
+void		expand_items(t_tokens *tokens);
 
 // REDIRECT FUNCTIONS
 void		set_redirects(void);
