@@ -6,7 +6,7 @@
 /*   By: pspijkst <pspijkst@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/07/01 18:06:07 by pspijkst      #+#    #+#                 */
-/*   Updated: 2021/07/25 17:30:28 by pspijkst      ########   odam.nl         */
+/*   Updated: 2021/07/28 10:53:06 by pspijkst      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,8 @@ void	_unset_(char **argv)
 		}
 		argv++;
 	}
-	free(__environ);
-	__environ = vector_tostrarray(g_shell->env);
-	if (!__environ)
+	free(*g_shell->environ);
+	*g_shell->environ = vector_tostrarray(g_shell->env);
+	if (!*g_shell->environ)
 		exit(0);
 }

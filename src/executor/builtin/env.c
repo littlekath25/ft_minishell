@@ -6,7 +6,7 @@
 /*   By: pspijkst <pspijkst@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/06/29 17:04:56 by pspijkst      #+#    #+#                 */
-/*   Updated: 2021/07/25 16:22:04 by pspijkst      ########   odam.nl         */
+/*   Updated: 2021/07/28 10:51:48 by pspijkst      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	_env_(char **argv)
 	char	**env;
 
 	(void)argv;
-	env = __environ;
+	env = *g_shell->environ;
 	if (!env)
 		return ;
 	while (*env)

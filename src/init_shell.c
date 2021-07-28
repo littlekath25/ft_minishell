@@ -6,11 +6,31 @@
 /*   By: pspijkst <pspijkst@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/07/25 11:51:31 by pspijkst      #+#    #+#                 */
-/*   Updated: 2021/07/25 16:50:07 by pspijkst      ########   odam.nl         */
+/*   Updated: 2021/07/28 10:58:50 by pspijkst      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shell.h"
+
+#ifdef __APPLE__
+
+void	get_environ_ptr(void)
+{
+	extern char	**environ;
+
+	g_shell->environ = &environ;
+}
+
+#else
+
+void	get_environ_ptr(void)
+{
+	extern char	**__environ;
+
+	g_shell->environ = &__environ;
+}
+
+#endif
 
 void	init_shell(char **env)
 {
@@ -31,4 +51,8 @@ void	init_shell(char **env)
 			error_and_exit(err_malloc);
 		env++;
 	}
+	get_environ_ptr();
+	*g_shell->environ = vector_tostrarray(g_shell->env);
+	if (!*g_shell->environ)
+		error_and_exit(err_malloc);
 }
