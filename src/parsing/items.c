@@ -6,7 +6,7 @@
 /*   By: katherine <katherine@student.codam.nl>       +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/07/27 21:12:20 by katherine     #+#    #+#                 */
-/*   Updated: 2021/07/27 22:07:13 by katherine     ########   odam.nl         */
+/*   Updated: 2021/07/28 22:23:57 by katherine     ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,24 +20,58 @@ void	make_new_item(t_parsing *info, t_tokens *tokens)
 	info->argc++;
 }
 
+char	*delete_all_quotes(char *str)
+{
+	int		size;
+	char	*tmp;
+
+	size = count_size_without_quotes(str);
+	tmp = (char *)ft_calloc(size + 1, sizeof(char));
+	if (!tmp)
+		error_and_exit(1);
+	tmp = copy_str_without_quotes(tmp, str);
+	return (tmp);
+}
+
+int	env_var_checks(t_parsing *info, int in_string)
+{
+	while (*info->ptr)
+	{
+		if (*(info->ptr) == '"' && !in_string)
+			in_string = 1;
+		else if (*(info->ptr) == '"' && in_string == 1)
+		{
+			if (*(info->ptr + 1) == '"')
+			{
+				info->ptr += 2;
+				continue ;
+			}
+			return (1);
+		}
+		else if (*(info->ptr) == ' ' && in_string == 0)
+			return (1);
+		info->ptr++;
+	}
+	if (*info->ptr == '\0' && in_string == 1)
+	{
+		printf("Error: You have an unclosed quote\n");
+		return (-1);
+	}
+	return (0);
+}
+
 int	check_if_makes_new_item(t_parsing *info)
 {
-    int     in_string;
+	int		in_string;
 
-    in_string = 0;
+	in_string = 0;
 	if (info->state == IN_STRING && *(info->ptr) == '"')
 		return (1);
 	else if (info->state == IN_WORD && *(info->ptr) == ' ')
 		return (1);
 	else if (info->state == IN_WORD && *(info->ptr) == '=')
-    {
-        if (*info->ptr + 1 == '*')
-            in_string = 1;
-        
-		return (2);
-    }
-	else
-		return (0);
+		return (env_var_checks(info, in_string));
+	return (0);
 }
 
 void	expand_items(t_tokens *token)
