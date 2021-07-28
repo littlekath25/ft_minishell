@@ -6,7 +6,7 @@
 /*   By: katherine <katherine@student.codam.nl>       +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/07/24 11:06:03 by katherine     #+#    #+#                 */
-/*   Updated: 2021/07/27 21:40:28 by katherine     ########   odam.nl         */
+/*   Updated: 2021/07/28 22:25:47 by katherine     ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,26 +43,26 @@ void	set_input(t_command *command, int i)
 	}
 }
 
-void	set_input_output(t_command *command)
+void	clean_up_tokens(t_command *command)
 {
 	int	i;
 
 	i = 0;
 	while (command->tokens->items[i])
 	{
-		if (!(ft_strcmp(command->tokens->items[i], ">>")))
-		{
-			command->append = 1;
-			set_output(command, i);
-			continue ;
-		}
+		if (ft_strchr(command->tokens->items[i], '='))
+			command->tokens->items[i] = \
+			delete_all_quotes(command->tokens->items[i]);
 		else if (!(ft_strcmp(command->tokens->items[i], "<")))
 		{
 			set_input(command, i);
 			continue ;
 		}
-		else if (!(ft_strcmp(command->tokens->items[i], ">")))
+		else if (!(ft_strcmp(command->tokens->items[i], ">")) \
+		|| !(ft_strcmp(command->tokens->items[i], ">>")))
 		{
+			if (!(ft_strcmp(command->tokens->items[i], ">>")))
+				command->append = 1;
 			set_output(command, i);
 			continue ;
 		}
@@ -79,10 +79,10 @@ void	set_redirects(void)
 		ptr = g_shell->cmd->pipe;
 		while (ptr != NULL)
 		{
-			set_input_output(ptr);
+			clean_up_tokens(ptr);
 			ptr = ptr->next;
 		}
 	}
 	if (g_shell->cmd != NULL)
-		set_input_output(g_shell->cmd);
+		clean_up_tokens(g_shell->cmd);
 }

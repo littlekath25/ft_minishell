@@ -6,7 +6,7 @@
 /*   By: pspijkst <pspijkst@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/05/05 13:17:29 by pspijkst      #+#    #+#                 */
-/*   Updated: 2021/07/27 21:34:32 by katherine     ########   odam.nl         */
+/*   Updated: 2021/07/28 22:24:30 by katherine     ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,14 @@
 # include <errno.h>
 # include <sys/stat.h>
 # include <fcntl.h>
+
+typedef struct s_quotes
+{
+	int		i;
+	int		j;
+	int		size;
+	char	*tmp;
+}	t_quotes;
 
 typedef enum e_states
 {
@@ -104,6 +112,7 @@ void		delete_redirect_token(char **pointers, int i);
 void		make_new_item(t_parsing *info, t_tokens *tokens);
 int			check_if_makes_new_item(t_parsing *info);
 void		expand_items(t_tokens *tokens);
+char		*delete_all_quotes(char *str);
 
 // REDIRECT FUNCTIONS
 void		set_redirects(void);
@@ -118,5 +127,9 @@ void		free_pipes(void);
 
 // Executor
 void		init_executor(void);
+
+// UTILS
+int			count_size_without_quotes(char *str);
+char		*copy_str_without_quotes(char *tmp, char *str);
 
 #endif

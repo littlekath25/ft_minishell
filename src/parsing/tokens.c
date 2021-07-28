@@ -6,7 +6,7 @@
 /*   By: kfu <kfu@student.codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/07/02 13:58:25 by kfu           #+#    #+#                 */
-/*   Updated: 2021/07/27 21:18:52 by katherine     ########   odam.nl         */
+/*   Updated: 2021/07/28 21:37:50 by katherine     ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,9 @@ void	change_states(t_parsing *info)
 
 void	fill_in_tokens(t_parsing *info, t_tokens *tokens)
 {
+	int	ret;
+
+	ret = 0;
 	info->state = DULL;
 	while (*(info->ptr))
 	{
@@ -68,7 +71,10 @@ void	fill_in_tokens(t_parsing *info, t_tokens *tokens)
 			if (info->state == IN_PIPE || info->state == ERROR)
 				return ;
 		}
-		else if (check_if_makes_new_item(info) == 1)
+		ret = check_if_makes_new_item(info);
+		if (ret == -1)
+			return ;
+		else if (ret == 1)
 			make_new_item(info, tokens);
 		info->ptr++;
 	}
