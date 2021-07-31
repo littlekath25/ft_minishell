@@ -6,7 +6,7 @@
 /*   By: pspijkst <pspijkst@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/05/05 13:17:29 by pspijkst      #+#    #+#                 */
-/*   Updated: 2021/07/28 22:24:30 by katherine     ########   odam.nl         */
+/*   Updated: 2021/07/31 12:46:31 by katherine     ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,8 @@ typedef enum e_states
 {
 	DULL,
 	IN_WORD,
-	IN_STRING,
+	IN_DOUBLE,
+	IN_SINGLE,
 	IN_PIPE,
 	DONE,
 	ERROR
@@ -110,7 +111,7 @@ void		delete_redirect_token(char **pointers, int i);
 
 // ITEM FUNCTIONS
 void		make_new_item(t_parsing *info, t_tokens *tokens);
-int			check_if_makes_new_item(t_parsing *info);
+int			check_if_makes_new_item(t_parsing *info, t_tokens *tokens);
 void		expand_items(t_tokens *tokens);
 char		*delete_all_quotes(char *str);
 

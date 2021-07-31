@@ -6,7 +6,7 @@
 /*   By: kfu <kfu@student.codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/07/02 13:58:25 by kfu           #+#    #+#                 */
-/*   Updated: 2021/07/28 21:37:50 by katherine     ########   odam.nl         */
+/*   Updated: 2021/07/31 12:46:54 by katherine     ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,8 +45,15 @@ void	change_states(t_parsing *info)
 		change_pipe_state(info);
 	else if (*(info->ptr) == '"')
 	{
-		info->state = IN_STRING;
+		info->state = IN_DOUBLE;
 		info->start = info->ptr + 1;
+		info->ptr++;
+	}
+	else if (*(info->ptr) == '\'')
+	{
+		info->state = IN_SINGLE;
+		info->start = info->ptr + 1;
+		info->ptr++;
 	}
 	else
 	{
@@ -57,9 +64,8 @@ void	change_states(t_parsing *info)
 
 void	fill_in_tokens(t_parsing *info, t_tokens *tokens)
 {
-	int	ret;
+	int		ret;
 
-	ret = 0;
 	info->state = DULL;
 	while (*(info->ptr))
 	{
@@ -71,16 +77,13 @@ void	fill_in_tokens(t_parsing *info, t_tokens *tokens)
 			if (info->state == IN_PIPE || info->state == ERROR)
 				return ;
 		}
-		ret = check_if_makes_new_item(info);
+		ret = check_if_makes_new_item(info, tokens);
 		if (ret == -1)
 			return ;
-		else if (ret == 1)
-			make_new_item(info, tokens);
 		info->ptr++;
 	}
 	if (info->state != DULL && *(info->ptr) == '\0')
-		tokens->items[info->argc] = \
-		ft_substr(info->start, 0, info->ptr - info->start);
+		make_new_item(info, tokens);
 	info->state = DONE;
 }
 
