@@ -6,7 +6,7 @@
 /*   By: katherine <katherine@student.codam.nl>       +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/07/27 21:12:20 by katherine     #+#    #+#                 */
-/*   Updated: 2021/07/28 22:23:57 by katherine     ########   odam.nl         */
+/*   Updated: 2021/07/31 12:47:25 by katherine     ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,15 +60,17 @@ int	env_var_checks(t_parsing *info, int in_string)
 	return (0);
 }
 
-int	check_if_makes_new_item(t_parsing *info)
+int	check_if_makes_new_item(t_parsing *info, t_tokens *tokens)
 {
 	int		in_string;
 
 	in_string = 0;
-	if (info->state == IN_STRING && *(info->ptr) == '"')
-		return (1);
+	if (info->state == IN_DOUBLE && *(info->ptr) == '"')
+		make_new_item(info, tokens);
+	else if (info->state == IN_SINGLE && *(info->ptr) == '\'')
+		make_new_item(info, tokens);
 	else if (info->state == IN_WORD && *(info->ptr) == ' ')
-		return (1);
+		make_new_item(info, tokens);
 	else if (info->state == IN_WORD && *(info->ptr) == '=')
 		return (env_var_checks(info, in_string));
 	return (0);
