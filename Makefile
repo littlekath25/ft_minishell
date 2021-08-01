@@ -39,7 +39,8 @@ P_PATH		=	src/parsing/
 P_SRC		=	commands.c\
 				redirects.c\
 				tokens.c\
-				items.c
+				items.c\
+				convert_arg.c
 P_OBJ		=	$(P_SRC:%.c=$(P_PATH)%.o)
 
 EXEC_PATH	=	src/executor/

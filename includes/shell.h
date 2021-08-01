@@ -6,7 +6,7 @@
 /*   By: pspijkst <pspijkst@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/05/05 13:17:29 by pspijkst      #+#    #+#                 */
-/*   Updated: 2021/08/01 16:15:48 by pspijkst      ########   odam.nl         */
+/*   Updated: 2021/08/01 16:18:40 by pspijkst      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,7 +107,7 @@ void		delete_one_command(t_command **src, t_command *node);
 
 // TOKEN FUNCTIONS
 t_tokens	*create_new_token(void);
-void		change_states(t_parsing *info);
+void		change_states(t_parsing *info, t_tokens *tokens);
 void		change_pipe_state(t_parsing *info);
 void		fill_in_tokens(t_parsing *info, t_tokens *tokens);
 void		delete_redirect_token(char **pointers, int i);
@@ -117,6 +117,7 @@ void		make_new_item(t_parsing *info, t_tokens *tokens);
 int			check_if_makes_new_item(t_parsing *info, t_tokens *tokens);
 void		expand_items(t_tokens *tokens);
 char		*delete_all_quotes(char *str);
+void		convert_arg(t_command *command, int i);
 
 // REDIRECT FUNCTIONS
 void		set_redirects(void);

@@ -6,7 +6,7 @@
 /*   By: katherine <katherine@student.codam.nl>       +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/07/27 21:12:20 by katherine     #+#    #+#                 */
-/*   Updated: 2021/08/01 13:23:27 by kfu           ########   odam.nl         */
+/*   Updated: 2021/08/01 15:17:57 by kfu           ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,42 +33,13 @@ char	*delete_all_quotes(char *str)
 	return (tmp);
 }
 
-int	env_var_checks(t_parsing *info, int in_string)
-{
-	while (*info->ptr)
-	{
-		if (*(info->ptr) == '"' && !in_string)
-			in_string = 1;
-		else if (*(info->ptr) == '"' && in_string == 1)
-		{
-			if (*(info->ptr + 1) == '"')
-			{
-				info->ptr += 2;
-				continue ;
-			}
-			return (1);
-		}
-		else if (*(info->ptr) == ' ' && in_string == 0)
-			return (1);
-		info->ptr++;
-	}
-	if (*info->ptr == '\0' && in_string == 1)
-	{
-		printf("Error: You have an unclosed quote\n");
-		return (-1);
-	}
-	return (0);
-}
-
 int	check_if_makes_new_item(t_parsing *info, t_tokens *tokens)
 {
-	int		in_string;
-
-	in_string = 0;
-	if (info->state == IN_DOUBLE && *(info->ptr) == '"')
-		info->state = IN_WORD;
-	if (info->state != IN_DOUBLE && info->state != IN_SINGLE && *(info->ptr) == ' ')
+	if (info->state != IN_DOUBLE && info->state != IN_SINGLE)
+	{
 		make_new_item(info, tokens);
+		info->state = DULL;
+	}
 	return (0);
 }
 

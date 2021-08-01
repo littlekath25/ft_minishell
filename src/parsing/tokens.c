@@ -6,7 +6,7 @@
 /*   By: kfu <kfu@student.codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/07/02 13:58:25 by kfu           #+#    #+#                 */
-/*   Updated: 2021/08/01 13:24:09 by kfu           ########   odam.nl         */
+/*   Updated: 2021/08/01 15:25:37 by kfu           ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,52 +37,58 @@ void	change_pipe_state(t_parsing *info)
 		error_and_exit(3);
 }
 
-void	change_states(t_parsing *info)
+void	change_states(t_parsing *info, t_tokens *tokens)
 {
-	if (*(info->ptr) == ' ')
-		return ;
-	else if (*(info->ptr) == '|')
+	if (*(info->ptr) == '|')
 		change_pipe_state(info);
 	else if (*(info->ptr) == '"')
 	{
-		info->state = IN_DOUBLE;
-		info->start = info->ptr;
-		info->ptr++;
+		if (info->state != IN_DOUBLE && info->state != IN_SINGLE)
+		{
+			if (info->state != IN_WORD)
+				info->start = info->ptr;
+			info->state = IN_DOUBLE;
+		}
+		else
+		{
+			info->state = DULL;
+			info->ptr++;
+		}
 	}
 	else if (*(info->ptr) == '\'')
-	{
-		info->state = IN_SINGLE;
-		info->start = info->ptr;
-		info->ptr++;
+	{	
+		if (info->state != IN_SINGLE && info->state != IN_DOUBLE)
+		{
+			if (info->state != IN_WORD)
+				info->start = info->ptr;
+			info->state = IN_SINGLE;
+		}
+		else
+		{
+			info->state = DULL;
+			info->ptr++;
+		}
 	}
-	else
+	else if (info->state == DULL)
 	{
+		info->start = info->ptr;
 		info->state = IN_WORD;
-		info->start = info->ptr;
 	}
+	else if (*(info->ptr) == ' ')
+		check_if_makes_new_item(info, tokens);
 }
 
 void	fill_in_tokens(t_parsing *info, t_tokens *tokens)
 {
-	int		ret;
-
 	info->state = DULL;
 	while (*(info->ptr))
 	{
-		if (info->argc == (tokens->allocated - 2))
-			expand_items(tokens);
-		if (info->state == DULL)
-		{
-			change_states(info);
-			if (info->state == IN_PIPE || info->state == ERROR)
-				return ;
-		}
-		ret = check_if_makes_new_item(info, tokens);
-		if (ret == -1)
+		change_states(info, tokens);
+		if (info->state == IN_PIPE || info->state == ERROR)
 			return ;
 		info->ptr++;
 	}
-	if (info->state != DULL && *(info->ptr) == '\0')
+	if (*(info->ptr) == '\0')
 		make_new_item(info, tokens);
 	info->state = DONE;
 }
