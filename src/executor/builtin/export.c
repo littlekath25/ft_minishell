@@ -6,7 +6,7 @@
 /*   By: pspijkst <pspijkst@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/07/01 17:50:10 by pspijkst      #+#    #+#                 */
-/*   Updated: 2021/08/01 12:33:18 by pspijkst      ########   odam.nl         */
+/*   Updated: 2021/08/01 12:50:29 by pspijkst      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,10 @@ static t_bool	st_process_arg(char *arg)
 	if (value == NULL)
 		return (true);
 	if (value - arg == 0 || !is_valid_name_l(arg, value - arg))
+	{
+		printf("pos: %d, isvalid: %d\n", value - arg, is_valid_name_l(arg, value - arg));
 		return (false);
+	}
 	arg = ft_strdup(arg);
 	if (!arg)
 		error_and_exit(err_malloc);
