@@ -6,7 +6,7 @@
 /*   By: katherine <katherine@student.codam.nl>       +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/07/27 21:12:20 by katherine     #+#    #+#                 */
-/*   Updated: 2021/08/01 12:59:52 by pspijkst      ########   odam.nl         */
+/*   Updated: 2021/08/01 13:23:27 by kfu           ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,14 +65,10 @@ int	check_if_makes_new_item(t_parsing *info, t_tokens *tokens)
 	int		in_string;
 
 	in_string = 0;
-	// if (info->state == IN_DOUBLE && *(info->ptr) == '"')
-	// 	make_new_item(info, tokens);
-	// else if (info->state == IN_SINGLE && *(info->ptr) == '\'')
-	// 	make_new_item(info, tokens);
-	if (info->state == IN_WORD && *(info->ptr) == ' ')
+	if (info->state == IN_DOUBLE && *(info->ptr) == '"')
+		info->state = IN_WORD;
+	if (info->state != IN_DOUBLE && info->state != IN_SINGLE && *(info->ptr) == ' ')
 		make_new_item(info, tokens);
-	else if (info->state == IN_WORD && *(info->ptr) == '=')
-		return (env_var_checks(info, in_string));
 	return (0);
 }
 
