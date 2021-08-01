@@ -6,7 +6,7 @@
 /*   By: pspijkst <pspijkst@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/07/01 17:50:10 by pspijkst      #+#    #+#                 */
-/*   Updated: 2021/08/01 11:45:00 by pspijkst      ########   odam.nl         */
+/*   Updated: 2021/08/01 12:33:18 by pspijkst      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include "../../../includes/builtin.h"
 #include "../../../includes/shell.h"
 
-static void	st_process_arg(char *arg)
+static t_bool	st_process_arg(char *arg)
 {
 	t_bool	is_append;
 	char	*value;
@@ -23,9 +23,9 @@ static void	st_process_arg(char *arg)
 
 	value = ft_strchr(arg, '=');
 	if (value == NULL)
-		return ;
-	if (arg - value == 0)
-		
+		return (true);
+	if (value - arg == 0 || !is_valid_name_l(arg, value - arg))
+		return (false);
 	arg = ft_strdup(arg);
 	if (!arg)
 		error_and_exit(err_malloc);
@@ -37,6 +37,7 @@ static void	st_process_arg(char *arg)
 		vector_removeat(g_shell->env, i);
 	}
 	vector_add(g_shell->env, arg);
+	return (true);
 }
 
 /*
