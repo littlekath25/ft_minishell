@@ -6,7 +6,7 @@
 /*   By: kfu <kfu@student.codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/08/01 13:37:25 by kfu           #+#    #+#                 */
-/*   Updated: 2021/08/01 14:12:36 by kfu           ########   odam.nl         */
+/*   Updated: 2021/08/01 22:14:31 by katherine     ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 char	*get_value(char *line)
 {
-	int 	i;
+	int		i;
 	char	*tmp;
 
 	i = 0;

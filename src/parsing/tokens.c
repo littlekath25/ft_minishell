@@ -6,7 +6,7 @@
 /*   By: kfu <kfu@student.codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/07/02 13:58:25 by kfu           #+#    #+#                 */
-/*   Updated: 2021/08/01 21:46:59 by katherine     ########   odam.nl         */
+/*   Updated: 2021/08/01 21:53:17 by katherine     ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,8 @@ void	change_states(t_parsing *info, t_tokens *tokens)
 void	fill_in_tokens(t_parsing *info, t_tokens *tokens)
 {
 	info->state = DULL;
+	while (*(info->ptr) == ' ')
+		info->ptr++;
 	while (*(info->ptr))
 	{
 		change_states(info, tokens);
