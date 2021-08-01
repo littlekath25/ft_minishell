@@ -6,7 +6,7 @@
 /*   By: pspijkst <pspijkst@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/07/01 18:06:07 by pspijkst      #+#    #+#                 */
-/*   Updated: 2021/08/01 11:28:24 by pspijkst      ########   odam.nl         */
+/*   Updated: 2021/08/01 13:04:27 by pspijkst      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,11 +24,14 @@ void	_unset_(char **argv)
 	argv++;
 	while (*argv)
 	{
-		i = vector_indexof(g_shell->env, *argv, ft_strlen(*argv));
-		if (i != -1)
+		if (is_valid_name(*argv))
 		{
-			free(vector_getvalue(g_shell->env, i));
-			vector_removeat(g_shell->env, i);
+			i = vector_indexof(g_shell->env, *argv, ft_strlen(*argv));
+			if (i != -1)
+			{
+				free(vector_getvalue(g_shell->env, i));
+				vector_removeat(g_shell->env, i);
+			}
 		}
 		argv++;
 	}
