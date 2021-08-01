@@ -6,7 +6,7 @@
 #    By: kfu <kfu@student.codam.nl>                   +#+                      #
 #                                                    +#+                       #
 #    Created: 2020/11/14 23:09:58 by kfu           #+#    #+#                  #
-#    Updated: 2021/08/01 11:38:43 by pspijkst      ########   odam.nl          #
+#    Updated: 2021/08/01 13:45:00 by kfu           ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -46,7 +46,8 @@ P_PATH		=	src/parsing/
 P_SRC		=	commands.c\
 				redirects.c\
 				tokens.c\
-				items.c
+				items.c\
+				convert_arg.c
 P_OBJ		=	$(P_SRC:%.c=$(P_PATH)%.o)
 
 EXEC_PATH	=	src/executor/

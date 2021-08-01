@@ -6,7 +6,7 @@
 /*   By: katherine <katherine@student.codam.nl>       +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/07/24 11:06:03 by katherine     #+#    #+#                 */
-/*   Updated: 2021/08/01 12:27:18 by kfu           ########   odam.nl         */
+/*   Updated: 2021/08/01 13:42:39 by kfu           ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,8 @@ void	clean_up_tokens(t_command *command)
 			set_output(command, i);
 			continue ;
 		}
+		else if (command->tokens->items[i][0] == '$')
+			convert_arg(command, i);
 		i++;
 	}
 }
