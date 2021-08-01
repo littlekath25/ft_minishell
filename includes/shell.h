@@ -6,7 +6,7 @@
 /*   By: pspijkst <pspijkst@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/05/05 13:17:29 by pspijkst      #+#    #+#                 */
-/*   Updated: 2021/08/01 12:35:27 by pspijkst      ########   odam.nl         */
+/*   Updated: 2021/08/01 16:15:48 by pspijkst      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,6 +86,7 @@ typedef struct s_shell
 	t_command	*cmd;
 	t_vector	*env;
 	char		***environ;
+	t_bool		reprompt;
 }	t_shell;
 
 t_shell		*g_shell;
@@ -135,6 +136,8 @@ void		init_executor(void);
 int			count_size_without_quotes(char *str);
 char		*copy_str_without_quotes(char *tmp, char *str);
 t_bool		is_valid_name(char *var);
-t_bool	is_valid_name_l(char *var, unsigned int l);
+t_bool		is_valid_name_l(char *var, unsigned int l);
+void		activate_signals(void);
+void		deactivate_signals(void);
 
 #endif

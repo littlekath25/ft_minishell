@@ -6,7 +6,7 @@
 /*   By: kfu <kfu@student.codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/05/05 15:51:53 by kfu           #+#    #+#                 */
-/*   Updated: 2021/08/01 12:32:05 by kfu           ########   odam.nl         */
+/*   Updated: 2021/08/01 16:13:20 by pspijkst      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,9 @@ void	init_prompt(void)
 	while (1)
 	{
 		line = readline("minishell> ");
-		if (line && *line)
+		if (!line)
+			continue ;
+		if (*line)
 		{
 			add_history(line);
 			if (create_commands_list(line) == 1)

@@ -1,25 +1,18 @@
-# **************************************************************************** #
-#                                                                              #
-#                                                         ::::::::             #
-#    Makefile                                           :+:    :+:             #
-#                                                      +:+                     #
-#    By: kfu <kfu@student.codam.nl>                   +#+                      #
-#                                                    +#+                       #
-#    Created: 2020/11/14 23:09:58 by kfu           #+#    #+#                  #
-#    Updated: 2021/08/01 11:38:43 by pspijkst      ########   odam.nl          #
-#                                                                              #
-# **************************************************************************** #
-
 NAME		= 	minishell
 CC			= 	gcc
 RM			=	rm -f
 CFLAGS		= 	-Wall -Wextra -g3 -fsanitize=address
-LIBS		=	-Llibft -lft -lreadline -o 
+
+RLINCL		=	-I ~/.brew/opt/readline/include
+RLLIB		=	-L ~/.brew/opt/readline/lib -lreadline
+
+LIBS		=	-Llibft -lft $(RLINCL) $(RLLIB) -o 
 
 S_PATH		=	src/
 S_SRC		= 	main.c\
 				init_shell.c\
-				init_prompt.c
+				init_prompt.c\
+				signals.c
 S_OBJ		=	$(S_SRC:%.c=$(S_PATH)%.o)
 
 U_PATH		=	src/utils/

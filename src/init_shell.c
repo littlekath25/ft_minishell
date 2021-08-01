@@ -6,11 +6,13 @@
 /*   By: pspijkst <pspijkst@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/07/25 11:51:31 by pspijkst      #+#    #+#                 */
-/*   Updated: 2021/08/01 12:31:39 by kfu           ########   odam.nl         */
+/*   Updated: 2021/08/01 16:15:23 by pspijkst      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shell.h"
+#include <unistd.h>
+#include <signal.h>
 
 #ifdef __APPLE__
 
@@ -55,4 +57,5 @@ void	init_shell(char **env)
 	*g_shell->environ = vector_tostrarray(g_shell->env);
 	if (!*g_shell->environ)
 		error_and_exit(err_malloc);
+	activate_signals();
 }
