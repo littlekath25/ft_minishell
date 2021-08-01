@@ -6,7 +6,7 @@
 /*   By: kfu <kfu@student.codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/07/02 13:58:25 by kfu           #+#    #+#                 */
-/*   Updated: 2021/08/01 12:31:20 by kfu           ########   odam.nl         */
+/*   Updated: 2021/08/01 13:24:09 by kfu           ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,13 +46,13 @@ void	change_states(t_parsing *info)
 	else if (*(info->ptr) == '"')
 	{
 		info->state = IN_DOUBLE;
-		info->start = info->ptr + 1;
+		info->start = info->ptr;
 		info->ptr++;
 	}
 	else if (*(info->ptr) == '\'')
 	{
 		info->state = IN_SINGLE;
-		info->start = info->ptr + 1;
+		info->start = info->ptr;
 		info->ptr++;
 	}
 	else
