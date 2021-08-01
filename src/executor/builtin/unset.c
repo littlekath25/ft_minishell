@@ -6,7 +6,7 @@
 /*   By: pspijkst <pspijkst@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/07/01 18:06:07 by pspijkst      #+#    #+#                 */
-/*   Updated: 2021/07/28 10:53:06 by pspijkst      ########   odam.nl         */
+/*   Updated: 2021/08/01 11:28:24 by pspijkst      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,5 +35,5 @@ void	_unset_(char **argv)
 	free(*g_shell->environ);
 	*g_shell->environ = vector_tostrarray(g_shell->env);
 	if (!*g_shell->environ)
-		exit(0);
+		error_and_exit(err_malloc);
 }

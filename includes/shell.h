@@ -6,7 +6,7 @@
 /*   By: pspijkst <pspijkst@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/05/05 13:17:29 by pspijkst      #+#    #+#                 */
-/*   Updated: 2021/07/31 12:49:25 by katherine     ########   odam.nl         */
+/*   Updated: 2021/08/01 11:38:10 by pspijkst      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,5 +133,6 @@ void		init_executor(void);
 // UTILS
 int			count_size_without_quotes(char *str);
 char		*copy_str_without_quotes(char *tmp, char *str);
+t_bool		is_valid_name(char *var);
 
 #endif

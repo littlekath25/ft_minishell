@@ -6,7 +6,7 @@
 #    By: kfu <kfu@student.codam.nl>                   +#+                      #
 #                                                    +#+                       #
 #    Created: 2020/11/14 23:09:58 by kfu           #+#    #+#                  #
-#    Updated: 2021/07/28 22:16:35 by katherine     ########   odam.nl          #
+#    Updated: 2021/08/01 11:38:43 by pspijkst      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,7 +25,8 @@ S_OBJ		=	$(S_SRC:%.c=$(S_PATH)%.o)
 U_PATH		=	src/utils/
 U_SRC		= 	error.c\
 				free.c\
-				utils.c
+				utils.c\
+				is_valid_name.c
 U_OBJ		=	$(U_SRC:%.c=$(U_PATH)%.o)
 
 VECT_PATH	=	src/utils/vector/

@@ -6,7 +6,7 @@
 /*   By: pspijkst <pspijkst@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/07/01 17:50:10 by pspijkst      #+#    #+#                 */
-/*   Updated: 2021/07/28 10:52:22 by pspijkst      ########   odam.nl         */
+/*   Updated: 2021/08/01 11:45:00 by pspijkst      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,15 +16,20 @@
 
 static void	st_process_arg(char *arg)
 {
+	t_bool	is_append;
 	char	*value;
 	int		keylen;
 	int		i;
 
 	value = ft_strchr(arg, '=');
-	if (value != NULL)
-		keylen = value - arg;
-	else
-		keylen = ft_strlen(arg);
+	if (value == NULL)
+		return ;
+	if (arg - value == 0)
+		
+	arg = ft_strdup(arg);
+	if (!arg)
+		error_and_exit(err_malloc);
+	keylen = value - arg;
 	i = vector_indexof(g_shell->env, arg, keylen);
 	if (i != -1)
 	{
@@ -50,14 +55,11 @@ void	_export_(char **argv)
 	argv++;
 	while (*argv)
 	{
-		arg = ft_strdup(*argv);
-		if (!arg)
-			exit(0);
-		st_process_arg(arg);
+		st_process_arg(*argv);
 		argv++;
 	}
 	free(*g_shell->environ);
 	*g_shell->environ = vector_tostrarray(g_shell->env);
 	if (!*g_shell->environ)
-		exit(0);
+		error_and_exit(err_malloc);
 }
