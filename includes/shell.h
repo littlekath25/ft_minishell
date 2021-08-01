@@ -6,7 +6,7 @@
 /*   By: pspijkst <pspijkst@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/05/05 13:17:29 by pspijkst      #+#    #+#                 */
-/*   Updated: 2021/08/01 11:38:10 by pspijkst      ########   odam.nl         */
+/*   Updated: 2021/08/01 12:04:38 by kfu           ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,7 @@ typedef struct s_command
 	int					in_fd;
 	int					out_fd;
 	int					append;
+	char				*delimiter;
 	t_tokens			*tokens;
 	struct s_command	*next;
 }	t_command;

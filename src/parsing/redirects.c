@@ -6,7 +6,7 @@
 /*   By: katherine <katherine@student.codam.nl>       +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/07/24 11:06:03 by katherine     #+#    #+#                 */
-/*   Updated: 2021/07/28 22:25:47 by katherine     ########   odam.nl         */
+/*   Updated: 2021/08/01 12:04:33 by kfu           ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@ void	set_output(t_command *command, int i)
 	int	fd;
 
 	fd = open(command->tokens->items[i + 1], O_RDWR | O_CREAT, 0666);
-	printf("FD: %i\n", fd);
 	if (fd == -1)
 		printf("%s\n", strerror(errno));
 	else
@@ -43,6 +42,14 @@ void	set_input(t_command *command, int i)
 	}
 }
 
+void	set_delimiter(t_command *command, int i)
+{
+	command->delimiter = ft_strdup(command->tokens->items[i + 1]);
+	printf("DEL: %s\n", command->delimiter);
+	delete_redirect_token(command->tokens->items, i);
+	delete_redirect_token(command->tokens->items, i);
+}
+
 void	clean_up_tokens(t_command *command)
 {
 	int	i;
@@ -53,6 +60,8 @@ void	clean_up_tokens(t_command *command)
 		if (ft_strchr(command->tokens->items[i], '='))
 			command->tokens->items[i] = \
 			delete_all_quotes(command->tokens->items[i]);
+		else if (!(ft_strcmp(command->tokens->items[i], "<<")))
+			set_delimiter(command, i);
 		else if (!(ft_strcmp(command->tokens->items[i], "<")))
 		{
 			set_input(command, i);
