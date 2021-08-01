@@ -6,7 +6,7 @@
 /*   By: pspijkst <pspijkst@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/05/05 16:38:19 by pspijkst      #+#    #+#                 */
-/*   Updated: 2021/08/01 13:17:28 by pspijkst      ########   odam.nl         */
+/*   Updated: 2021/08/01 14:22:22 by pspijkst      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,7 @@ static void	st_execute(char **tokens)
 		else
 			exec_rel(tokens);
 		printf("%s: command not found\n", *tokens);
-		return ;
+		exit(0);
 	}
 	wait(&status);
 }
