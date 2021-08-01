@@ -6,7 +6,7 @@
 /*   By: katherine <katherine@student.codam.nl>       +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/07/24 11:06:03 by katherine     #+#    #+#                 */
-/*   Updated: 2021/08/01 13:42:39 by kfu           ########   odam.nl         */
+/*   Updated: 2021/08/01 22:20:56 by katherine     ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,17 @@ void	set_delimiter(t_command *command, int i)
 	delete_redirect_token(command->tokens->items, i);
 }
 
+void	remove_first_last_quote(t_command *command, int i)
+{
+	char	*new;
+	char	*str;
+
+	str = command->tokens->items[i];
+	new = ft_substr(str, 1, ft_strlen(str) - 2);
+	free(command->tokens->items[i]);
+	command->tokens->items[i] = new;
+}
+
 void	clean_up_tokens(t_command *command)
 {
 	int	i;
@@ -74,6 +85,8 @@ void	clean_up_tokens(t_command *command)
 			set_output(command, i);
 			continue ;
 		}
+		else if (!(ft_strncmp(command->tokens->items[i], "'$", 2)))
+			remove_first_last_quote(command, i);
 		else if (command->tokens->items[i][0] == '$')
 			convert_arg(command, i);
 		i++;
