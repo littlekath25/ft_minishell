@@ -6,7 +6,7 @@
 /*   By: pspijkst <pspijkst@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/05/05 16:38:19 by pspijkst      #+#    #+#                 */
-/*   Updated: 2021/08/01 12:49:54 by pspijkst      ########   odam.nl         */
+/*   Updated: 2021/08/01 13:17:28 by pspijkst      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ char	*ft_pathcombine(char *base, char *file)
 
 	path = malloc(ft_strlen(base) + ft_strlen(file) + 2);
 	if (!path)
-		exit(0);
+		error_and_exit(err_malloc);
 	i = 0;
 	while (base[i])
 	{
@@ -59,7 +59,7 @@ void	exec_rel(char **tokens)
 	while (*paths)
 	{
 		path = ft_pathcombine(*paths, *tokens);
-		execv(path, tokens);
+		execve(path, tokens, *g_shell->environ);
 		paths++;
 	}
 }
