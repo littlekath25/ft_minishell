@@ -6,7 +6,7 @@
 /*   By: pspijkst <pspijkst@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/05/05 13:17:29 by pspijkst      #+#    #+#                 */
-/*   Updated: 2021/08/01 12:04:38 by kfu           ########   odam.nl         */
+/*   Updated: 2021/08/01 12:32:19 by kfu           ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,7 @@ void		init_prompt(void);
 
 // COMMAND FUNCTIONS
 void		read_command(void);
-void		create_commands_list(char *line);
+int			create_commands_list(char *line);
 t_command	*create_new_command(void);
 void		add_new_command(char *line);
 void		add_back_command(t_command **dest, t_command *new);
