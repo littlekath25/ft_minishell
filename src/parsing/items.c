@@ -6,7 +6,7 @@
 /*   By: katherine <katherine@student.codam.nl>       +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/07/27 21:12:20 by katherine     #+#    #+#                 */
-/*   Updated: 2021/08/01 15:17:57 by kfu           ########   odam.nl         */
+/*   Updated: 2021/08/01 21:48:10 by katherine     ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,10 +36,7 @@ char	*delete_all_quotes(char *str)
 int	check_if_makes_new_item(t_parsing *info, t_tokens *tokens)
 {
 	if (info->state != IN_DOUBLE && info->state != IN_SINGLE)
-	{
 		make_new_item(info, tokens);
-		info->state = DULL;
-	}
 	return (0);
 }
 

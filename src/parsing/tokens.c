@@ -6,7 +6,7 @@
 /*   By: kfu <kfu@student.codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/07/02 13:58:25 by kfu           #+#    #+#                 */
-/*   Updated: 2021/08/01 15:25:37 by kfu           ########   odam.nl         */
+/*   Updated: 2021/08/01 21:46:59 by katherine     ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,38 +37,38 @@ void	change_pipe_state(t_parsing *info)
 		error_and_exit(3);
 }
 
+void	change_double_quotes(t_parsing *info)
+{
+	if (info->state != IN_DOUBLE && info->state != IN_SINGLE)
+	{
+		if (info->state != IN_WORD)
+			info->start = info->ptr;
+		info->state = IN_DOUBLE;
+	}
+	else
+		info->state = IN_WORD;
+}
+
+void	change_single_quotes(t_parsing *info)
+{
+	if (info->state != IN_SINGLE && info->state != IN_DOUBLE)
+	{
+		if (info->state != IN_WORD)
+			info->start = info->ptr;
+		info->state = IN_SINGLE;
+	}
+	else
+		info->state = IN_WORD;
+}
+
 void	change_states(t_parsing *info, t_tokens *tokens)
 {
 	if (*(info->ptr) == '|')
 		change_pipe_state(info);
 	else if (*(info->ptr) == '"')
-	{
-		if (info->state != IN_DOUBLE && info->state != IN_SINGLE)
-		{
-			if (info->state != IN_WORD)
-				info->start = info->ptr;
-			info->state = IN_DOUBLE;
-		}
-		else
-		{
-			info->state = DULL;
-			info->ptr++;
-		}
-	}
+		change_double_quotes(info);
 	else if (*(info->ptr) == '\'')
-	{	
-		if (info->state != IN_SINGLE && info->state != IN_DOUBLE)
-		{
-			if (info->state != IN_WORD)
-				info->start = info->ptr;
-			info->state = IN_SINGLE;
-		}
-		else
-		{
-			info->state = DULL;
-			info->ptr++;
-		}
-	}
+		change_single_quotes(info);
 	else if (info->state == DULL)
 	{
 		info->start = info->ptr;
