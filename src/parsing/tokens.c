@@ -6,7 +6,7 @@
 /*   By: kfu <kfu@student.codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/07/02 13:58:25 by kfu           #+#    #+#                 */
-/*   Updated: 2021/08/01 21:53:17 by katherine     ########   odam.nl         */
+/*   Updated: 2021/08/02 17:14:00 by katherine     ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ void	change_single_quotes(t_parsing *info)
 
 void	change_states(t_parsing *info, t_tokens *tokens)
 {
-	if (*(info->ptr) == '|')
+	if (*(info->ptr) == '|' && info->state != IN_DOUBLE && info->state != IN_SINGLE)
 		change_pipe_state(info);
 	else if (*(info->ptr) == '"')
 		change_double_quotes(info);
