@@ -6,7 +6,7 @@
 /*   By: kfu <kfu@student.codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/08/01 13:37:25 by kfu           #+#    #+#                 */
-/*   Updated: 2021/08/01 22:14:31 by katherine     ########   odam.nl         */
+/*   Updated: 2021/08/02 17:08:45 by katherine     ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,8 @@ void	convert_arg(t_command *command, int i)
 	if (index == -1)
 	{
 		free(command->tokens->items[i]);
-		command->tokens->items[i] = NULL;
+		command->tokens->items[i] = ft_strdup(" ");
+		return ;
 	}
 	else
 		value = get_value(vector_getvalue(g_shell->env, index));

@@ -6,7 +6,7 @@
 /*   By: katherine <katherine@student.codam.nl>       +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/07/24 11:06:03 by katherine     #+#    #+#                 */
-/*   Updated: 2021/08/01 22:20:56 by katherine     ########   odam.nl         */
+/*   Updated: 2021/08/02 15:24:24 by katherine     ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,35 +60,42 @@ void	remove_first_last_quote(t_command *command, int i)
 	command->tokens->items[i] = new;
 }
 
+int	choose_redirect(t_command *command, char *line, int i)
+{
+	if (ft_strchr(line, '='))
+		line = delete_all_quotes(line);
+	else if (!(ft_strcmp(line, "<<")))
+		set_delimiter(command, i);
+	else if (!(ft_strcmp(line, "<")))
+	{
+		set_input(command, i);
+		return (1);
+	}
+	else if (!(ft_strcmp(line, ">")) || !(ft_strcmp(line, ">>")))
+	{
+		if (!(ft_strcmp(line, ">>")))
+			command->append = 1;
+		set_output(command, i);
+		return (1);
+	}
+	else if (!(ft_strncmp(line, "'$", 2)))
+		remove_first_last_quote(command, i);
+	else if (line[0] == '$')
+		convert_arg(command, i);
+	return (0);
+}
+
 void	clean_up_tokens(t_command *command)
 {
-	int	i;
+	int		i;
+	char	*line;
 
 	i = 0;
 	while (command->tokens->items[i])
 	{
-		if (ft_strchr(command->tokens->items[i], '='))
-			command->tokens->items[i] = \
-			delete_all_quotes(command->tokens->items[i]);
-		else if (!(ft_strcmp(command->tokens->items[i], "<<")))
-			set_delimiter(command, i);
-		else if (!(ft_strcmp(command->tokens->items[i], "<")))
-		{
-			set_input(command, i);
+		line = command->tokens->items[i];
+		if (choose_redirect(command, line, i) == 1)
 			continue ;
-		}
-		else if (!(ft_strcmp(command->tokens->items[i], ">")) \
-		|| !(ft_strcmp(command->tokens->items[i], ">>")))
-		{
-			if (!(ft_strcmp(command->tokens->items[i], ">>")))
-				command->append = 1;
-			set_output(command, i);
-			continue ;
-		}
-		else if (!(ft_strncmp(command->tokens->items[i], "'$", 2)))
-			remove_first_last_quote(command, i);
-		else if (command->tokens->items[i][0] == '$')
-			convert_arg(command, i);
 		i++;
 	}
 }

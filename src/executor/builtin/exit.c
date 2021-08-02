@@ -6,7 +6,7 @@
 /*   By: pspijkst <pspijkst@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/07/01 17:48:13 by pspijkst      #+#    #+#                 */
-/*   Updated: 2021/08/01 21:51:08 by katherine     ########   odam.nl         */
+/*   Updated: 2021/08/02 17:05:49 by katherine     ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 void	_exit_(char **argv)
 {
 	free_command_and_tokens();
+	free(g_shell);
 	(void)argv;
 	exit(0);
 }
