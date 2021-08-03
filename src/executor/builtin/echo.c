@@ -6,7 +6,7 @@
 /*   By: pspijkst <pspijkst@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/07/01 17:39:36 by pspijkst      #+#    #+#                 */
-/*   Updated: 2021/07/04 18:07:26 by pspijkst      ########   odam.nl         */
+/*   Updated: 2021/08/03 12:48:26 by pspijkst      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,8 @@
 #include "../../../includes/libft.h"
 
 /*
-	Print the argument specified in argv to the stdout, with a trailing newline.
+	Print the argument specified in argv to the stdout.
+	-n flag removes the trailing newline.
 */
 void	_echo_(char **argv)
 {
@@ -22,7 +23,7 @@ void	_echo_(char **argv)
 
 	newline = 1;
 	argv++;
-	if (ft_strcmp(*argv, "-n") == 0)
+	if (*argv && ft_strcmp(*argv, "-n") == 0)
 	{
 		argv++;
 		newline = 0;
