@@ -6,7 +6,7 @@
 /*   By: kfu <kfu@student.codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/05/05 15:51:53 by kfu           #+#    #+#                 */
-/*   Updated: 2021/08/02 17:15:47 by katherine     ########   odam.nl         */
+/*   Updated: 2021/08/03 14:31:29 by pspijkst      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,13 @@
 void	init_prompt(void)
 {
 	char	*line;
+	char	**env;
 
 	while (1)
 	{
+		env = *g_shell->environ;
 		line = readline("minishell> ");
+		*g_shell->environ = env;
 		if (!line)
 			continue ;
 		if (*line)

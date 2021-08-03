@@ -6,7 +6,7 @@
 /*   By: pspijkst <pspijkst@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/07/08 16:50:56 by pspijkst      #+#    #+#                 */
-/*   Updated: 2021/07/25 12:26:22 by pspijkst      ########   odam.nl         */
+/*   Updated: 2021/08/03 12:59:19 by pspijkst      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ char	**vector_tostrarray(t_vector *vect)
 	char	**strs;
 	int		i;
 
-	strs = malloc((vect->nmemb + 1) * sizeof(char *) );
+	strs = malloc((vect->nmemb + 1) * sizeof(char *));
 	if (!strs)
 		return (0);
 	i = 0;

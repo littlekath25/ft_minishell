@@ -6,7 +6,7 @@
 /*   By: pspijkst <pspijkst@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/07/25 11:51:31 by pspijkst      #+#    #+#                 */
-/*   Updated: 2021/08/01 16:15:23 by pspijkst      ########   odam.nl         */
+/*   Updated: 2021/08/03 14:06:04 by pspijkst      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,20 +16,20 @@
 
 #ifdef __APPLE__
 
-void	get_environ_ptr(void)
+static char	***get_environ_ptr(void)
 {
 	extern char	**environ;
 
-	g_shell->environ = &environ;
+	return (&environ);
 }
 
 #else
 
-void	get_environ_ptr(void)
+static char	***get_environ_ptr(void)
 {
 	extern char	**__environ;
 
-	g_shell->environ = &__environ;
+	return (&__environ);
 }
 
 #endif
@@ -40,22 +40,22 @@ void	init_shell(char **env)
 
 	g_shell = ft_calloc(1, sizeof(t_shell));
 	if (!g_shell)
-		error_and_exit(err_malloc);
+		shell_exit(err_malloc);
 	g_shell->env = vector_newptr();
 	if (!g_shell->env)
-		error_and_exit(err_malloc);
+		shell_exit(err_malloc);
 	while (*env)
 	{
 		dup = ft_strdup(*env);
 		if (!dup)
-			error_and_exit(err_malloc);
+			shell_exit(err_malloc);
 		if (vector_add(g_shell->env, dup) == false)
-			error_and_exit(err_malloc);
+			shell_exit(err_malloc);
 		env++;
 	}
-	get_environ_ptr();
+	g_shell->environ = get_environ_ptr();
 	*g_shell->environ = vector_tostrarray(g_shell->env);
 	if (!*g_shell->environ)
-		error_and_exit(err_malloc);
-	activate_signals();
+		shell_exit(err_malloc);
+	// activate_signals();
 }

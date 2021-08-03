@@ -6,7 +6,7 @@
 /*   By: kfu <kfu@student.codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/07/02 12:16:16 by kfu           #+#    #+#                 */
-/*   Updated: 2021/08/01 22:07:45 by katherine     ########   odam.nl         */
+/*   Updated: 2021/08/02 22:28:28 by pspijkst      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ t_parsing	*create_new_info(char *line)
 
 	new = (t_parsing *)ft_calloc(sizeof(t_parsing), 1);
 	if (!new)
-		error_and_exit(err_malloc);
+		shell_exit(err_malloc);
 	new->ptr = line;
 	new->start = NULL;
 	new->argc = 0;
@@ -56,7 +56,7 @@ t_command	*create_new_command(void)
 
 	new = (t_command *)ft_calloc(1, sizeof(t_command));
 	if (new == NULL)
-		error_and_exit(err_malloc);
+		shell_exit(err_malloc);
 	init_command(new);
 	return (new);
 }

@@ -6,7 +6,7 @@
 /*   By: kfu <kfu@student.codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/07/02 13:58:25 by kfu           #+#    #+#                 */
-/*   Updated: 2021/08/02 17:14:00 by katherine     ########   odam.nl         */
+/*   Updated: 2021/08/02 22:28:28 by pspijkst      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ void	change_pipe_state(t_parsing *info)
 	else if (*(info->ptr) != '\0')
 		info->state = IN_PIPE;
 	else
-		error_and_exit(3);
+		shell_exit(3);
 }
 
 void	change_double_quotes(t_parsing *info)
@@ -101,11 +101,11 @@ t_tokens	*create_new_token(void)
 
 	new = (t_tokens *)ft_calloc(1, sizeof(t_tokens));
 	if (!new)
-		error_and_exit(1);
+		shell_exit(1);
 	new->size = 0;
 	new->allocated = 15;
 	new->items = (char **)ft_calloc(new->allocated, sizeof(char *));
 	if (!new->items)
-		error_and_exit(1);
+		shell_exit(1);
 	return (new);
 }

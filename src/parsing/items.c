@@ -6,7 +6,7 @@
 /*   By: katherine <katherine@student.codam.nl>       +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/07/27 21:12:20 by katherine     #+#    #+#                 */
-/*   Updated: 2021/08/01 21:48:10 by katherine     ########   odam.nl         */
+/*   Updated: 2021/08/02 22:28:28 by pspijkst      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ char	*delete_all_quotes(char *str)
 	size = count_size_without_quotes(str);
 	tmp = (char *)ft_calloc(size + 1, sizeof(char));
 	if (!tmp)
-		error_and_exit(1);
+		shell_exit(1);
 	tmp = copy_str_without_quotes(tmp, str);
 	return (tmp);
 }

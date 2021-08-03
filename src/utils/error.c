@@ -6,7 +6,7 @@
 /*   By: kfu <kfu@student.codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/06/29 16:42:28 by kfu           #+#    #+#                 */
-/*   Updated: 2021/07/31 12:45:58 by katherine     ########   odam.nl         */
+/*   Updated: 2021/08/03 14:08:49 by pspijkst      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,13 +48,15 @@ void	print_tokens(void)
 	}
 }
 
-void	error_and_exit(int error)
+void	shell_exit(int error)
 {
 	if (error == err_args)
 		printf("Please execute without arguments\n");
 	if (error == err_malloc)
-		printf("Malloc fail\n");
+		printf("Malloc failed\n");
 	if (error == err_pipe)
-		printf("Nothing after the pipe\n");
+		printf("Pipe failed\n");
+	if (error == err_fork)
+		printf("Fork failed\n");
 	exit(0);
 }

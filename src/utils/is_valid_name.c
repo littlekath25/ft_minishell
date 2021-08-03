@@ -6,7 +6,7 @@
 /*   By: pspijkst <pspijkst@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/08/01 11:37:38 by pspijkst      #+#    #+#                 */
-/*   Updated: 2021/08/01 12:51:10 by pspijkst      ########   odam.nl         */
+/*   Updated: 2021/08/03 16:35:57 by pspijkst      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,8 @@ t_bool	is_valid_name_l(char *var, unsigned int l)
 		{
 			if (ft_isdigit(*var) || ft_isalpha(*var) || *var == '_')
 				var++;
+			else if (*var == '+' && *(var + 1) == '=')
+				return (true);
 			else
 				return (false);
 			i++;

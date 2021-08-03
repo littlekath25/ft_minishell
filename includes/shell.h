@@ -6,7 +6,7 @@
 /*   By: pspijkst <pspijkst@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/05/05 13:17:29 by pspijkst      #+#    #+#                 */
-/*   Updated: 2021/08/01 16:18:40 by pspijkst      ########   odam.nl         */
+/*   Updated: 2021/08/03 17:21:19 by pspijkst      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,8 @@ typedef enum e_error
 {
 	err_args = 1,
 	err_malloc,
-	err_pipe
+	err_pipe,
+	err_fork
 }	t_error;
 
 typedef enum e_bool
@@ -86,12 +87,18 @@ typedef struct s_shell
 	t_command	*cmd;
 	t_vector	*env;
 	char		***environ;
-	t_bool		reprompt;
 }	t_shell;
 
 t_shell		*g_shell;
 
-void		error_and_exit(int error);
+typedef struct s_envvar
+{
+	char	*key;
+	char	*value;
+	t_bool	is_append;
+}	t_envvar;
+
+void		shell_exit(int error);
 void		print_tokens(void);
 
 void		init_shell(char **env);
