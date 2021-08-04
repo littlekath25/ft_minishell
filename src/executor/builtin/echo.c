@@ -6,12 +6,12 @@
 /*   By: pspijkst <pspijkst@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/07/01 17:39:36 by pspijkst      #+#    #+#                 */
-/*   Updated: 2021/08/03 12:48:26 by pspijkst      ########   odam.nl         */
+/*   Updated: 2021/08/04 16:00:21 by pspijkst      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdio.h>
-#include "../../../includes/libft.h"
+#include "libft.h"
 
 /*
 	Print the argument specified in argv to the stdout.
@@ -20,13 +20,19 @@
 void	_echo_(char **argv)
 {
 	char	newline;
+	int		i;
 
 	newline = 1;
 	argv++;
-	if (*argv && ft_strcmp(*argv, "-n") == 0)
+	while (*argv && (*argv)[0] == '-' && (*argv)[1] == 'n')
 	{
-		argv++;
+		i = 2;
+		while ((*argv)[i] == 'n')
+			i++;
+		if ((*argv)[i] != '\0')
+			break ;
 		newline = 0;
+		argv++;
 	}
 	while (*argv)
 	{
