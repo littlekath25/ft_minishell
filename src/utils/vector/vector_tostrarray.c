@@ -6,7 +6,7 @@
 /*   By: pspijkst <pspijkst@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/07/08 16:50:56 by pspijkst      #+#    #+#                 */
-/*   Updated: 2021/08/03 12:59:19 by pspijkst      ########   odam.nl         */
+/*   Updated: 2021/08/04 15:23:40 by pspijkst      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,8 @@
 #include <stdlib.h>
 
 /*
-	Copies the pointers from t_vector to a new null-terminated array.
-	Struct t_vector can be freed and data will not be lost.
-	Returns NULL on error.
+	Allocates and copies the values from t_vector to a null-terminated array.
+	A pointer to the array is returned. On Error, NULL will be returned.
 */
 char	**vector_tostrarray(t_vector *vect)
 {
