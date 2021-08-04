@@ -18,8 +18,7 @@ S_OBJ		=	$(S_SRC:%.c=$(S_PATH)%.o)
 U_PATH		=	src/utils/
 U_SRC		= 	error.c\
 				free.c\
-				utils.c\
-				is_valid_key.c
+				utils.c
 U_OBJ		=	$(U_SRC:%.c=$(U_PATH)%.o)
 
 VECT_PATH	=	src/utils/vector/
@@ -55,7 +54,8 @@ BLTIN_SRC	=	cd.c\
 				export.c\
 				pwd.c\
 				unset.c\
-				get_builtin.c
+				get_builtin.c\
+				envvar_utils.c
 BLTIN_OBJ	=	$(BLTIN_SRC:%.c=$(BLTIN_PATH)%.o)
 
 OBJ_FILES = $(L_OBJ) $(P_OBJ) $(S_OBJ) $(U_OBJ) $(BLTIN_OBJ) $(VECT_OBJ) $(EXEC_OBJ)

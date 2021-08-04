@@ -6,7 +6,7 @@
 /*   By: pspijkst <pspijkst@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/07/01 18:06:07 by pspijkst      #+#    #+#                 */
-/*   Updated: 2021/08/04 13:43:56 by pspijkst      ########   odam.nl         */
+/*   Updated: 2021/08/04 16:36:32 by pspijkst      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	_unset_(char **argv)
 	{
 		if (is_valid_key(*argv))
 		{
-			i = vector_indexof(g_shell->env_list, *argv);
+			i = env_list_indexof(g_shell->env_list, *argv);
 			if (i != -1)
 			{
 				free(vector_getvalue(g_shell->env_list, i));

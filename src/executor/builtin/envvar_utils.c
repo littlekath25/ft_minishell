@@ -6,7 +6,7 @@
 /*   By: pspijkst <pspijkst@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/08/01 11:37:38 by pspijkst      #+#    #+#                 */
-/*   Updated: 2021/08/04 13:43:05 by pspijkst      ########   odam.nl         */
+/*   Updated: 2021/08/04 16:34:28 by pspijkst      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,4 +56,28 @@ t_bool	is_valid_key_l(char *var, unsigned int l)
 	else
 		return (false);
 	return (true);
+}
+
+/*
+	Seeks in t_vector->memb for specified key.
+	Returns the index of the first element that matches the comparison,
+	or -1 if no match has been found.
+*/
+int	env_list_indexof(t_vector *vect, char *key)
+{
+	int		i;
+	int		keylen;
+	char	*test;
+
+	i = 0;
+	keylen = ft_strlen(key);
+	while (i < vect->nmemb)
+	{
+		test = vector_getvalue(vect, i);
+		if (ft_strncmp(test, key, keylen) == 0)
+			if ((test[keylen] == '=' || test[keylen] == '\0'))
+				return (i);
+		i++;
+	}
+	return (-1);
 }

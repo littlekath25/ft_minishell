@@ -6,7 +6,7 @@
 /*   By: pspijkst <pspijkst@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/07/01 17:50:10 by pspijkst      #+#    #+#                 */
-/*   Updated: 2021/08/04 15:16:25 by pspijkst      ########   odam.nl         */
+/*   Updated: 2021/08/04 16:34:17 by pspijkst      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,7 @@ static char	*st_get_new_arg(t_envvar var)
 	int		i;
 
 	new_arg = NULL;
-	i = vector_indexof(g_shell->env_list, var.key);
+	i = env_list_indexof(g_shell->env_list, var.key);
 	if (i != -1)
 	{
 		if (!var.value)
