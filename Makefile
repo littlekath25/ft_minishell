@@ -19,7 +19,7 @@ U_PATH		=	src/utils/
 U_SRC		= 	error.c\
 				free.c\
 				utils.c\
-				is_valid_name.c
+				is_valid_key.c
 U_OBJ		=	$(U_SRC:%.c=$(U_PATH)%.o)
 
 VECT_PATH	=	src/utils/vector/

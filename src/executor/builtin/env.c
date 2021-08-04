@@ -6,7 +6,7 @@
 /*   By: pspijkst <pspijkst@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/06/29 17:04:56 by pspijkst      #+#    #+#                 */
-/*   Updated: 2021/07/28 10:51:48 by pspijkst      ########   odam.nl         */
+/*   Updated: 2021/08/04 14:28:14 by pspijkst      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,8 @@
 #include "../../../includes/shell.h"
 
 /*
-	Prints environment variables list.
+	Prints all environment variables in environment variables list.
+	This means key-value paired variabled.
 */
 void	_env_(char **argv)
 {
@@ -27,7 +28,8 @@ void	_env_(char **argv)
 		return ;
 	while (*env)
 	{
-		printf("%s\n", *env);
+		if (ft_strchr(*env, '='))
+			printf("%s\n", *env);
 		env++;
 	}
 }

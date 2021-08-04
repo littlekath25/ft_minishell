@@ -1,19 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   is_valid_name.c                                    :+:    :+:            */
+/*   is_valid_key.c                                     :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: pspijkst <pspijkst@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/08/01 11:37:38 by pspijkst      #+#    #+#                 */
-/*   Updated: 2021/08/03 16:35:57 by pspijkst      ########   odam.nl         */
+/*   Updated: 2021/08/04 13:43:05 by pspijkst      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shell.h"
 
-t_bool	is_valid_name(char *var)
+t_bool	is_valid_key(char *var)
 {
+	if (!var)
+		return (false);
 	if (*var == '_' || ft_isalpha(*var))
 	{
 		var++;
@@ -30,11 +32,13 @@ t_bool	is_valid_name(char *var)
 	return (true);
 }
 
-t_bool	is_valid_name_l(char *var, unsigned int l)
+t_bool	is_valid_key_l(char *var, unsigned int l)
 {
 	unsigned int	i;
 
 	i = 1;
+	if (!var)
+		return (false);
 	if (*var == '_' || ft_isalpha(*var))
 	{
 		var++;

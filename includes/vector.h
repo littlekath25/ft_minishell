@@ -6,7 +6,7 @@
 /*   By: pspijkst <pspijkst@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/07/19 09:19:39 by pspijkst      #+#    #+#                 */
-/*   Updated: 2021/07/19 11:02:12 by pspijkst      ########   odam.nl         */
+/*   Updated: 2021/08/04 11:36:19 by pspijkst      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,6 @@ char		vector_add(t_vector *vector, void *data);
 void		vector_free(t_vector *vector);
 t_vector	*vector_realloc(t_vector *vector);
 void		vector_clear(t_vector *vect);
-int			vector_indexof(t_vector *vect, void *data, unsigned int len);
+int			vector_indexof(t_vector *vect, char *data);
 
 #endif

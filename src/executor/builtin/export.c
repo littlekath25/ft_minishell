@@ -6,7 +6,7 @@
 /*   By: pspijkst <pspijkst@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/07/01 17:50:10 by pspijkst      #+#    #+#                 */
-/*   Updated: 2021/08/03 18:18:56 by pspijkst      ########   odam.nl         */
+/*   Updated: 2021/08/04 15:16:25 by pspijkst      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,70 +14,163 @@
 #include "builtin.h"
 #include "shell.h"
 
-static char	*st_create_arg(char *key, char *value)
+static char	*st_create_new_arg(t_envvar var)
 {
+	int		keylen;
+	int		valuelen;
 	char	*new_arg;
-	int		i;
-	int		j;
 
-	i = 0;
-	while (key[i] != '=' && key[i] != '+')
-		i++;
-	j = 0;
-	while (value[j])
-		j++;
-	new_arg = malloc(i + j + 2);
+	valuelen = 0;
+	keylen = ft_strlen(var.key);
+	if (var.value)
+		valuelen = ft_strlen(var.value) + 1;
+	new_arg = malloc(keylen + valuelen + 1);
 	if (!new_arg)
 		shell_exit(err_malloc);
-	ft_memcpy(new_arg, key, i);
-	new_arg[i] = '=';
-	ft_memcpy(new_arg + i + 1, value, j);
-	new_arg[i + j] = '\0';
+	ft_memcpy(new_arg, var.key, keylen);
+	if (var.value)
+	{
+		new_arg[keylen] = '=';
+		ft_memcpy(new_arg + keylen + 1, var.value, valuelen);
+		new_arg[keylen + valuelen] = '\0';
+	}
+	else
+		new_arg[keylen] = '\0';
 	return (new_arg);
 }
 
-static char	*st_get_old_arg(char *key, int keylen)
+/*
+	Checks str for the first occurence of c.
+	If no occurence is found, end of the string is returned.
+*/
+char	*ft_str_contains(char *str, char c)
 {
-	int		i;
-	char	*old_arg;
+	while (*str)
+	{
+		if (*str == c)
+			return (str);
+		str++;
+	}
+	return (str);
+}
 
-	i = vector_indexof(g_shell->env, key, keylen);
+static char	*st_concat_args(char *old_arg, char *value)
+{
+	char	*new_arg;
+	int		needs_delimiter;
+	int		old_arg_len;
+	int		value_len;
+
+	if (ft_strchr(old_arg, '='))
+		needs_delimiter = false;
+	else
+		needs_delimiter = true;
+	old_arg_len = ft_strlen(old_arg);
+	value_len = ft_strlen(value);
+	new_arg = malloc(old_arg_len + value_len + 1 + needs_delimiter);
+	if (!new_arg)
+		shell_exit(err_malloc);
+	ft_memcpy(new_arg, old_arg, old_arg_len);
+	if (needs_delimiter)
+		new_arg[old_arg_len] = '=';
+	ft_memcpy(new_arg + old_arg_len + needs_delimiter, value, value_len);
+	new_arg[old_arg_len + value_len + needs_delimiter] = '\0';
+	return (new_arg);
+}
+
+static char	*st_get_new_arg(t_envvar var)
+{
+	char	*old_arg;
+	char	*new_arg;
+	int		i;
+
+	new_arg = NULL;
+	i = vector_indexof(g_shell->env_list, var.key);
 	if (i != -1)
 	{
-		old_arg = vector_getvalue(g_shell->env, i);
-		vector_removeat(g_shell->env, i);
-		return (old_arg);
+		if (!var.value)
+			return (NULL);
+		old_arg = vector_getvalue(g_shell->env_list, i);
+		vector_removeat(g_shell->env_list, i);
+		if (var.is_append)
+			new_arg = st_concat_args(old_arg, var.value);
+		free(old_arg);
 	}
-	return (NULL);
+	if (new_arg == NULL)
+		return (st_create_new_arg(var));
+	return (new_arg);
+}
+
+static char	*st_split_key(char *arg, t_bool *is_append)
+{
+	char	*key;
+	char	*key_end;
+	int		len;
+
+	key_end = ft_str_contains(arg, '=');
+	len = key_end - arg;
+	if (len == 0)
+		return (NULL);
+	if (*key_end == '=' && *(key_end - 1) == '+')
+	{
+		*is_append = true;
+		len--;
+	}
+	else
+		*is_append = false;
+	key = malloc(len + 1);
+	if (!key)
+		shell_exit(err_malloc);
+	ft_memcpy(key, arg, len);
+	key[len] = '\0';
+	return (key);
+}
+
+static char	*st_split_value(char *arg)
+{
+	arg = ft_strchr(arg, '=');
+	if (arg == NULL)
+		return (NULL);
+	else
+		return (arg + 1);
 }
 
 static t_bool	st_process_arg(char *arg)
 {
-	char	*value;
-	char	*old_arg;
-	t_bool	is_append;
+	t_envvar	var;
+	char		*new_arg;
 
-	value = ft_strchr(arg, '=');
-	if (value == NULL) // no value assignment
-		return (true);
-	if (arg - value == 0) // no key name
-		return (false);
-	is_append = false;
-	if ((*value - 1) == '+')
-		is_append = true;
-	old_arg = st_get_old_arg(arg, value - arg - is_append);
-	if (is_append)
+	var.key = st_split_key(arg, &var.is_append);
+	if (is_valid_key(var.key) == false)
 	{
-		arg = ft_strjoin(old_arg, value + 1);
-		if (!arg)
-			shell_exit(err_malloc);
+		if (var.key)
+			free(var.key);
+		return (false);
 	}
-	else
-		arg = st_create_arg(arg, value);
-	if (old_arg != NULL)
-		free(old_arg);
-	vector_add(g_shell->env, arg);
+	var.value = st_split_value(arg);
+	new_arg = st_get_new_arg(var);
+	if (new_arg != NULL)
+		vector_add(g_shell->env_list, new_arg);
+	free(var.key);
 	return (true);
+}
+
+/*
+	Prints all export variables from environment variables list.
+	This includes key-only variables.
+*/
+void	st_print_export(void)
+{
+	char	**env;
+
+	env = *g_shell->environ;
+	if (!env)
+		return ;
+	while (*env)
+	{
+		printf("declare -x %s\n", *env);
+		env++;
+	}
 }
 
 /*
@@ -88,7 +181,7 @@ void	_export_(char **argv)
 {
 	if (argv[1] == 0)
 	{
-		_env_(argv);
+		st_print_export();
 		return ;
 	}
 	argv++;
@@ -99,8 +192,7 @@ void	_export_(char **argv)
 		argv++;
 	}
 	free(*g_shell->environ);
-	*g_shell->environ = vector_tostrarray(g_shell->env);
+	*g_shell->environ = vector_tostrarray(g_shell->env_list);
 	if (!*g_shell->environ)
 		shell_exit(err_malloc);
-	_env_(NULL);
 }
