@@ -6,7 +6,7 @@
 /*   By: pspijkst <pspijkst@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/07/25 11:51:31 by pspijkst      #+#    #+#                 */
-/*   Updated: 2021/08/03 14:06:04 by pspijkst      ########   odam.nl         */
+/*   Updated: 2021/08/04 15:26:23 by pspijkst      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,20 +41,20 @@ void	init_shell(char **env)
 	g_shell = ft_calloc(1, sizeof(t_shell));
 	if (!g_shell)
 		shell_exit(err_malloc);
-	g_shell->env = vector_newptr();
-	if (!g_shell->env)
+	g_shell->env_list = vector_newptr();
+	if (!g_shell->env_list)
 		shell_exit(err_malloc);
 	while (*env)
 	{
 		dup = ft_strdup(*env);
 		if (!dup)
 			shell_exit(err_malloc);
-		if (vector_add(g_shell->env, dup) == false)
+		if (vector_add(g_shell->env_list, dup) == false)
 			shell_exit(err_malloc);
 		env++;
 	}
 	g_shell->environ = get_environ_ptr();
-	*g_shell->environ = vector_tostrarray(g_shell->env);
+	*g_shell->environ = vector_tostrarray(g_shell->env_list);
 	if (!*g_shell->environ)
 		shell_exit(err_malloc);
 	// activate_signals();

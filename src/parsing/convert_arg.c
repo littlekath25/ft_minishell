@@ -6,7 +6,7 @@
 /*   By: kfu <kfu@student.codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/08/01 13:37:25 by kfu           #+#    #+#                 */
-/*   Updated: 2021/08/02 17:08:45 by katherine     ########   odam.nl         */
+/*   Updated: 2021/08/04 15:25:53 by pspijkst      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void	convert_arg(t_command *command, int i)
 	int		index;
 
 	arg = command->tokens->items[i];
-	index = vector_indexof(g_shell->env, arg + 1,ft_strlen(arg) - 1);
+	index = vector_indexof(g_shell->env_list, arg + 1);
 	if (index == -1)
 	{
 		free(command->tokens->items[i]);
@@ -39,7 +39,7 @@ void	convert_arg(t_command *command, int i)
 		return ;
 	}
 	else
-		value = get_value(vector_getvalue(g_shell->env, index));
+		value = get_value(vector_getvalue(g_shell->env_list, index));
 	free(command->tokens->items[i]);
 	command->tokens->items[i] = value;
 }
