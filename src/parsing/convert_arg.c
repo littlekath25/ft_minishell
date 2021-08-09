@@ -6,7 +6,7 @@
 /*   By: kfu <kfu@student.codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/08/01 13:37:25 by kfu           #+#    #+#                 */
-/*   Updated: 2021/08/04 15:25:53 by pspijkst      ########   odam.nl         */
+/*   Updated: 2021/08/09 13:39:18 by katherine     ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,11 @@ char	*get_value(char *line)
 	char	*tmp;
 
 	i = 0;
+	line = delete_all_quotes(line);
 	while (line[i] != '=')
 		i++;
 	tmp = ft_substr(line, i + 1, ft_strlen(line) - i);
+	free(line);
 	return (tmp);
 }
 

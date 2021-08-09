@@ -6,7 +6,7 @@
 /*   By: kfu <kfu@student.codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/07/02 13:58:25 by kfu           #+#    #+#                 */
-/*   Updated: 2021/08/02 22:28:28 by pspijkst      ########   odam.nl         */
+/*   Updated: 2021/08/09 11:21:19 by katherine     ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,61 +21,6 @@ void	delete_redirect_token(char **pointers, int i)
 		i++;
 	}
 	pointers[i] = NULL;
-}
-
-void	change_pipe_state(t_parsing *info)
-{
-	info->ptr++;
-	if (g_shell->cmd->tokens->items[0] == NULL)
-	{
-		printf("syntax error near unexpected token `|'\n");
-		info->state = ERROR;
-	}
-	else if (*(info->ptr) != '\0')
-		info->state = IN_PIPE;
-	else
-		shell_exit(3);
-}
-
-void	change_double_quotes(t_parsing *info)
-{
-	if (info->state != IN_DOUBLE && info->state != IN_SINGLE)
-	{
-		if (info->state != IN_WORD)
-			info->start = info->ptr;
-		info->state = IN_DOUBLE;
-	}
-	else
-		info->state = IN_WORD;
-}
-
-void	change_single_quotes(t_parsing *info)
-{
-	if (info->state != IN_SINGLE && info->state != IN_DOUBLE)
-	{
-		if (info->state != IN_WORD)
-			info->start = info->ptr;
-		info->state = IN_SINGLE;
-	}
-	else
-		info->state = IN_WORD;
-}
-
-void	change_states(t_parsing *info, t_tokens *tokens)
-{
-	if (*(info->ptr) == '|' && info->state != IN_DOUBLE && info->state != IN_SINGLE)
-		change_pipe_state(info);
-	else if (*(info->ptr) == '"')
-		change_double_quotes(info);
-	else if (*(info->ptr) == '\'')
-		change_single_quotes(info);
-	else if (info->state == DULL)
-	{
-		info->start = info->ptr;
-		info->state = IN_WORD;
-	}
-	else if (*(info->ptr) == ' ')
-		check_if_makes_new_item(info, tokens);
 }
 
 void	fill_in_tokens(t_parsing *info, t_tokens *tokens)

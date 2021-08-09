@@ -1,48 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   utils.c                                            :+:    :+:            */
+/*   info.c                                             :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: katherine <katherine@student.codam.nl>       +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2021/07/28 22:16:18 by katherine     #+#    #+#                 */
-/*   Updated: 2021/08/09 13:34:29 by katherine     ########   odam.nl         */
+/*   Created: 2021/08/09 11:22:27 by katherine     #+#    #+#                 */
+/*   Updated: 2021/08/09 11:22:39 by katherine     ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shell.h"
 
-int	count_size_without_quotes(char *str)
+t_parsing	*create_new_info(char *line)
 {
-	int	i;
-	int	size;
+	t_parsing	*new;
 
-	i = 0;
-	size = 0;
-	while (str[i])
-	{
-		if (str[i] != '"')
-			size++;
-		i++;
-	}
-	return (size);
-}
-
-char	*copy_str_without_quotes(char *tmp, char *str)
-{
-	int	i;
-	int	j;
-
-	i = 0;
-	j = 0;
-	while (str[i])
-	{
-		if (str[i] != '"')
-		{
-			tmp[j] = str[i];
-			j++;
-		}
-		i++;
-	}
-	return (tmp);
+	new = (t_parsing *)ft_calloc(sizeof(t_parsing), 1);
+	if (!new)
+		shell_exit(err_malloc);
+	new->ptr = line;
+	new->start = NULL;
+	new->argc = 0;
+	new->state = DULL;
+	return (new);
 }

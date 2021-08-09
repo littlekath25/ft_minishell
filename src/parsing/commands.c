@@ -6,25 +6,11 @@
 /*   By: kfu <kfu@student.codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/07/02 12:16:16 by kfu           #+#    #+#                 */
-/*   Updated: 2021/08/02 22:28:28 by pspijkst      ########   odam.nl         */
+/*   Updated: 2021/08/09 11:22:41 by katherine     ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shell.h"
-
-t_parsing	*create_new_info(char *line)
-{
-	t_parsing	*new;
-
-	new = (t_parsing *)ft_calloc(sizeof(t_parsing), 1);
-	if (!new)
-		shell_exit(err_malloc);
-	new->ptr = line;
-	new->start = NULL;
-	new->argc = 0;
-	new->state = DULL;
-	return (new);
-}
 
 void	init_command(t_command *new)
 {

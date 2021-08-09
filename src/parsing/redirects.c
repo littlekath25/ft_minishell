@@ -6,7 +6,7 @@
 /*   By: katherine <katherine@student.codam.nl>       +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/07/24 11:06:03 by katherine     #+#    #+#                 */
-/*   Updated: 2021/08/06 12:18:40 by kfu           ########   odam.nl         */
+/*   Updated: 2021/08/09 13:37:22 by katherine     ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,82 +49,9 @@ void	set_delimiter(t_command *command, int i)
 	delete_redirect_token(command->tokens->items, i);
 }
 
-char	*strip_string(char *new, char *old, char quote)
-{
-	int	i;
-	int	j;
-
-	i = 1;
-	j = 0;
-	while (old[i])
-	{
-		if (old[i] != quote || (old[i] == quote && (old[i - 1] == ' ' || old[i + 1] == ' ')))
-		{
-			new[j] = old[i];
-			j++;
-			i++;
-			continue ;
-		}
-		i++;
-	}
-	return (new);
-}
-
-int	count_string_length(char *str, char quote)
-{
-	int	i;
-	int	len;
-
-	i = 1;
-	len = 0;
-	while (str[i])
-	{
-		if (str[i] != quote)
-			len++;
-		else if (str[i] == quote && (str[i - 1] == ' ' || str[i + 1] == ' '))
-			len++;
-		i++;
-	}
-	return (len);
-}
-
-char	*make_new_string_without_quotes(char *str)
-{
-	int		i;
-	int		len;
-	char	quote;
-	char	*new;
-
-	i = 0;
-	if (str[0] == '"')
-		quote = '"';
-	else
-		quote = '\'';
-	len = count_string_length(str, quote);
-	new = (char *)ft_calloc(sizeof(char), len + 1);
-	strip_string(new, str, quote);
-	return (new);
-}
-
-void	remove_unnecessary_quotes(t_command *command, int i)
-{
-	char	*new;
-	char	*str;
-
-	str = command->tokens->items[i];
-	if (!(ft_strncmp(str, "'$", 2)))
-		new = ft_substr(str, 1, ft_strlen(str) - 2);
-	else
-		new = make_new_string_without_quotes(str);
-	free(command->tokens->items[i]);
-	command->tokens->items[i] = new;
-}
-
 int	choose_redirect(t_command *command, char *line, int i)
 {
-	if (ft_strchr(line, '='))
-		line = delete_all_quotes(line);
-	else if (!(ft_strcmp(line, "<<")))
+	if (!(ft_strcmp(line, "<<")))
 		set_delimiter(command, i);
 	else if (!(ft_strcmp(line, "<")))
 	{
@@ -143,21 +70,6 @@ int	choose_redirect(t_command *command, char *line, int i)
 	else if (line[0] == '$')
 		convert_arg(command, i);
 	return (0);
-}
-
-void	clean_up_tokens(t_command *command)
-{
-	int		i;
-	char	*line;
-
-	i = 0;
-	while (command->tokens->items[i])
-	{
-		line = command->tokens->items[i];
-		if (choose_redirect(command, line, i) == 1)
-			continue ;
-		i++;
-	}
 }
 
 void	set_redirects(void)
