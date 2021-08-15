@@ -6,7 +6,7 @@
 /*   By: kfu <kfu@student.codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/07/02 13:58:25 by kfu           #+#    #+#                 */
-/*   Updated: 2021/08/15 16:30:43 by katherine     ########   odam.nl         */
+/*   Updated: 2021/08/15 17:19:27 by katherine     ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ void	fill_in_tokens(t_parsing *info, t_tokens *tokens)
 			return ;
 		info->ptr++;
 	}
-	if (*(info->ptr) == '\0')
+	if (*(info->ptr) == '\0' && *(info->ptr - 1) != ' ')
 		make_new_item(info, tokens);
 	info->state = DONE;
 }

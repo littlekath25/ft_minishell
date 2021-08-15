@@ -6,7 +6,7 @@
 /*   By: kfu <kfu@student.codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/06/29 16:42:28 by kfu           #+#    #+#                 */
-/*   Updated: 2021/08/15 14:39:52 by katherine     ########   odam.nl         */
+/*   Updated: 2021/08/15 17:20:15 by katherine     ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	print_tokens(void)
 		i = 0;
 		while (command_ptr->tokens->items[i])
 		{
-			printf("LINE %i: %s\n", j, command_ptr->tokens->items[i]);
+			printf("LINE %i: %s.\n", j, command_ptr->tokens->items[i]);
 			i++;
 		}
 		j++;
