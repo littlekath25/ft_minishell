@@ -6,7 +6,7 @@
 /*   By: katherine <katherine@student.codam.nl>       +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/08/09 11:21:01 by katherine     #+#    #+#                 */
-/*   Updated: 2021/08/15 17:24:10 by katherine     ########   odam.nl         */
+/*   Updated: 2021/08/15 17:36:56 by katherine     ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,7 @@ void	change_single_quotes(t_parsing *info)
 
 void	change_states(t_parsing *info, t_tokens *tokens)
 {
+	printf("info: %i\n", info->state);
 	if (*(info->ptr) == '|' \
 	&& info->state != IN_DOUBLE && info->state != IN_SINGLE)
 		change_pipe_state(info);
@@ -59,11 +60,11 @@ void	change_states(t_parsing *info, t_tokens *tokens)
 		change_double_quotes(info);
 	else if (*(info->ptr) == '\'')
 		change_single_quotes(info);
-	else if (info->state == DULL)
+	else if (info->state == DULL && *(info->ptr) != ' ')
 	{
 		info->start = info->ptr;
 		info->state = IN_WORD;
 	}
-	else if (*(info->ptr) == ' ')
+	else if (*(info->ptr) == ' ' && info->state != DULL)
 		check_if_makes_new_item(info, tokens);
 }
