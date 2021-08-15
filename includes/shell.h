@@ -6,7 +6,7 @@
 /*   By: pspijkst <pspijkst@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/05/05 13:17:29 by pspijkst      #+#    #+#                 */
-/*   Updated: 2021/08/09 13:34:42 by katherine     ########   odam.nl         */
+/*   Updated: 2021/08/15 14:39:31 by katherine     ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,8 @@ typedef enum e_error
 	err_args = 1,
 	err_malloc,
 	err_pipe,
-	err_fork
+	err_fork,
+	err_exit
 }	t_error;
 
 typedef enum e_bool

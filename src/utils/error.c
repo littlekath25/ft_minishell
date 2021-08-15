@@ -6,7 +6,7 @@
 /*   By: kfu <kfu@student.codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/06/29 16:42:28 by kfu           #+#    #+#                 */
-/*   Updated: 2021/08/09 13:22:16 by katherine     ########   odam.nl         */
+/*   Updated: 2021/08/15 14:39:52 by katherine     ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,5 +58,7 @@ void	shell_exit(int error)
 		printf("Pipe failed\n");
 	if (error == err_fork)
 		printf("Fork failed\n");
+	if (error == err_exit)
+		printf("exit\n");
 	exit(0);
 }

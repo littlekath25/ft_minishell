@@ -6,7 +6,7 @@
 /*   By: kfu <kfu@student.codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/05/05 15:51:53 by kfu           #+#    #+#                 */
-/*   Updated: 2021/08/09 13:22:33 by katherine     ########   odam.nl         */
+/*   Updated: 2021/08/15 14:39:25 by katherine     ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	init_prompt(void)
 		line = readline("minishell> ");
 		*g_shell->environ = env;
 		if (!line)
-			continue ;
+			shell_exit(err_exit);
 		if (*line)
 		{
 			add_history(line);

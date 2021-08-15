@@ -6,7 +6,7 @@
 /*   By: pspijkst <pspijkst@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/08/01 13:41:05 by pspijkst      #+#    #+#                 */
-/*   Updated: 2021/08/01 16:16:39 by pspijkst      ########   odam.nl         */
+/*   Updated: 2021/08/15 15:10:56 by katherine     ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ void	static_func(int i)
 void	activate_signals(void)
 {
 	signal(SIGINT, reprompt);
+	signal(SIGQUIT, SIG_IGN);
 }
 
 void	deactivate_signals(void)
