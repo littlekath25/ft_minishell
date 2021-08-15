@@ -6,7 +6,7 @@
 /*   By: katherine <katherine@student.codam.nl>       +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/08/09 11:21:01 by katherine     #+#    #+#                 */
-/*   Updated: 2021/08/09 11:21:45 by katherine     ########   odam.nl         */
+/*   Updated: 2021/08/15 16:32:11 by katherine     ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,6 @@ void	change_states(t_parsing *info, t_tokens *tokens)
 		info->start = info->ptr;
 		info->state = IN_WORD;
 	}
-	else if (*(info->ptr) == ' ')
+	else if (*(info->ptr) == ' ' && *(info->ptr + 1) != '\0')
 		check_if_makes_new_item(info, tokens);
 }
