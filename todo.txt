@@ -1,0 +1,14 @@
+# To add
+	redirect builtins output
+
+
+
+# Executer Bugs
+	- multiple redirections ignored (only executes first 2 commands)
+
+
+
+# Parser Bugs
+- echo "hello" world"how""are you"
+	minishell: hello world'how''are you'
+		 bash: hello worldhoware you

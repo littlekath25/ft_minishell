@@ -6,7 +6,7 @@
 /*   By: pspijkst <pspijkst@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/05/05 16:38:19 by pspijkst      #+#    #+#                 */
-/*   Updated: 2021/08/15 17:47:13 by pspijkst      ########   odam.nl         */
+/*   Updated: 2021/08/31 09:51:08 by pspijkst      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,6 @@ char	*ft_pathcombine(char *base, char *file)
 
 void	exec_abs(char **tokens)
 {
-	printf("Execute absolute paths is not implemented yet.\n");
 	execve(*tokens, tokens, *g_shell->environ);
 }
 
