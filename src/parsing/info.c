@@ -6,7 +6,7 @@
 /*   By: katherine <katherine@student.codam.nl>       +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/08/09 11:22:27 by katherine     #+#    #+#                 */
-/*   Updated: 2021/08/09 11:22:39 by katherine     ########   odam.nl         */
+/*   Updated: 2021/09/03 14:17:16 by katherine     ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,5 +23,6 @@ t_parsing	*create_new_info(char *line)
 	new->start = NULL;
 	new->argc = 0;
 	new->state = DULL;
+	new->quote = '\0';
 	return (new);
 }

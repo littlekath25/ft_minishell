@@ -6,7 +6,7 @@
 /*   By: pspijkst <pspijkst@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/05/05 13:17:29 by pspijkst      #+#    #+#                 */
-/*   Updated: 2021/08/15 14:39:31 by katherine     ########   odam.nl         */
+/*   Updated: 2021/09/03 14:16:43 by katherine     ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ typedef enum e_states
 	ERROR
 }	t_states;
 
-typedef enum e_error
+typedef enum e_errorz
 {
 	err_args = 1,
 	err_malloc,
@@ -80,6 +80,7 @@ typedef struct s_parsing
 {
 	char		*ptr;
 	char		*start;
+	char		quote;
 	int			argc;
 	t_states	state;
 }	t_parsing;

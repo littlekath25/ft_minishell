@@ -6,7 +6,7 @@
 /*   By: katherine <katherine@student.codam.nl>       +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/07/27 21:12:20 by katherine     #+#    #+#                 */
-/*   Updated: 2021/08/15 17:35:03 by katherine     ########   odam.nl         */
+/*   Updated: 2021/09/03 14:23:30 by katherine     ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ void	make_new_item(t_parsing *info, t_tokens *tokens)
 	ft_substr(info->start, 0, info->ptr - info->start);
 	info->state = DULL;
 	info->argc++;
+	info->quote = '\0';
 }
 
 char	*delete_all_quotes(char *str)
@@ -36,7 +37,11 @@ char	*delete_all_quotes(char *str)
 int	check_if_makes_new_item(t_parsing *info, t_tokens *tokens)
 {
 	if (info->state != IN_DOUBLE && info->state != IN_SINGLE)
-		make_new_item(info, tokens);
+	{
+		if (info->quote == '\0' ||\
+		(info->quote != '\0' && *(info->ptr + 1) == info->quote))
+			make_new_item(info, tokens);
+	}
 	return (0);
 }
 

@@ -6,7 +6,7 @@
 /*   By: katherine <katherine@student.codam.nl>       +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/08/09 11:18:40 by katherine     #+#    #+#                 */
-/*   Updated: 2021/08/09 11:20:16 by katherine     ########   odam.nl         */
+/*   Updated: 2021/09/03 14:30:11 by katherine     ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,7 @@ int	count_string_length(char *str, char quote)
 	{
 		if (str[i] != quote)
 			len++;
-		else if (str[i] == quote && (str[i - 1] == ' ' || str[i + 1] == ' '))
+		else if (str[i] == quote && (str[i - 1] == ' '  || str[i + 1] == ' '))
 			len++;
 		i++;
 	}
