@@ -6,7 +6,7 @@
 /*   By: kfu <kfu@student.codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/07/02 13:58:25 by kfu           #+#    #+#                 */
-/*   Updated: 2021/08/15 17:19:27 by katherine     ########   odam.nl         */
+/*   Updated: 2021/09/09 18:56:56 by pspijkst      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,11 +46,11 @@ t_tokens	*create_new_token(void)
 
 	new = (t_tokens *)ft_calloc(1, sizeof(t_tokens));
 	if (!new)
-		shell_exit(1);
+		shell_exit(err_malloc);
 	new->size = 0;
 	new->allocated = 15;
 	new->items = (char **)ft_calloc(new->allocated, sizeof(char *));
 	if (!new->items)
-		shell_exit(1);
+		shell_exit(err_malloc);
 	return (new);
 }

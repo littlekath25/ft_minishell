@@ -6,7 +6,7 @@
 /*   By: katherine <katherine@student.codam.nl>       +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/08/09 11:18:40 by katherine     #+#    #+#                 */
-/*   Updated: 2021/09/03 14:30:11 by katherine     ########   odam.nl         */
+/*   Updated: 2021/09/09 18:58:33 by pspijkst      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,8 @@ char	*make_new_string_without_quotes(char *str)
 		quote = '\'';
 	len = count_string_length(str, quote);
 	new = (char *)ft_calloc(sizeof(char), len + 1);
+	if (!new)
+		shell_exit(err_malloc);
 	strip_string(new, str, quote);
 	return (new);
 }
@@ -71,8 +73,6 @@ char	*strip_string(char *new, char *old, char quote)
 		{
 			new[j] = old[i];
 			j++;
-			i++;
-			continue ;
 		}
 		i++;
 	}

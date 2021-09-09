@@ -6,7 +6,7 @@
 /*   By: katherine <katherine@student.codam.nl>       +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/08/09 11:21:01 by katherine     #+#    #+#                 */
-/*   Updated: 2021/09/03 14:16:48 by katherine     ########   odam.nl         */
+/*   Updated: 2021/09/09 18:57:29 by pspijkst      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	change_pipe_state(t_parsing *info)
 	else if (*(info->ptr) != '\0')
 		info->state = IN_PIPE;
 	else
-		shell_exit(3);
+		shell_exit(err_pipe);
 }
 
 void	change_double_quotes(t_parsing *info)
