@@ -6,7 +6,7 @@
 /*   By: katherine <katherine@student.codam.nl>       +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/07/24 11:02:23 by katherine     #+#    #+#                 */
-/*   Updated: 2021/07/25 15:20:30 by pspijkst      ########   odam.nl         */
+/*   Updated: 2021/09/10 12:03:21 by kfu           ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	free_pipes(void)
 	while (g_shell->cmd->pipe != NULL)
 	{
 		i = 0;
-		ptr = g_shell->cmd->pipe->next;
+		ptr = g_shell->cmd->pipe->pipe;
 		while (g_shell->cmd->pipe->tokens->items[i])
 		{
 			free(g_shell->cmd->pipe->tokens->items[i]);

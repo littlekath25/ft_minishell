@@ -1,7 +1,7 @@
 NAME		= 	minishell
 CC			= 	gcc
 RM			=	rm -f
-CFLAGS		= 	-Wall -Wextra -Werror -g3 -fsanitize=address
+CFLAGS		= 	-Wall -Wextra -g3 -fsanitize=address
 
 RLINCL		=	-I ~/.brew/opt/readline/include
 RLLIB		=	-L ~/.brew/opt/readline/lib -lreadline

@@ -6,7 +6,7 @@
 /*   By: kfu <kfu@student.codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/06/29 16:42:28 by kfu           #+#    #+#                 */
-/*   Updated: 2021/08/15 17:20:15 by katherine     ########   odam.nl         */
+/*   Updated: 2021/09/10 12:06:00 by kfu           ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ void	print_tokens(void)
 				i++;
 			}
 			j++;
-			ptr = ptr->next;
+			ptr = ptr->pipe;
 		}
 	}
 }

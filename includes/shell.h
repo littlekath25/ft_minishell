@@ -6,7 +6,7 @@
 /*   By: pspijkst <pspijkst@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/05/05 13:17:29 by pspijkst      #+#    #+#                 */
-/*   Updated: 2021/09/03 14:16:43 by katherine     ########   odam.nl         */
+/*   Updated: 2021/09/10 12:01:53 by kfu           ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,11 +78,11 @@ typedef struct s_tokens
 
 typedef struct s_parsing
 {
-	char		*ptr;
-	char		*start;
-	char		quote;
-	int			argc;
-	t_states	state;
+	char			*ptr;
+	char			*start;
+	char			quote;
+	int				argc;
+	enum e_states	state;
 }	t_parsing;
 
 typedef struct s_command
@@ -93,7 +93,6 @@ typedef struct s_command
 	int					append;
 	char				*delimiter;
 	t_tokens			*tokens;
-	struct s_command	*next;
 }	t_command;
 
 typedef struct s_shell

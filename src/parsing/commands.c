@@ -6,7 +6,7 @@
 /*   By: kfu <kfu@student.codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/07/02 12:16:16 by kfu           #+#    #+#                 */
-/*   Updated: 2021/09/09 19:04:11 by pspijkst      ########   odam.nl         */
+/*   Updated: 2021/09/10 12:19:28 by kfu           ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,17 +14,8 @@
 
 void	add_back_command(t_command **dest, t_command *new)
 {
-	t_command	*ptr;
-
 	if (*dest == NULL)
 		*dest = new;
-	else
-	{
-		ptr = *dest;
-		while (ptr->next != NULL)
-			ptr = ptr->next;
-		ptr->next = new;
-	}
 }
 
 t_command	*create_new_command(void)
@@ -38,7 +29,6 @@ t_command	*create_new_command(void)
 	new->tokens = NULL;
 	new->in_fd = 0;
 	new->out_fd = 1;
-	new->next = NULL;
 	return (new);
 }
 
@@ -56,18 +46,17 @@ t_command	*create_new_command_and_tokens(t_command **dest)
 
 int	create_commands_list(char *line)
 {
-	t_parsing	*info;
-	t_command	**dest;
+	t_parsing			*info;
+	struct s_command	**dest;
 
 	info = create_new_info(line);
+	dest = &g_shell->cmd;
 	while (info->state != DONE && info->state != ERROR)
 	{
-		if (info->state == DULL)
-			dest = &g_shell->cmd;
-		else if (info->state == IN_PIPE)
+		if (info->state == IN_PIPE)
 		{
 			info->argc = 0;
-			dest = &g_shell->cmd->pipe;
+			dest = &(*dest)->pipe;
 		}
 		fill_in_tokens(info, create_new_command_and_tokens(dest)->tokens);
 	}

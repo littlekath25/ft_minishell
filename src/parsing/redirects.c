@@ -6,7 +6,7 @@
 /*   By: katherine <katherine@student.codam.nl>       +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/07/24 11:06:03 by katherine     #+#    #+#                 */
-/*   Updated: 2021/08/09 13:37:22 by katherine     ########   odam.nl         */
+/*   Updated: 2021/09/10 12:02:54 by kfu           ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,11 +79,7 @@ void	set_redirects(void)
 	if (g_shell->cmd->pipe != NULL)
 	{
 		ptr = g_shell->cmd->pipe;
-		while (ptr != NULL)
-		{
-			clean_up_tokens(ptr);
-			ptr = ptr->next;
-		}
+		clean_up_tokens(ptr);
 	}
 	if (g_shell->cmd != NULL)
 		clean_up_tokens(g_shell->cmd);

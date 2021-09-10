@@ -6,7 +6,7 @@
 /*   By: pspijkst <pspijkst@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/05/05 16:38:19 by pspijkst      #+#    #+#                 */
-/*   Updated: 2021/08/31 09:51:08 by pspijkst      ########   odam.nl         */
+/*   Updated: 2021/09/10 12:03:51 by kfu           ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -163,6 +163,6 @@ void	init_executor(void)
 			st_distribute(cmd_pipe);
 			cmd_pipe = cmd_pipe->pipe;
 		}
-		cmd_list = cmd_list->next;
+		cmd_list = cmd_list->pipe;
 	}
 }
