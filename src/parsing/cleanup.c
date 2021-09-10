@@ -6,7 +6,7 @@
 /*   By: katherine <katherine@student.codam.nl>       +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/08/09 11:18:40 by katherine     #+#    #+#                 */
-/*   Updated: 2021/09/09 18:58:33 by pspijkst      ########   odam.nl         */
+/*   Updated: 2021/09/10 12:32:33 by kfu           ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,8 +68,7 @@ char	*strip_string(char *new, char *old, char quote)
 	j = 0;
 	while (old[i])
 	{
-		if (old[i] != quote || \
-		(old[i] == quote && (old[i - 1] == ' ' || old[i + 1] == ' ')))
+		if (old[i] != quote)
 		{
 			new[j] = old[i];
 			j++;
@@ -89,8 +88,6 @@ int	count_string_length(char *str, char quote)
 	while (str[i])
 	{
 		if (str[i] != quote)
-			len++;
-		else if (str[i] == quote && (str[i - 1] == ' '  || str[i + 1] == ' '))
 			len++;
 		i++;
 	}
