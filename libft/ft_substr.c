@@ -6,7 +6,7 @@
 /*   By: kfu <kfu@student.codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/11/03 14:08:32 by kfu           #+#    #+#                 */
-/*   Updated: 2020/12/02 12:18:45 by kfu           ########   odam.nl         */
+/*   Updated: 2021/09/10 13:20:58 by kfu           ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,8 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 	if (!tmp)
 		return (NULL);
 	i = 0;
+	while (i == ' ')
+		i++;
 	while (i < len && start + i <= slen)
 	{
 		tmp[i] = s[start + i];
