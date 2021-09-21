@@ -6,7 +6,7 @@
 /*   By: katherine <katherine@student.codam.nl>       +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/08/09 11:22:27 by katherine     #+#    #+#                 */
-/*   Updated: 2021/09/03 14:17:16 by katherine     ########   odam.nl         */
+/*   Updated: 2021/09/21 19:11:33 by kfu           ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,8 @@ t_parsing	*create_new_info(char *line)
 	if (!new)
 		shell_exit(err_malloc);
 	new->ptr = line;
-	new->start = NULL;
-	new->argc = 0;
+	new->start = new->ptr;
 	new->state = DULL;
-	new->quote = '\0';
+	new->delimiters = "\"$'<>| ";
 	return (new);
 }

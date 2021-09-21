@@ -35,14 +35,15 @@ VECT_SRC	=	vector_add.c\
 VECT_OBJ	=	$(VECT_SRC:%.c=$(VECT_PATH)%.o)
 
 P_PATH		=	src/parsing/
-P_SRC		=	commands.c\
+P_SRC		=	create.c\
 				redirects.c\
 				tokens.c\
 				items.c\
 				convert_arg.c\
 				cleanup.c\
 				info.c\
-				states.c
+				states.c\
+				delimiter.c
 P_OBJ		=	$(P_SRC:%.c=$(P_PATH)%.o)
 
 EXEC_PATH	=	src/executor/
