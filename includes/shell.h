@@ -6,7 +6,11 @@
 /*   By: pspijkst <pspijkst@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/05/05 13:17:29 by pspijkst      #+#    #+#                 */
+<<<<<<< HEAD
 /*   Updated: 2021/09/21 19:11:35 by pspijkst      ########   odam.nl         */
+=======
+/*   Updated: 2021/09/21 18:58:29 by kfu           ########   odam.nl         */
+>>>>>>> kath
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +26,13 @@
 # include <errno.h>
 # include <sys/stat.h>
 # include <fcntl.h>
+# include <string.h>
+
+typedef enum e_bool
+{
+	false,
+	true
+}	t_bool;
 
 typedef struct s_quotes
 {
@@ -61,12 +72,6 @@ typedef enum e_errorz
 	err_exit
 }	t_error;
 
-typedef enum e_bool
-{
-	false,
-	true
-}	t_bool;
-
 typedef struct s_tokens
 {
 	int		size;
@@ -78,9 +83,8 @@ typedef struct s_parsing
 {
 	char			*ptr;
 	char			*start;
-	char			quote;
-	int				argc;
 	enum e_states	state;
+	char			*delimiters;
 }	t_parsing;
 
 typedef struct s_command
@@ -101,6 +105,7 @@ typedef struct s_shell
 	t_vector			*env_list;
 	char				***environ;
 	t_error_states		error_state;
+	t_command			*dest;
 }	t_shell;
 
 t_shell		*g_shell;
@@ -124,14 +129,19 @@ t_parsing	*create_new_info(char *line);
 void		read_command(void);
 int			create_commands_list(char *line);
 t_command	*create_new_command(void);
-t_command	*create_new_command_and_tokens(t_command **dest);
+void		create_new_command_and_tokens(t_command **dest);
 void		add_new_command(char *line);
 void		add_back_command(t_command **dest, t_command *new);
 void		delete_one_command(t_command **src, t_command *node);
 
 // TOKEN FUNCTIONS
 t_tokens	*create_new_token(void);
-void		fill_in_tokens(t_parsing *info, t_tokens *tokens);
+void		dull_functions(t_parsing *info, t_command *dest);
+void		double_functions(t_parsing *info);
+void		single_functions(t_parsing *info);
+void		pipe_functions(t_parsing *info);
+void		word_functions(t_parsing *info, t_command *dest);
+int			fill_in_tokens(t_parsing *info, t_command *dest);
 void		delete_redirect_token(char **pointers, int i);
 
 // ITEM FUNCTIONS
@@ -141,27 +151,6 @@ void		expand_items(t_tokens *tokens);
 char		*delete_all_quotes(char *str);
 char		*process_variable(char **line);
 
-
-// REDIRECT FUNCTIONS
-void		set_redirects(void);
-void		set_input_output(t_command *command);
-void		set_input(t_command *command, int i);
-void		set_output(t_command *command, int i);
-void		set_delimiter(t_command *command, int i);
-int			choose_redirect(t_command *command, char *line, int i);
-
-// CLEANUP FUNCTIONS
-void		clean_up_tokens(t_command *command);
-void		remove_unnecessary_quotes(t_command *command, int i);
-char		*make_new_string_without_quotes(char *str);
-char		*strip_string(char *new, char *old, char quote);
-int			count_string_length(char *str, char quote);
-
-// CHANGE STATES FUNCTIONS
-void		change_pipe_state(t_parsing *info);
-void		change_double_quotes(t_parsing *info);
-void		change_single_quotes(t_parsing *info);
-void		change_states(t_parsing *info, t_tokens *tokens);
 
 // FREE FUNCTIONS
 void		free_command_and_tokens(void);

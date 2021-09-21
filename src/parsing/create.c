@@ -1,21 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   commands.c                                         :+:    :+:            */
+/*   create.c                                           :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: kfu <kfu@student.codam.nl>                   +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2021/07/02 12:16:16 by kfu           #+#    #+#                 */
-/*   Updated: 2021/09/10 12:19:28 by kfu           ########   odam.nl         */
+/*   Created: 2021/09/21 15:05:41 by kfu           #+#    #+#                 */
+/*   Updated: 2021/09/21 18:38:00 by kfu           ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shell.h"
 
-void	add_back_command(t_command **dest, t_command *new)
+t_tokens	*create_new_token(void)
 {
-	if (*dest == NULL)
-		*dest = new;
+	t_tokens	*new;
+
+	new = (t_tokens *)ft_calloc(1, sizeof(t_tokens));
+	if (!new)
+		shell_exit(err_malloc);
+	new->size = 0;
+	new->allocated = 15;
+	new->items = (char **)ft_calloc(new->allocated, sizeof(char *));
+	if (!new->items)
+		shell_exit(err_malloc);
+	return (new);
 }
 
 t_command	*create_new_command(void)
@@ -32,7 +41,7 @@ t_command	*create_new_command(void)
 	return (new);
 }
 
-t_command	*create_new_command_and_tokens(t_command **dest)
+void	create_new_command_and_tokens(t_command **dest)
 {
 	t_command	*new_command;
 	t_tokens	*new_token;
@@ -40,28 +49,17 @@ t_command	*create_new_command_and_tokens(t_command **dest)
 	new_command = create_new_command();
 	new_token = create_new_token();
 	new_command->tokens = new_token;
-	add_back_command(dest, new_command);
-	return (new_command);
+	*dest = new_command;
 }
 
 int	create_commands_list(char *line)
 {
 	t_parsing			*info;
-	struct s_command	**dest;
 
 	info = create_new_info(line);
-	dest = &g_shell->cmd;
-	while (info->state != DONE && info->state != ERROR)
-	{
-		if (info->state == IN_PIPE)
-		{
-			info->argc = 0;
-			dest = &(*dest)->pipe;
-		}
-		fill_in_tokens(info, create_new_command_and_tokens(dest)->tokens);
-	}
-	free(info);
-	if (g_shell->cmd->tokens->items[0] != NULL)
-		return (1);
-	return (0);
+	g_shell->dest = g_shell->cmd;
+	create_new_command_and_tokens(&g_shell->dest);
+	if (!fill_in_tokens(info, g_shell->dest))
+		return (0);
+	return (1);
 }

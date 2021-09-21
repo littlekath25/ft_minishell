@@ -6,7 +6,7 @@
 /*   By: kfu <kfu@student.codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/05/05 15:51:53 by kfu           #+#    #+#                 */
-/*   Updated: 2021/09/21 16:45:31 by pspijkst      ########   odam.nl         */
+/*   Updated: 2021/09/21 19:59:21 by pspijkst      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,21 +31,14 @@ void	init_prompt(void)
 			shell_exit(err_exit);
 		if (*line)
 		{
-			if (ft_memcmp("$?", line, 3) == 0)
+			add_history(line);
+			if (create_commands_list(line) == 1)
 			{
-				print_return_status();
+				set_redirects();
+				print_tokens();
+				init_executor();
 			}
-			else
-			{
-				add_history(line);
-				if (create_commands_list(line) == 1)
-				{
-					set_redirects();
-					// print_tokens();
-					init_executor();
-				}
-				free_command_and_tokens();
-			}
+			free_command_and_tokens();
 		}
 		free(line);
 	}
