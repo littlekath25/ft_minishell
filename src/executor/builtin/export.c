@@ -6,7 +6,7 @@
 /*   By: pspijkst <pspijkst@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/07/01 17:50:10 by pspijkst      #+#    #+#                 */
-/*   Updated: 2021/08/04 16:34:17 by pspijkst      ########   odam.nl         */
+/*   Updated: 2021/09/21 16:23:40 by pspijkst      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -168,7 +168,9 @@ void	st_print_export(void)
 		return ;
 	while (*env)
 	{
-		printf("declare -x %s\n", *env);
+		ft_putstr_fd("declare -x ", g_shell->io_fds[1]);
+		ft_putendl_fd(*env, g_shell->io_fds[1]);
+		// printf("declare -x %s\n", *env);
 		env++;
 	}
 }
@@ -177,22 +179,29 @@ void	st_print_export(void)
 	Sets environment variable.
 	Overwrites if the variable-name was already present.
 */
-void	_export_(char **argv)
+int	_export_(char **argv)
 {
+	int	retval;
+
+	retval = 0;
 	if (argv[1] == 0)
 	{
 		st_print_export();
-		return ;
+		return (0);
 	}
 	argv++;
 	while (*argv)
 	{
 		if (st_process_arg(*argv) == false)
+		{
 			printf("%s: not a valid identifier\n", *argv);
+			retval = 1;
+		}
 		argv++;
 	}
 	free(*g_shell->environ);
 	*g_shell->environ = vector_tostrarray(g_shell->env_list);
 	if (!*g_shell->environ)
 		shell_exit(err_malloc);
+	return (retval);
 }

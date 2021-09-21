@@ -6,7 +6,7 @@
 /*   By: pspijkst <pspijkst@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/07/25 11:51:31 by pspijkst      #+#    #+#                 */
-/*   Updated: 2021/08/15 12:54:50 by katherine     ########   odam.nl         */
+/*   Updated: 2021/09/21 12:53:34 by pspijkst      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,5 +57,7 @@ void	init_shell(char **env)
 	*g_shell->environ = vector_tostrarray(g_shell->env_list);
 	if (!*g_shell->environ)
 		shell_exit(err_malloc);
+	g_shell->io_fds[0] = STDIN_FILENO;
+	g_shell->io_fds[1] = STDOUT_FILENO;
 	activate_signals();
 }

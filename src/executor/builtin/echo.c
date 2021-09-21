@@ -6,18 +6,19 @@
 /*   By: pspijkst <pspijkst@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/07/01 17:39:36 by pspijkst      #+#    #+#                 */
-/*   Updated: 2021/08/04 16:00:21 by pspijkst      ########   odam.nl         */
+/*   Updated: 2021/09/21 16:19:02 by pspijkst      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdio.h>
 #include "libft.h"
+#include "shell.h"
 
 /*
 	Print the argument specified in argv to the stdout.
 	-n flag removes the trailing newline.
 */
-void	_echo_(char **argv)
+int	_echo_(char **argv)
 {
 	char	newline;
 	int		i;
@@ -36,11 +37,12 @@ void	_echo_(char **argv)
 	}
 	while (*argv)
 	{
-		printf("%s", *argv);
+		ft_putstr_fd(*argv, g_shell->io_fds[1]);
 		argv++;
 		if (*argv)
-			printf(" ");
+			write(g_shell->io_fds[1], " ", 1);
 	}
 	if (newline)
-		printf("\n");
+		write(g_shell->io_fds[1], "\n", 1);
+	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: pspijkst <pspijkst@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/07/01 18:06:07 by pspijkst      #+#    #+#                 */
-/*   Updated: 2021/08/04 16:36:32 by pspijkst      ########   odam.nl         */
+/*   Updated: 2021/09/21 16:21:18 by pspijkst      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 	Each variable or function specified in argv shall be unset.
 	Ignores an argument if the variable was not set.
 */
-void	_unset_(char **argv)
+int	_unset_(char **argv)
 {
 	int	i;
 
@@ -39,4 +39,5 @@ void	_unset_(char **argv)
 	*g_shell->environ = vector_tostrarray(g_shell->env_list);
 	if (!*g_shell->environ)
 		shell_exit(err_malloc);
+	return (0);
 }

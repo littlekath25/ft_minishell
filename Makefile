@@ -6,7 +6,7 @@ CFLAGS		= 	-Wall -Wextra -g3 -fsanitize=address
 RLINCL		=	-I ~/.brew/opt/readline/include
 RLLIB		=	-L ~/.brew/opt/readline/lib -lreadline
 
-LIBS		=	-Llibft -lft $(RLINCL) $(RLLIB) -o 
+LIBS		=	-Llibft -lft $(RLINCL) $(RLLIB)
 
 S_PATH		=	src/
 S_SRC		= 	main.c\
@@ -39,9 +39,9 @@ P_SRC		=	commands.c\
 				redirects.c\
 				tokens.c\
 				items.c\
-				convert_arg.c\
 				cleanup.c\
 				info.c\
+				expand_variable.c\
 				states.c
 P_OBJ		=	$(P_SRC:%.c=$(P_PATH)%.o)
 
@@ -67,10 +67,10 @@ all: $(NAME)
 
 $(NAME): $(OBJ_FILES)
 	make -C libft
-	$(CC) $(OBJ_FILES) $(LIBS) $(NAME) $(CFLAGS)
+	$(CC) $(OBJ_FILES) -o $(NAME) $(CFLAGS) $(LIBS)
 
 %.o: %.c
-	$(CC) $(CFLAGS) -c -o $@ $< -I includes/
+	$(CC) $(CFLAGS) -c -o $@ $< -I includes/ $(RLINCL)
 
 clean:
 	$(RM) $(OBJ_FILES)

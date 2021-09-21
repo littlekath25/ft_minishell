@@ -1,0 +1,4 @@
+Testcases:
+
+echo g_shell- > io_fds[1] = cmd- > out_fd
+cat -e todo.txt >1 >2>3>4

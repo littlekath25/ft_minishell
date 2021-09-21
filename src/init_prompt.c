@@ -6,11 +6,16 @@
 /*   By: kfu <kfu@student.codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/05/05 15:51:53 by kfu           #+#    #+#                 */
-/*   Updated: 2021/09/10 12:39:11 by kfu           ########   odam.nl         */
+/*   Updated: 2021/09/21 16:45:31 by pspijkst      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shell.h"
+
+static void	print_return_status(void)
+{
+	printf("Status: %d\n", g_shell->returnstatus);
+}
 
 void	init_prompt(void)
 {
@@ -26,14 +31,21 @@ void	init_prompt(void)
 			shell_exit(err_exit);
 		if (*line)
 		{
-			add_history(line);
-			if (create_commands_list(line) == 1)
+			if (ft_memcmp("$?", line, 3) == 0)
 			{
-				set_redirects();
-				print_tokens();
-				init_executor();
+				print_return_status();
 			}
-			free_command_and_tokens();
+			else
+			{
+				add_history(line);
+				if (create_commands_list(line) == 1)
+				{
+					set_redirects();
+					// print_tokens();
+					init_executor();
+				}
+				free_command_and_tokens();
+			}
 		}
 		free(line);
 	}

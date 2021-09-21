@@ -1,0 +1,7 @@
+ls
+ls -la
+echo "HelloW"orld How"are "you'doing'' today'" ? "
+cat cases.txt | wc -l
+cat cases.txt | wc -l | wc -l
+cat cases.txt | wc -l | wc -l | wc -l | wc -l | wc -l | wc -l | wc -l | wc -l | wc -l | wc -l | wc -l
+echo hoi> 1 >2 >3

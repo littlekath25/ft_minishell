@@ -6,7 +6,7 @@
 /*   By: pspijkst <pspijkst@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/05/05 13:17:29 by pspijkst      #+#    #+#                 */
-/*   Updated: 2021/09/10 12:01:53 by kfu           ########   odam.nl         */
+/*   Updated: 2021/09/21 19:11:35 by pspijkst      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,14 +33,12 @@ typedef struct s_quotes
 
 typedef enum e_error_states
 {
-	GENERAL_ERROR,
-	MISUSE_BUILTIN,
-	CANNOT_EXECUTE,
-	COMMAND_NOT_FOUND,
-	INVALID_ARG,
-	FATAL_ERROR,
-	TERMINATED,
-	OUT_OF_RANGE
+	GENERAL_ERROR = 1,
+	MISUSE_BUILTIN = 2,
+	CANNOT_EXECUTE = 126,
+	COMMAND_NOT_FOUND = 127,
+	INVALID_ARG = 128,
+	OUT_OF_RANGE = 256
 }	t_error_states;
 
 typedef enum e_states
@@ -97,6 +95,8 @@ typedef struct s_command
 
 typedef struct s_shell
 {
+	int					io_fds[2];
+	int					returnstatus;
 	t_command			*cmd;
 	t_vector			*env_list;
 	char				***environ;
@@ -139,8 +139,8 @@ void		make_new_item(t_parsing *info, t_tokens *tokens);
 int			check_if_makes_new_item(t_parsing *info, t_tokens *tokens);
 void		expand_items(t_tokens *tokens);
 char		*delete_all_quotes(char *str);
-void		convert_arg(t_command *command, int i);
-char		*get_value(char *line);
+char		*process_variable(char **line);
+
 
 // REDIRECT FUNCTIONS
 void		set_redirects(void);

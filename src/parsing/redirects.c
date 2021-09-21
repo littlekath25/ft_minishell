@@ -6,7 +6,7 @@
 /*   By: katherine <katherine@student.codam.nl>       +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/07/24 11:06:03 by katherine     #+#    #+#                 */
-/*   Updated: 2021/09/10 12:02:54 by kfu           ########   odam.nl         */
+/*   Updated: 2021/09/21 19:12:21 by pspijkst      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ int	choose_redirect(t_command *command, char *line, int i)
 	else if (!(ft_strncmp(line, "'$", 2)) || line[0] == '"' || line[0] == '\'')
 		remove_unnecessary_quotes(command, i);
 	else if (line[0] == '$')
-		convert_arg(command, i);
+		printf("envvar: %s\n", process_variable(&line));
 	return (0);
 }
 

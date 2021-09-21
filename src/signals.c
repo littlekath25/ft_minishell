@@ -6,7 +6,7 @@
 /*   By: pspijkst <pspijkst@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/08/01 13:41:05 by pspijkst      #+#    #+#                 */
-/*   Updated: 2021/08/15 15:10:56 by katherine     ########   odam.nl         */
+/*   Updated: 2021/09/21 17:27:36 by pspijkst      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,8 @@ void	reprompt(int i)
 {
 	(void)i;
 	printf("\n");
-	rl_replace_line("", 0);
 	rl_on_new_line();
+	rl_replace_line("", 0);
 	rl_redisplay();
 }
 
