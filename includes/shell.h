@@ -6,11 +6,7 @@
 /*   By: pspijkst <pspijkst@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/05/05 13:17:29 by pspijkst      #+#    #+#                 */
-<<<<<<< HEAD
-/*   Updated: 2021/09/21 19:11:35 by pspijkst      ########   odam.nl         */
-=======
-/*   Updated: 2021/09/21 18:58:29 by kfu           ########   odam.nl         */
->>>>>>> kath
+/*   Updated: 2021/09/21 20:00:47 by pspijkst      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
