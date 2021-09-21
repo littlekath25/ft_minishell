@@ -6,7 +6,7 @@
 /*   By: pspijkst <pspijkst@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/09/21 18:34:05 by pspijkst      #+#    #+#                 */
-/*   Updated: 2021/09/21 19:14:20 by pspijkst      ########   odam.nl         */
+/*   Updated: 2021/09/21 20:08:13 by pspijkst      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,11 @@ static char	*expand_variable(char *key)
 		return (NULL);
 }
 
+/*
+	Takes a pointer to the string line, which should be the starting point of
+	the environment variable ($). Increments the pointer while processing.
+	Returns the value corresponding to the variable, or NULL if not found.
+*/
 char	*process_variable(char **line)
 {
 	char	*key;
