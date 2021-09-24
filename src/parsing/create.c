@@ -6,7 +6,7 @@
 /*   By: kfu <kfu@student.codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/09/21 15:05:41 by kfu           #+#    #+#                 */
-/*   Updated: 2021/09/21 18:38:00 by kfu           ########   odam.nl         */
+/*   Updated: 2021/09/24 13:39:14 by kfu           ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,9 +57,9 @@ int	create_commands_list(char *line)
 	t_parsing			*info;
 
 	info = create_new_info(line);
+	create_new_command_and_tokens(&g_shell->cmd);
 	g_shell->dest = g_shell->cmd;
-	create_new_command_and_tokens(&g_shell->dest);
-	if (!fill_in_tokens(info, g_shell->dest))
+	if (!fill_in_tokens(info))
 		return (0);
 	return (1);
 }

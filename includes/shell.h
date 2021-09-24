@@ -6,7 +6,7 @@
 /*   By: pspijkst <pspijkst@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/05/05 13:17:29 by pspijkst      #+#    #+#                 */
-/*   Updated: 2021/09/21 20:00:47 by pspijkst      ########   odam.nl         */
+/*   Updated: 2021/09/24 14:17:37 by kfu           ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,7 @@ typedef struct s_parsing
 	char			*start;
 	enum e_states	state;
 	char			*delimiters;
+	int				argc;
 }	t_parsing;
 
 typedef struct s_command
@@ -132,12 +133,14 @@ void		delete_one_command(t_command **src, t_command *node);
 
 // TOKEN FUNCTIONS
 t_tokens	*create_new_token(void);
-void		dull_functions(t_parsing *info, t_command *dest);
+int			create_new_pipe(t_parsing *info, t_command *dest);
+void		make_new_token(t_parsing *info);
+void		dull_functions(t_parsing *info);
 void		double_functions(t_parsing *info);
 void		single_functions(t_parsing *info);
 void		pipe_functions(t_parsing *info);
-void		word_functions(t_parsing *info, t_command *dest);
-int			fill_in_tokens(t_parsing *info, t_command *dest);
+void		word_functions(t_parsing *info);
+int			fill_in_tokens(t_parsing *info);
 void		delete_redirect_token(char **pointers, int i);
 
 // ITEM FUNCTIONS
@@ -145,8 +148,7 @@ void		make_new_item(t_parsing *info, t_tokens *tokens);
 int			check_if_makes_new_item(t_parsing *info, t_tokens *tokens);
 void		expand_items(t_tokens *tokens);
 char		*delete_all_quotes(char *str);
-char		*process_variable(char **line);
-
+char		*get_value(char *line);
 
 // FREE FUNCTIONS
 void		free_command_and_tokens(void);

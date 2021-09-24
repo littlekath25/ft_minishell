@@ -6,7 +6,7 @@
 /*   By: katherine <katherine@student.codam.nl>       +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/08/09 11:22:27 by katherine     #+#    #+#                 */
-/*   Updated: 2021/09/21 19:11:33 by kfu           ########   odam.nl         */
+/*   Updated: 2021/09/24 12:51:19 by kfu           ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,5 +23,6 @@ t_parsing	*create_new_info(char *line)
 	new->start = new->ptr;
 	new->state = DULL;
 	new->delimiters = "\"$'<>| ";
+	new->argc = 0;
 	return (new);
 }
