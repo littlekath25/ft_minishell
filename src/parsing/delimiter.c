@@ -6,7 +6,7 @@
 /*   By: kfu <kfu@student.codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/09/21 15:30:16 by kfu           #+#    #+#                 */
-/*   Updated: 2021/09/24 13:39:52 by kfu           ########   odam.nl         */
+/*   Updated: 2021/09/24 14:13:54 by kfu           ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,9 +29,9 @@ void	dull_functions(t_parsing *info)
 	else if (*info->ptr == '|')
 		info->state = IN_PIPE;
 	else if (*info->ptr == '$')
-		printf("CONVERT ARG\n");
+		convert_arg(info);
 	else if (*info->ptr == '>' || *info->ptr == '<')
-		printf("CHANGE REDIRECT\n");
+		set_redirect(info);
 	else
 	{
 		info->state = IN_WORD;

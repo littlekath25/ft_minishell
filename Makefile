@@ -39,7 +39,7 @@ P_SRC		=	create.c\
 				redirects.c\
 				tokens.c\
 				items.c\
-				convert_arg.c\
+				variable.c\
 				cleanup.c\
 				info.c\
 				states.c\
