@@ -6,7 +6,7 @@
 /*   By: pspijkst <pspijkst@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/05/05 13:17:29 by pspijkst      #+#    #+#                 */
-/*   Updated: 2021/09/24 14:17:37 by kfu           ########   odam.nl         */
+/*   Updated: 2021/09/24 14:44:22 by kfu           ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -147,6 +147,7 @@ void		delete_redirect_token(char **pointers, int i);
 void		make_new_item(t_parsing *info, t_tokens *tokens);
 int			check_if_makes_new_item(t_parsing *info, t_tokens *tokens);
 void		expand_items(t_tokens *tokens);
+void		convert_variable(t_parsing *info);
 char		*delete_all_quotes(char *str);
 char		*get_value(char *line);
 

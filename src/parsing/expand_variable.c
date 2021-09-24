@@ -6,7 +6,7 @@
 /*   By: pspijkst <pspijkst@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/09/21 18:34:05 by pspijkst      #+#    #+#                 */
-/*   Updated: 2021/09/21 20:08:13 by pspijkst      ########   odam.nl         */
+/*   Updated: 2021/09/24 15:01:48 by kfu           ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,23 @@ char	*process_variable(char **line)
 		shell_exit(err_malloc);
 	ft_memcpy(key, *line, i);
 	key[i] = '\0';
-	*line += i;
+	*line += i - 1;
 	return (expand_variable(key));
+}
+
+void	convert_variable(t_parsing *info)
+{
+	char	*new;
+
+	if (ft_isalnum(*(info->ptr + 1)))
+		new = process_variable(&info->ptr);
+	else
+		new = ft_strdup("$");
+	if (*(info->start + 1) == '$')
+		printf("DONT JOIN - %c\n", *info->start);
+	else
+		printf("JOIN - %c\n", *info->start);
+	g_shell->dest->tokens->items[info->argc] = new;
+	info->argc++;
+	info->state = DULL;
 }

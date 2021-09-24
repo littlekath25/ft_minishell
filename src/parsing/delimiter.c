@@ -6,7 +6,7 @@
 /*   By: kfu <kfu@student.codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/09/21 15:30:16 by kfu           #+#    #+#                 */
-/*   Updated: 2021/09/24 14:13:54 by kfu           ########   odam.nl         */
+/*   Updated: 2021/09/24 15:37:30 by kfu           ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,9 +29,9 @@ void	dull_functions(t_parsing *info)
 	else if (*info->ptr == '|')
 		info->state = IN_PIPE;
 	else if (*info->ptr == '$')
-		convert_arg(info);
+		convert_variable(info);
 	else if (*info->ptr == '>' || *info->ptr == '<')
-		set_redirect(info);
+		printf("CHANGE REDIRECT\n");
 	else
 	{
 		info->state = IN_WORD;
@@ -47,7 +47,7 @@ void	double_functions(t_parsing *info)
 		info->state = DULL;
 	}
 	else if (*info->ptr == '$')
-		printf("CONVERT ARG\n");
+		convert_variable(info);
 }
 
 void	single_functions(t_parsing *info)
@@ -97,11 +97,22 @@ void	word_functions(t_parsing *info)
 		make_new_token(info);
 		info->state = IN_PIPE;
 	}
-	else if (*info->ptr == '$')
+	else if (*info->ptr == '\'')
 	{
 		make_new_token(info);
-		printf("CONVERT ARG\n");
+		info->state = IN_SINGLE;
+		info->start = info->ptr + 1;
+		info->ptr++;
 	}
+	else if (*info->ptr == '"')
+	{
+		make_new_token(info);
+		info->state = IN_DOUBLE;
+		info->start = info->ptr + 1;
+		info->ptr++;
+	}
+	else if (*info->ptr == '$')
+		convert_variable(info);
 	else if (*info->ptr == '>' || *info->ptr == '<')
 		printf("CHANGE REDIRECT\n");
 }
