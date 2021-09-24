@@ -6,7 +6,7 @@
 /*   By: kfu <kfu@student.codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/07/02 13:58:25 by kfu           #+#    #+#                 */
-/*   Updated: 2021/09/24 13:39:26 by kfu           ########   odam.nl         */
+/*   Updated: 2021/09/24 13:44:23 by kfu           ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,7 @@ int	fill_in_tokens(t_parsing *info)
 		state_action(info);
 		info->ptr++;
 	}
-	make_new_token(info);
+	if (info->state == IN_WORD)
+		make_new_token(info);
 	return (1);
 }
