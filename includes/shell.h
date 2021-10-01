@@ -6,7 +6,7 @@
 /*   By: pspijkst <pspijkst@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/05/05 13:17:29 by pspijkst      #+#    #+#                 */
-/*   Updated: 2021/09/24 14:44:22 by kfu           ########   odam.nl         */
+/*   Updated: 2021/10/01 16:00:15 by kfu           ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,8 @@
 # include <sys/stat.h>
 # include <fcntl.h>
 # include <string.h>
+
+# define BUFFER 1024
 
 typedef enum e_bool
 {
@@ -82,6 +84,8 @@ typedef struct s_parsing
 	enum e_states	state;
 	char			*delimiters;
 	int				argc;
+	int				i;
+	char			buffer[BUFFER];
 }	t_parsing;
 
 typedef struct s_command
@@ -164,7 +168,7 @@ t_bool		is_valid_key(char *var);
 t_bool		is_valid_key_l(char *var, unsigned int l);
 void		activate_signals(void);
 void		deactivate_signals(void);
-int			count_size_without_quotes(char *str);
-char		*copy_str_without_quotes(char *new, char *str);
+void		copy_to_buffer(t_parsing *info);
+void		skip_whitespaces(t_parsing *info);
 
 #endif

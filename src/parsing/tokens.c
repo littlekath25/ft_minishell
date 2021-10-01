@@ -6,7 +6,7 @@
 /*   By: kfu <kfu@student.codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/07/02 13:58:25 by kfu           #+#    #+#                 */
-/*   Updated: 2021/09/24 13:44:23 by kfu           ########   odam.nl         */
+/*   Updated: 2021/10/01 15:56:18 by kfu           ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,11 +16,13 @@ void	make_new_token(t_parsing *info)
 {
 	char	*new;
 
-	new = ft_substr(info->start, 0, info->ptr - info->start);
+	new = ft_strdup(info->buffer);
 	g_shell->dest->tokens->items[info->argc] = new;
 	info->start = info->ptr;
 	info->state = DULL;
 	info->argc++;
+	info->i = 0;
+	ft_bzero(info->buffer, 1024);
 }
 
 static void	set_delimiters(t_parsing *info)
@@ -41,10 +43,10 @@ static void	state_action(t_parsing *info)
 		dull_functions(info);
 	else if (info->state == IN_SINGLE)
 		single_functions(info);
-	else if (info->state == IN_DOUBLE)
-		double_functions(info);
-	else if (info->state == IN_PIPE)
-		pipe_functions(info);
+	// else if (info->state == IN_DOUBLE)
+	// 	double_functions(info);
+	// else if (info->state == IN_PIPE)
+	// 	pipe_functions(info);
 	else if (info->state == IN_WORD)
 		word_functions(info);
 }

@@ -6,43 +6,20 @@
 /*   By: katherine <katherine@student.codam.nl>       +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/07/28 22:16:18 by katherine     #+#    #+#                 */
-/*   Updated: 2021/08/09 13:34:29 by katherine     ########   odam.nl         */
+/*   Updated: 2021/10/01 16:00:07 by kfu           ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shell.h"
 
-int	count_size_without_quotes(char *str)
+void	copy_to_buffer(t_parsing *info)
 {
-	int	i;
-	int	size;
-
-	i = 0;
-	size = 0;
-	while (str[i])
-	{
-		if (str[i] != '"')
-			size++;
-		i++;
-	}
-	return (size);
+	ft_memcpy(&info->buffer[info->i], info->ptr, 1);
+	info->i++;
 }
 
-char	*copy_str_without_quotes(char *tmp, char *str)
+void	skip_whitespaces(t_parsing *info)
 {
-	int	i;
-	int	j;
-
-	i = 0;
-	j = 0;
-	while (str[i])
-	{
-		if (str[i] != '"')
-		{
-			tmp[j] = str[i];
-			j++;
-		}
-		i++;
-	}
-	return (tmp);
+	while (*info->ptr == ' ')
+		info->ptr++;
 }
