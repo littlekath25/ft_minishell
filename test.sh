@@ -1,8 +1,8 @@
 #!/bin/bash
 
 #CONFIG
-# cases="cases.txt"
-cases="exportvars.txt"
+cases="cases.txt"
+# cases="exportvars.txt"
 prompt="minishell>"
 executable="minishell"
 

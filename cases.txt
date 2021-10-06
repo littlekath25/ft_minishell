@@ -1,10 +1,3 @@
-ls
-ls -la
-echo "HelloW"orld How"are "you'doing'' today'" ? "
-cat cases.txt | wc -l
-cat cases.txt | wc -l | wc -l
-cat cases.txt | wc -l | wc -l | wc -l | wc -l | wc -l | wc -l | wc -l | wc -l | wc -l | wc -l | wc -l
-echo hoi> 1 >2 >3
 echo hello there how are you doing today
 echo hello there "how are you" doing today
 echo "Hello"World How"are "you"''doing 'today'"
@@ -29,4 +22,11 @@ echo 'hello 'world''
 echo 'hello    ' '     ' 'world'
 echo hello        world
 echo hello'world'hello
-
+echo $HOME
+echo '$HOME'
+echo "$HOME"
+echo "$ HOME"
+echo $ HOME
+echo bye$HOME
+echo hello$HOME ciao
+echo "hello$HOME ciao"
