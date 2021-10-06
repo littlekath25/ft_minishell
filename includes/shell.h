@@ -6,7 +6,7 @@
 /*   By: pspijkst <pspijkst@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/05/05 13:17:29 by pspijkst      #+#    #+#                 */
-/*   Updated: 2021/10/06 18:54:52 by kfu           ########   odam.nl         */
+/*   Updated: 2021/10/06 20:06:26 by kfu           ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -171,6 +171,5 @@ t_bool		is_valid_key_l(char *var, unsigned int l);
 void		activate_signals(void);
 void		deactivate_signals(void);
 void		copy_to_buffer(t_parsing *info);
-void		skip_whitespaces(t_parsing *info);
 
 #endif
