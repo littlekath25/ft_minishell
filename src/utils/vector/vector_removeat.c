@@ -6,7 +6,7 @@
 /*   By: pspijkst <pspijkst@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/07/08 16:47:39 by pspijkst      #+#    #+#                 */
-/*   Updated: 2021/07/19 10:40:58 by pspijkst      ########   odam.nl         */
+/*   Updated: 2021/10/06 19:59:23 by kfu           ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ void	vector_removeat(t_vector *vect, int index)
 	char	*dest;
 
 	dest = (char *)vect->memb + (index * vect->bytesize);
-	ft_memmove(dest, dest + vect->bytesize, (vect->nmemb - index) * vect->bytesize);
+	ft_memmove(dest, dest + vect->bytesize, \
+	(vect->nmemb - index) * vect->bytesize);
 	vect->nmemb--;
 }

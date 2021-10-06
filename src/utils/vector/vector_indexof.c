@@ -6,7 +6,7 @@
 /*   By: pspijkst <pspijkst@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/07/19 10:41:39 by pspijkst      #+#    #+#                 */
-/*   Updated: 2021/08/04 14:30:15 by pspijkst      ########   odam.nl         */
+/*   Updated: 2021/10/06 19:59:37 by kfu           ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,6 @@ int	vector_indexof(t_vector *vect, char *data)
 	i = 0;
 	while (i < vect->nmemb)
 	{
-		// printf("Checking (%s) with (%s)\n", data, vector_getvalue(vect, i));
 		if (ft_strncmp(data, vector_getvalue(vect, i), ft_strlen(data)) == 0)
 			return (i);
 		i++;

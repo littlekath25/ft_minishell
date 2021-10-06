@@ -6,7 +6,7 @@
 /*   By: katherine <katherine@student.codam.nl>       +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/08/09 11:21:01 by katherine     #+#    #+#                 */
-/*   Updated: 2021/10/06 19:55:11 by kfu           ########   odam.nl         */
+/*   Updated: 2021/10/06 19:59:52 by kfu           ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,8 @@ void	new_pipe(t_parsing *info)
 
 void	variable_checker(t_parsing *info)
 {
-	if (convert_variable(info) && end_of_token(info) && info->state != IN_DOUBLE)
+	if (convert_variable(info) && \
+	end_of_token(info) && info->state != IN_DOUBLE)
 		make_new_token(info);
 }
 

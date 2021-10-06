@@ -6,7 +6,7 @@
 /*   By: kfu <kfu@student.codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/10/06 16:34:19 by kfu           #+#    #+#                 */
-/*   Updated: 2021/10/06 18:43:47 by kfu           ########   odam.nl         */
+/*   Updated: 2021/10/06 20:00:04 by kfu           ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,8 @@ static void	set_output(t_command *command, int i)
 	int	fd;
 
 	if (command->append)
-		fd = open(command->tokens->items[i + 1], O_RDWR | O_CREAT | O_APPEND, 0666);
+		fd = open(command->tokens->items[i + 1], \
+		O_RDWR | O_CREAT | O_APPEND, 0666);
 	else
 		fd = open(command->tokens->items[i + 1], O_RDWR | O_CREAT, 0666);
 	if (fd == -1)

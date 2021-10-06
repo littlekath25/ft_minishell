@@ -6,11 +6,12 @@
 /*   By: pspijkst <pspijkst@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/07/19 09:19:39 by pspijkst      #+#    #+#                 */
-/*   Updated: 2021/08/04 11:36:19 by pspijkst      ########   odam.nl         */
+/*   Updated: 2021/10/06 20:03:05 by kfu           ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef VECTOR_H
+# include "libft.h"
 # define VECTOR_H
 
 typedef struct s_vector
@@ -21,8 +22,6 @@ typedef struct s_vector
 	int		nmemb;
 	int		size;
 }	t_vector;
-
-#include "libft.h"
 
 t_vector	*vector_new(unsigned int bytesize);
 void		*vector_getvalue(t_vector *vector, int index);
