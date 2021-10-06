@@ -6,7 +6,7 @@
 /*   By: kfu <kfu@student.codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/09/21 15:30:16 by kfu           #+#    #+#                 */
-/*   Updated: 2021/10/01 16:08:11 by kfu           ########   odam.nl         */
+/*   Updated: 2021/10/06 11:31:37 by kfu           ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,17 +17,16 @@ void	dull_functions(t_parsing *info)
 	if (*info->ptr == ' ')
 		return ;
 	else if (*info->ptr == '\'')
-	{
 		info->state = IN_SINGLE;
-		info->start = info->ptr + 1;
-	}
 	else if (*info->ptr == '"')
-	{
 		info->state = IN_DOUBLE;
-		info->start = info->ptr + 1;
-	}
 	else if (*info->ptr == '|')
 		info->state = IN_PIPE;
+	else if (*info->ptr == '$')
+	{
+		convert_variable(info);
+		make_new_token(info);
+	}
 	else
 	{
 		info->state = IN_WORD;
@@ -37,13 +36,17 @@ void	dull_functions(t_parsing *info)
 
 void	double_functions(t_parsing *info)
 {
-	if (*info->ptr == '"')
-	{
+	if (*info->ptr == '"' && (*(info->ptr + 1) == ' ' || *(info->ptr + 1) == '\0'))
 		make_new_token(info);
+	else if (*info->ptr == '"')
+	{
 		info->state = DULL;
+		return ;
 	}
 	else if (*info->ptr == '$')
 		convert_variable(info);
+	else
+		copy_to_buffer(info);
 }
 
 void	single_functions(t_parsing *info)
@@ -52,7 +55,7 @@ void	single_functions(t_parsing *info)
 		make_new_token(info);
 	else if (*info->ptr == '\'')
 	{
-		info->state = IN_WORD;
+		info->state = DULL;
 		return ;
 	}
 	else
@@ -94,6 +97,8 @@ void	word_functions(t_parsing *info)
 	}
 	else if (*info->ptr == '\'')
 		info->state = IN_SINGLE;
+	else if (*info->ptr == '$')
+		convert_variable(info);
 	else
 		copy_to_buffer(info);
 }

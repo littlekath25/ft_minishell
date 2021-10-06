@@ -6,7 +6,7 @@
 /*   By: kfu <kfu@student.codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/10/01 15:18:44 by kfu           #+#    #+#                 */
-/*   Updated: 2021/10/01 15:20:14 by kfu           ########   odam.nl         */
+/*   Updated: 2021/10/06 11:17:17 by kfu           ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ static char	*st_allocate(char *buff, int append_len)
 	if (buff != NULL)
 	{
 		st_strcpy(new_buff, buff);
-		free(buff);
+		ft_bzero(buff, 1024);
 	}
 	return (new_buff);
 }
@@ -63,7 +63,6 @@ static void	st_append(char *buff, char *start, int len)
 char	*buffjoin(char *buffer, char *start, char *end)
 {
 	char	*new_buff;
-	int		i;
 
 	new_buff = st_allocate(buffer, end - start);
 	st_append(new_buff, start, end - start);

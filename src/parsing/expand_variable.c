@@ -6,7 +6,7 @@
 /*   By: pspijkst <pspijkst@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/09/21 18:34:05 by pspijkst      #+#    #+#                 */
-/*   Updated: 2021/09/24 15:01:48 by kfu           ########   odam.nl         */
+/*   Updated: 2021/10/06 11:30:10 by kfu           ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,16 +66,13 @@ char	*process_variable(char **line)
 void	convert_variable(t_parsing *info)
 {
 	char	*new;
+	int		len;
 
 	if (ft_isalnum(*(info->ptr + 1)))
 		new = process_variable(&info->ptr);
 	else
 		new = ft_strdup("$");
-	if (*(info->start + 1) == '$')
-		printf("DONT JOIN - %c\n", *info->start);
-	else
-		printf("JOIN - %c\n", *info->start);
-	g_shell->dest->tokens->items[info->argc] = new;
-	info->argc++;
-	info->state = DULL;
+	len = ft_strlen(new);
+	ft_memcpy(info->buffer + info->i, new, len);
+	info->i += len;
 }

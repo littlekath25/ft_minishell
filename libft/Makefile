@@ -6,7 +6,7 @@
 #    By: kfu <kfu@student.codam.nl>                   +#+                      #
 #                                                    +#+                       #
 #    Created: 2020/11/14 23:09:58 by kfu           #+#    #+#                  #
-#    Updated: 2021/07/08 15:50:02 by pspijkst      ########   odam.nl          #
+#    Updated: 2021/10/06 11:08:28 by kfu           ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -59,7 +59,8 @@ SRC = 		ft_atoi.c\
 			get_next_line.c\
 			ft_split_count.c\
 			ft_realloc.c\
-			ft_realloc_double.c
+			ft_realloc_double.c\
+			buffjoin.c
 
 OBJ_FILES = $(O_FILES)
 
