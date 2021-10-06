@@ -38,7 +38,6 @@ P_PATH		=	src/parsing/
 P_SRC		=	create.c\
 				tokens.c\
 				items.c\
-				variable.c\
 				info.c\
 				expand_variable.c\
 				states.c\
