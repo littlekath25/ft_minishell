@@ -6,7 +6,7 @@
 /*   By: kfu <kfu@student.codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/09/21 15:30:16 by kfu           #+#    #+#                 */
-/*   Updated: 2021/10/06 16:09:23 by kfu           ########   odam.nl         */
+/*   Updated: 2021/10/06 16:58:17 by kfu           ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,16 +55,15 @@ void	single_functions(t_parsing *info)
 
 void	pipe_functions(t_parsing *info)
 {
+	new_pipe(info);
 	if (*info->ptr == ' ')
 		info->state = DULL;
 	else if (*info->ptr == '\'')
 		info->state = IN_SINGLE;
 	else if (*info->ptr == '"')
 		info->state = IN_DOUBLE;
-	else if (*info->ptr == '|' || *info->ptr == '<' || *info->ptr == '>')
-		printf("ERROR\n");
 	else
-		new_pipe(info);
+		info->state = IN_WORD;
 }
 
 void	word_functions(t_parsing *info)

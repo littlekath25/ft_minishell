@@ -6,7 +6,7 @@
 /*   By: katherine <katherine@student.codam.nl>       +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/08/09 11:21:01 by katherine     #+#    #+#                 */
-/*   Updated: 2021/10/06 16:02:38 by kfu           ########   odam.nl         */
+/*   Updated: 2021/10/06 18:05:01 by kfu           ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,6 @@ void	new_pipe(t_parsing *info)
 {
 	info->argc = 0;
 	info->i = 0;
-	info->state = IN_WORD;
-	copy_to_buffer(info);
 	create_new_command_and_tokens(&g_shell->dest->pipe);
 	g_shell->dest = g_shell->dest->pipe;
 }
