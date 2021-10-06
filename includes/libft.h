@@ -6,7 +6,7 @@
 /*   By: kfu <kfu@student.codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/29 18:46:35 by kfu           #+#    #+#                 */
-/*   Updated: 2021/10/06 11:07:50 by kfu           ########   odam.nl         */
+/*   Updated: 2021/10/06 18:48:07 by kfu           ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ void			*ft_memmove(void *dest, const void *src, size_t len);
 void			*ft_memchr(const void *buf, int c, size_t len);
 void			ft_free_split(char **split);
 
-size_t			ft_strlen (const char *str);
+size_t			ft_strlen(const char *str);
 size_t			ft_strlcpy(char *dest, const char *src, size_t len);
 size_t			ft_strlcat(char *dest, const char *src, size_t len);
 

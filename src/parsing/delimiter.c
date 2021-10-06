@@ -6,7 +6,7 @@
 /*   By: kfu <kfu@student.codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/09/21 15:30:16 by kfu           #+#    #+#                 */
-/*   Updated: 2021/10/06 16:58:17 by kfu           ########   odam.nl         */
+/*   Updated: 2021/10/06 18:54:45 by kfu           ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,8 @@ void	dull_functions(t_parsing *info)
 		info->state = IN_PIPE;
 	else if (*info->ptr == '$')
 		variable_checker(info);
+	else if (is_redirect(info))
+		make_new_token(info);
 	else
 	{
 		info->state = IN_WORD;

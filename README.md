@@ -1,3 +1,0 @@
-# minishell
-
-Hello World

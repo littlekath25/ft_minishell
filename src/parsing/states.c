@@ -6,11 +6,26 @@
 /*   By: katherine <katherine@student.codam.nl>       +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/08/09 11:21:01 by katherine     #+#    #+#                 */
-/*   Updated: 2021/10/06 18:05:01 by kfu           ########   odam.nl         */
+/*   Updated: 2021/10/06 19:55:11 by kfu           ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shell.h"
+
+t_bool	is_redirect(t_parsing *info)
+{
+	if (*info->ptr == '>' || *info->ptr == '<')
+	{
+		copy_to_buffer(info);
+		if (*(info->ptr + 1) == '>' || *(info->ptr + 1) == '<')
+		{
+			info->ptr++;
+			copy_to_buffer(info);
+		}
+		return (true);
+	}
+	return (false);
+}
 
 void	new_pipe(t_parsing *info)
 {
