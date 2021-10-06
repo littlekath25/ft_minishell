@@ -6,7 +6,7 @@
 /*   By: pspijkst <pspijkst@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/05/05 13:17:29 by pspijkst      #+#    #+#                 */
-/*   Updated: 2021/10/06 15:47:43 by kfu           ########   odam.nl         */
+/*   Updated: 2021/10/06 16:31:46 by kfu           ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,6 @@ typedef struct s_tokens
 typedef struct s_parsing
 {
 	char			*ptr;
-	char			*start;
 	enum e_states	state;
 	char			*delimiters;
 	int				argc;

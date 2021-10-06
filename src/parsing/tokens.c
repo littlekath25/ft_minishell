@@ -6,7 +6,7 @@
 /*   By: kfu <kfu@student.codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/07/02 13:58:25 by kfu           #+#    #+#                 */
-/*   Updated: 2021/10/06 15:59:58 by kfu           ########   odam.nl         */
+/*   Updated: 2021/10/06 16:31:38 by kfu           ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@ void	make_new_token(t_parsing *info)
 
 	new = ft_strdup(info->buffer);
 	g_shell->dest->tokens->items[info->argc] = new;
-	info->start = info->ptr;
 	info->state = DULL;
 	info->argc++;
 	info->i = 0;
