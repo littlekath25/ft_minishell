@@ -1,5 +1,5 @@
 NAME		= 	minishell
-CC			= 	gcc
+CC			= 	clang
 RM			=	rm -f
 CFLAGS		= 	-Wall -Wextra -g3 -fsanitize=address
 

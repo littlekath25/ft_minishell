@@ -34,5 +34,5 @@ void	*get_builtin(const char *key)
 			return (builtins[i].f);
 		i++;
 	}
-	return (0);
+	return (NULL);
 }

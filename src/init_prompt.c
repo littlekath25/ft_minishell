@@ -12,11 +12,6 @@
 
 #include "shell.h"
 
-static void	print_return_status(void)
-{
-	printf("Status: %d\n", g_shell->returnstatus);
-}
-
 void	init_prompt(void)
 {
 	char	*line;
@@ -35,7 +30,8 @@ void	init_prompt(void)
 			if (create_commands_list(line) == 1)
 			{
 				set_redirects();
-				init_executor();
+				if (g_shell->cmd->tokens->items[0] != NULL)
+					init_executor();
 			}
 			free_command_and_tokens();
 		}

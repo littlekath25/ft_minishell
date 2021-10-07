@@ -12,41 +12,41 @@
 
 #include "shell.h"
 
-// void	print_tokens(void)
-// {
-// 	int i = 0;
-// 	int	j = 0;
-// 	t_command	*ptr;
-// 	t_command	*command_ptr;
+void	print_tokens(void)
+{
+	int i = 0;
+	int	j = 0;
+	t_command	*ptr;
+	t_command	*command_ptr;
 
-// 	command_ptr = g_shell->cmd;
-// 	if (command_ptr)
-// 	{
-// 		i = 0;
-// 		while (command_ptr->tokens->items[i])
-// 		{
-// 			printf("LINE %i: %s.\n", j, command_ptr->tokens->items[i]);
-// 			i++;
-// 		}
-// 		j++;
-// 	}
-// 	i = 0;
-// 	ptr = g_shell->cmd->pipe;
-// 	if (ptr)
-// 	{
-// 		while (ptr != NULL)
-// 		{
-// 			i = 0;
-// 			while (g_shell->cmd->pipe->tokens->items[i])
-// 			{
-// 				printf("PIPE %i: %s\n",j, ptr->tokens->items[i]);
-// 				i++;
-// 			}
-// 			j++;
-// 			ptr = ptr->pipe;
-// 		}
-// 	}
-// }
+	command_ptr = g_shell->cmd;
+	if (command_ptr)
+	{
+		i = 0;
+		while (command_ptr->tokens->items[i])
+		{
+			printf("LINE %i: %s.\n", j, command_ptr->tokens->items[i]);
+			i++;
+		}
+		j++;
+	}
+	i = 0;
+	ptr = g_shell->cmd->pipe;
+	if (ptr)
+	{
+		while (ptr != NULL)
+		{
+			i = 0;
+			while (g_shell->cmd->pipe->tokens->items[i])
+			{
+				printf("PIPE %i: %s\n",j, ptr->tokens->items[i]);
+				i++;
+			}
+			j++;
+			ptr = ptr->pipe;
+		}
+	}
+}
 
 void	shell_exit(int error)
 {
