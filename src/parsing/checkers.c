@@ -1,16 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   states.c                                           :+:    :+:            */
+/*   checkers.c                                         :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: katherine <katherine@student.codam.nl>       +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/08/09 11:21:01 by katherine     #+#    #+#                 */
-/*   Updated: 2021/10/08 11:42:00 by kfu           ########   odam.nl         */
+/*   Updated: 2021/10/08 13:47:48 by kfu           ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shell.h"
+
+t_redirects	which_redirect(char *line)
+{
+	if (!(ft_strcmp(line, "<")))
+		return (INPUT);
+	else if (!(ft_strcmp(line, ">")))
+		return (OUTPUT);
+	else if (!(ft_strcmp(line, "<<")))
+		return (DELIMITER);
+	else if (!(ft_strcmp(line, ">>")))
+		return (APPEND);
+	return (NONE);
+}
 
 t_bool	is_redirect(t_parsing *info)
 {

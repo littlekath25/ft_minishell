@@ -6,7 +6,7 @@
 /*   By: pspijkst <pspijkst@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/05/05 13:17:29 by pspijkst      #+#    #+#                 */
-/*   Updated: 2021/10/08 11:59:44 by kfu           ########   odam.nl         */
+/*   Updated: 2021/10/08 13:52:27 by kfu           ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,15 @@ typedef enum e_error_states
 	INVALID_ARG = 128,
 	OUT_OF_RANGE = 256
 }	t_error_states;
+
+typedef enum e_redirects
+{
+	NONE,
+	INPUT,
+	OUTPUT,
+	APPEND,
+	DELIMITER
+}	t_redirects;
 
 typedef enum e_states
 {
@@ -148,10 +157,11 @@ void		variable_checker(t_parsing *info);
 t_bool		is_redirect(t_parsing *info);
 void		copy_to_buffer(t_parsing *info);
 void		expand_buffer(t_parsing *info);
+t_redirects	which_redirect(char *line);
 
 // ITEM FUNCTIONS
 void		expand_items(t_tokens *tokens);
-void		set_redirects(void);
+int			set_redirects(void);
 
 // FREE FUNCTIONS
 void		free_command_and_tokens(void);
@@ -164,5 +174,7 @@ t_bool		is_valid_key(char *var);
 t_bool		is_valid_key_l(char *var, unsigned int l);
 void		activate_signals(void);
 void		deactivate_signals(void);
+void		print_error_token(char token);
+void		delete_redirect_token(char **pointers, int i);
 
 #endif

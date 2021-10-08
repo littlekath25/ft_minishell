@@ -6,21 +6,17 @@
 /*   By: kfu <kfu@student.codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/10/06 16:34:19 by kfu           #+#    #+#                 */
-/*   Updated: 2021/10/08 11:37:42 by kfu           ########   odam.nl         */
+/*   Updated: 2021/10/08 13:54:17 by kfu           ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shell.h"
 
-static void	delete_redirect_token(char **pointers, int i)
+static void	set_delimiter(t_command *command, int i)
 {
-	free(pointers[i]);
-	while (pointers[i + 1] != NULL)
-	{
-		pointers[i] = pointers[i + 1];
-		i++;
-	}
-	pointers[i] = NULL;
+	command->delimiter = ft_strdup(command->tokens->items[i + 1]);
+	delete_redirect_token(command->tokens->items, i);
+	delete_redirect_token(command->tokens->items, i);
 }
 
 static void	set_output(t_command *command, int i)
@@ -63,32 +59,35 @@ static void	set_input(t_command *command, int i)
 
 static int	choose_redirect(t_command *command, char *line, int i)
 {
-	if (!(ft_strcmp(line, "<<")))
+	t_redirects	redirect;
+
+	redirect = which_redirect(line);
+	if (redirect && i == 0)
 	{
-		command->delimiter = ft_strdup(command->tokens->items[i + 1]);
-		delete_redirect_token(command->tokens->items, i);
-		delete_redirect_token(command->tokens->items, i);
+		print_error_token(*line);
+		return (-1);
 	}
-	else if (!(ft_strcmp(line, "<")))
-	{
+	else if (redirect == INPUT)
 		set_input(command, i);
-		return (1);
-	}
-	else if (!(ft_strcmp(line, ">")) || !(ft_strcmp(line, ">>")))
+	else if (redirect == OUTPUT || redirect == APPEND)
 	{
-		if (!(ft_strcmp(line, ">>")))
+		if (redirect == APPEND)
 			command->append = 1;
 		set_output(command, i);
-		return (1);
 	}
-	return (0);
+	else if (redirect == DELIMITER)
+		set_delimiter(command, i);
+	else
+		return (0);
+	return (1);
 }
 
-void	set_redirects(void)
+int	set_redirects(void)
 {
 	t_command	*cmd_ptr;
 	char		*token;
 	int			i;
+	int			ret;
 
 	i = 0;
 	cmd_ptr = g_shell->cmd;
@@ -98,10 +97,14 @@ void	set_redirects(void)
 		token = cmd_ptr->tokens->items[i];
 		while (token)
 		{
-			if (!choose_redirect(cmd_ptr, token, i))
+			ret = choose_redirect(cmd_ptr, token, i);
+			if (ret == 0)
 				i++;
+			else if (ret == -1)
+				return (-1);
 			token = cmd_ptr->tokens->items[i];
 		}
 		cmd_ptr = cmd_ptr->pipe;
 	}
+	return (0);
 }

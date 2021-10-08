@@ -6,7 +6,7 @@
 /*   By: kfu <kfu@student.codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/05/05 15:51:53 by kfu           #+#    #+#                 */
-/*   Updated: 2021/10/08 11:35:49 by kfu           ########   odam.nl         */
+/*   Updated: 2021/10/08 14:00:24 by kfu           ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,10 +29,11 @@ void	init_prompt(void)
 			add_history(line);
 			if (create_commands_list(line) == 1)
 			{
-				set_redirects();
-				print_tokens();
-				// if (g_shell->cmd->tokens->items[0] != NULL)
-				// 	init_executor();
+				if (set_redirects() != -1)
+				{
+					if (g_shell->cmd->tokens->items[0] != NULL)
+						init_executor();
+				}
 			}
 			free_command_and_tokens();
 		}

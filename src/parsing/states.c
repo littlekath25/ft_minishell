@@ -6,7 +6,7 @@
 /*   By: kfu <kfu@student.codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/09/21 15:30:16 by kfu           #+#    #+#                 */
-/*   Updated: 2021/10/08 12:00:35 by kfu           ########   odam.nl         */
+/*   Updated: 2021/10/08 14:01:35 by kfu           ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ int	pipe_functions(t_parsing *info)
 		info->state = IN_DOUBLE;
 	else if (is_redirect(info))
 	{
-		printf("syntax error near unexpected token '%c'\n", *(info->ptr + 1));
+		print_error_token(*(info->ptr + 1));
 		return (0);
 	}
 	else
