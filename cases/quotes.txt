@@ -1,0 +1,38 @@
+echo hello there how are you doing today
+echo hello there "how are you" doing today
+echo "Hello"World How"are "you"''doing 'today'"
+echo "hello"
+echo "hello world"
+echo "hello" "world"
+echo "hello'hi'world"
+echo "hello "" world"
+echo       "hello world"       
+echo "hello""world"
+echo "hello "world""
+echo "hello    " "     " "world"
+echo hello        world
+echo hello"world"hello
+echo 'hello world'
+echo 'hello' 'world'
+echo 'hello"bye"world'
+echo 'hello '' world'
+echo       'hello world'       
+echo 'hello""world'
+echo 'hello 'world''
+echo 'hello    ' '     ' 'world'
+echo hello        world
+echo hello'world'hello
+echo $HOME
+echo '$HOME'
+echo "$HOME"
+echo "$ HOME"
+echo $ HOME
+echo bye$HOME
+echo hello$HOME ciao
+echo "hello$HOME ciao"
+echo "hello$HOMEE"
+echo "hello$HOME$USER"
+echo "hello$USER$USER2 abc"
+echo "this$is$not$USER cool."
+echo "but$USER$iscool"
+echo "my$HOME'$HOME'"

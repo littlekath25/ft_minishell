@@ -1,0 +1,4 @@
+ls | wc
+ls | grep "test"
+ls | grep "test" | wc -l
+ls | grep "test" | wc -l | wc -l | wc -l | wc -l | wc -l

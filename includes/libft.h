@@ -6,7 +6,7 @@
 /*   By: kfu <kfu@student.codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/29 18:46:35 by kfu           #+#    #+#                 */
-/*   Updated: 2021/10/06 18:48:07 by kfu           ########   odam.nl         */
+/*   Updated: 2021/10/08 14:20:47 by pspijkst      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,5 +89,6 @@ t_list			*ft_lstmap(t_list *lst, void *(*f)(void *), \
 void			*ft_realloc(void *ptr, size_t size);
 void			*ft_realloc_double(void *src, int srcsize);
 int				ft_split_count(char **splits);
+char			ft_strcontains(char *str, char c);
 
 #endif

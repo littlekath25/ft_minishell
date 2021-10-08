@@ -45,7 +45,9 @@ P_SRC		=	create.c\
 P_OBJ		=	$(P_SRC:%.c=$(P_PATH)%.o)
 
 EXEC_PATH	=	src/executor/
-EXEC_SRC	=	execute.c
+EXEC_SRC	=	execute.c\
+				exec_bin.c\
+				exec_retval.c
 EXEC_OBJ	=	$(EXEC_SRC:%.c=$(EXEC_PATH)%.o)
 
 BLTIN_PATH	=	src/executor/builtin/
@@ -54,6 +56,7 @@ BLTIN_SRC	=	cd.c\
 				env.c\
 				exit.c\
 				export.c\
+				export_b.c\
 				pwd.c\
 				unset.c\
 				get_builtin.c\
