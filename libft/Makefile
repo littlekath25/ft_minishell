@@ -6,14 +6,14 @@
 #    By: kfu <kfu@student.codam.nl>                   +#+                      #
 #                                                    +#+                       #
 #    Created: 2020/11/14 23:09:58 by kfu           #+#    #+#                  #
-#    Updated: 2021/10/06 11:08:28 by kfu           ########   odam.nl          #
+#    Updated: 2021/10/08 10:58:57 by kfu           ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = 		libft.a
 AR =		ar
 H_FILES = 	libft.h
-CC = 		gcc
+CC = 		clang
 RM =		rm -f
 CFLAGS = 	-Wall -Wextra -Werror -I ../includes/
 O_FILES = 	$(SRC:.c=.o)

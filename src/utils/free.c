@@ -6,13 +6,13 @@
 /*   By: katherine <katherine@student.codam.nl>       +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/07/24 11:02:23 by katherine     #+#    #+#                 */
-/*   Updated: 2021/09/10 12:03:21 by kfu           ########   odam.nl         */
+/*   Updated: 2021/10/08 11:06:38 by kfu           ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shell.h"
 
-void	free_pipes(void)
+static void	free_pipes(void)
 {	
 	int			i;
 	t_command	*ptr;
@@ -33,7 +33,7 @@ void	free_pipes(void)
 	}
 }
 
-void	free_command(void)
+static void	free_command(void)
 {
 	int	i;
 

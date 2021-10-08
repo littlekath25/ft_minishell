@@ -6,7 +6,7 @@
 /*   By: pspijkst <pspijkst@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/05/05 13:17:29 by pspijkst      #+#    #+#                 */
-/*   Updated: 2021/10/08 10:54:41 by kfu           ########   odam.nl         */
+/*   Updated: 2021/10/08 11:06:59 by kfu           ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,20 +123,14 @@ void		print_tokens(void);
 void		init_shell(char **env);
 void		init_prompt(void);
 void		init_command(t_command *new);
+
+// CREATE FUNCTIONS
 t_parsing	*create_new_info(char *line);
-
-// COMMAND FUNCTIONS
-void		read_command(void);
-int			create_commands_list(char *line);
-t_command	*create_new_command(void);
 void		create_new_command_and_tokens(t_command **dest);
-void		add_new_command(char *line);
-void		add_back_command(t_command **dest, t_command *new);
-void		delete_one_command(t_command **src, t_command *node);
+int			create_commands_list(char *line);
+void		create_new_pipe(t_parsing *info);
 
-// TOKEN FUNCTIONS
-t_tokens	*create_new_token(void);
-int			create_new_pipe(t_parsing *info, t_command *dest);
+// PARSE FUNCTIONS
 void		make_new_token(t_parsing *info);
 void		dull_functions(t_parsing *info);
 void		double_functions(t_parsing *info);
@@ -144,23 +138,18 @@ void		single_functions(t_parsing *info);
 void		pipe_functions(t_parsing *info);
 int			word_functions(t_parsing *info);
 int			fill_in_tokens(t_parsing *info);
+t_bool		end_of_token(t_parsing *info);
+t_bool		convert_variable(t_parsing *info);
+void		variable_checker(t_parsing *info);
+t_bool		is_redirect(t_parsing *info);
+void		copy_to_buffer(t_parsing *info);
 
 // ITEM FUNCTIONS
-void		make_new_item(t_parsing *info, t_tokens *tokens);
-int			check_if_makes_new_item(t_parsing *info, t_tokens *tokens);
 void		expand_items(t_tokens *tokens);
-t_bool		convert_variable(t_parsing *info);
-char		*get_value(char *line);
-t_bool		end_of_token(t_parsing *info);
-void		variable_checker(t_parsing *info);
-void		new_pipe(t_parsing *info);
 void		set_redirects(void);
-t_bool		is_redirect(t_parsing *info);
 
 // FREE FUNCTIONS
 void		free_command_and_tokens(void);
-void		free_command(void);
-void		free_pipes(void);
 
 // Executor
 void		init_executor(void);
@@ -170,6 +159,5 @@ t_bool		is_valid_key(char *var);
 t_bool		is_valid_key_l(char *var, unsigned int l);
 void		activate_signals(void);
 void		deactivate_signals(void);
-void		copy_to_buffer(t_parsing *info);
 
 #endif

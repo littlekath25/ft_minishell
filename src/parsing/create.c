@@ -6,13 +6,13 @@
 /*   By: kfu <kfu@student.codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/09/21 15:05:41 by kfu           #+#    #+#                 */
-/*   Updated: 2021/09/24 14:20:06 by kfu           ########   odam.nl         */
+/*   Updated: 2021/10/08 11:02:15 by kfu           ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shell.h"
 
-t_tokens	*create_new_token(void)
+static t_tokens	*create_new_token(void)
 {
 	t_tokens	*new;
 
@@ -27,7 +27,7 @@ t_tokens	*create_new_token(void)
 	return (new);
 }
 
-t_command	*create_new_command(void)
+static t_command	*create_new_command(void)
 {
 	t_command	*new;
 

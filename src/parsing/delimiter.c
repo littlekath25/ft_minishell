@@ -6,7 +6,7 @@
 /*   By: kfu <kfu@student.codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/09/21 15:30:16 by kfu           #+#    #+#                 */
-/*   Updated: 2021/10/08 10:57:43 by kfu           ########   odam.nl         */
+/*   Updated: 2021/10/08 11:04:19 by kfu           ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ void	single_functions(t_parsing *info)
 
 void	pipe_functions(t_parsing *info)
 {
-	new_pipe(info);
+	create_new_pipe(info);
 	if (*info->ptr == ' ')
 		info->state = DULL;
 	else if (*info->ptr == '\'')

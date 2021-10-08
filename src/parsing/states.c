@@ -6,7 +6,7 @@
 /*   By: katherine <katherine@student.codam.nl>       +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/08/09 11:21:01 by katherine     #+#    #+#                 */
-/*   Updated: 2021/10/06 19:59:52 by kfu           ########   odam.nl         */
+/*   Updated: 2021/10/08 11:05:47 by kfu           ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ t_bool	is_redirect(t_parsing *info)
 	return (false);
 }
 
-void	new_pipe(t_parsing *info)
+void	create_new_pipe(t_parsing *info)
 {
 	info->argc = 0;
 	info->i = 0;
