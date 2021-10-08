@@ -6,7 +6,7 @@
 /*   By: kfu <kfu@student.codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/07/02 13:58:25 by kfu           #+#    #+#                 */
-/*   Updated: 2021/10/08 11:48:26 by kfu           ########   odam.nl         */
+/*   Updated: 2021/10/08 11:59:53 by kfu           ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ static int	state_action(t_parsing *info)
 	else if (info->state == IN_DOUBLE)
 		double_functions(info);
 	else if (info->state == IN_PIPE)
-		pipe_functions(info);
+		ret = pipe_functions(info);
 	else if (info->state == IN_WORD)
 		ret = word_functions(info);
 	return (ret);

@@ -6,7 +6,7 @@
 /*   By: pspijkst <pspijkst@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/05/05 13:17:29 by pspijkst      #+#    #+#                 */
-/*   Updated: 2021/10/08 11:35:36 by kfu           ########   odam.nl         */
+/*   Updated: 2021/10/08 11:59:44 by kfu           ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -139,7 +139,7 @@ void		make_new_token(t_parsing *info);
 void		dull_functions(t_parsing *info);
 void		double_functions(t_parsing *info);
 void		single_functions(t_parsing *info);
-void		pipe_functions(t_parsing *info);
+int			pipe_functions(t_parsing *info);
 int			word_functions(t_parsing *info);
 int			fill_in_tokens(t_parsing *info);
 t_bool		end_of_token(t_parsing *info);
