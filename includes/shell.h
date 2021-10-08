@@ -6,7 +6,7 @@
 /*   By: pspijkst <pspijkst@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/05/05 13:17:29 by pspijkst      #+#    #+#                 */
-/*   Updated: 2021/10/08 13:52:27 by kfu           ########   odam.nl         */
+/*   Updated: 2021/10/08 14:14:07 by kfu           ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -145,7 +145,7 @@ void		create_new_pipe(t_parsing *info);
 
 // PARSE FUNCTIONS
 void		make_new_token(t_parsing *info);
-void		dull_functions(t_parsing *info);
+int			dull_functions(t_parsing *info);
 void		double_functions(t_parsing *info);
 void		single_functions(t_parsing *info);
 int			pipe_functions(t_parsing *info);

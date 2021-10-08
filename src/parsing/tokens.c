@@ -6,7 +6,7 @@
 /*   By: kfu <kfu@student.codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/07/02 13:58:25 by kfu           #+#    #+#                 */
-/*   Updated: 2021/10/08 11:59:53 by kfu           ########   odam.nl         */
+/*   Updated: 2021/10/08 14:13:58 by kfu           ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ static int	state_action(t_parsing *info)
 	if (info->i == BUFFER - 1)
 		expand_buffer(info);
 	if (info->state == DULL)
-		dull_functions(info);
+		ret = dull_functions(info);
 	else if (info->state == IN_SINGLE)
 		single_functions(info);
 	else if (info->state == IN_DOUBLE)
