@@ -6,7 +6,7 @@
 /*   By: kfu <kfu@student.codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/07/02 13:58:25 by kfu           #+#    #+#                 */
-/*   Updated: 2021/10/06 16:31:38 by kfu           ########   odam.nl         */
+/*   Updated: 2021/10/08 10:54:46 by kfu           ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,11 @@ void	make_new_token(t_parsing *info)
 	ft_bzero(info->buffer, 1024);
 }
 
-static void	state_action(t_parsing *info)
+static int	state_action(t_parsing *info)
 {
+	int	ret;
+
+	ret = 1;
 	if (info->state == DULL)
 		dull_functions(info);
 	else if (info->state == IN_SINGLE)
@@ -35,14 +38,16 @@ static void	state_action(t_parsing *info)
 	else if (info->state == IN_PIPE)
 		pipe_functions(info);
 	else if (info->state == IN_WORD)
-		word_functions(info);
+		ret = word_functions(info);
+	return (ret);
 }
 
 int	fill_in_tokens(t_parsing *info)
 {
 	while (*info->ptr)
 	{
-		state_action(info);
+		if (!state_action(info))
+			return (0);
 		info->ptr++;
 	}
 	if (info->state == IN_WORD)

@@ -6,7 +6,7 @@
 /*   By: kfu <kfu@student.codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/09/21 15:30:16 by kfu           #+#    #+#                 */
-/*   Updated: 2021/10/06 18:54:45 by kfu           ########   odam.nl         */
+/*   Updated: 2021/10/08 10:57:43 by kfu           ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ void	pipe_functions(t_parsing *info)
 		info->state = IN_WORD;
 }
 
-void	word_functions(t_parsing *info)
+int	word_functions(t_parsing *info)
 {
 	if (*info->ptr == ' ')
 	{
@@ -81,6 +81,12 @@ void	word_functions(t_parsing *info)
 		info->state = IN_SINGLE;
 	else if (*info->ptr == '$')
 		variable_checker(info);
+	else if (is_redirect(info))
+	{
+		printf("syntax error near unexpected token '%c'\n", *(info->ptr + 1));
+		return (0);
+	}
 	else
 		copy_to_buffer(info);
+	return (1);
 }
