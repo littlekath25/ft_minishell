@@ -39,8 +39,8 @@ P_SRC		=	create.c\
 				tokens.c\
 				expand.c\
 				expand_variable.c\
+				checkers.c\
 				states.c\
-				delimiter.c\
 				redirects.c
 P_OBJ		=	$(P_SRC:%.c=$(P_PATH)%.o)
 

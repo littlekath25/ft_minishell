@@ -3,66 +3,96 @@
 /*                                                        ::::::::            */
 /*   states.c                                           :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: katherine <katherine@student.codam.nl>       +#+                     */
+/*   By: kfu <kfu@student.codam.nl>                   +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2021/08/09 11:21:01 by katherine     #+#    #+#                 */
-/*   Updated: 2021/10/08 11:05:47 by kfu           ########   odam.nl         */
+/*   Created: 2021/09/21 15:30:16 by kfu           #+#    #+#                 */
+/*   Updated: 2021/10/08 11:48:28 by kfu           ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shell.h"
 
-t_bool	is_redirect(t_parsing *info)
+void	dull_functions(t_parsing *info)
 {
-	if (*info->ptr == '>' || *info->ptr == '<')
-	{
-		copy_to_buffer(info);
-		if (*(info->ptr + 1) == '>' || *(info->ptr + 1) == '<')
-		{
-			info->ptr++;
-			copy_to_buffer(info);
-		}
-		return (true);
-	}
-	return (false);
-}
-
-void	create_new_pipe(t_parsing *info)
-{
-	info->argc = 0;
-	info->i = 0;
-	create_new_command_and_tokens(&g_shell->dest->pipe);
-	g_shell->dest = g_shell->dest->pipe;
-}
-
-void	variable_checker(t_parsing *info)
-{
-	if (convert_variable(info) && \
-	end_of_token(info) && info->state != IN_DOUBLE)
-		make_new_token(info);
-}
-
-t_bool	end_of_token(t_parsing *info)
-{
-	return (*(info->ptr + 1) == ' ' || *(info->ptr + 1) == '\0');
-}
-
-void	set_state(t_parsing *info)
-{
-	if (*info->ptr == '\'')
-	{
-		if (info->state == IN_SINGLE)
-			info->state = DULL;
-		else
-			info->state = IN_SINGLE;
-	}
+	if (*info->ptr == ' ')
+		return ;
+	else if (*info->ptr == '\'')
+		info->state = IN_SINGLE;
 	else if (*info->ptr == '"')
-	{
-		if (info->state == IN_DOUBLE)
-			info->state = DULL;
-		else
-			info->state = IN_DOUBLE;
-	}
+		info->state = IN_DOUBLE;
 	else if (*info->ptr == '|')
 		info->state = IN_PIPE;
+	else if (*info->ptr == '$')
+		variable_checker(info);
+	else if (is_redirect(info))
+		make_new_token(info);
+	else
+	{
+		info->state = IN_WORD;
+		copy_to_buffer(info);
+	}
+}
+
+void	double_functions(t_parsing *info)
+{
+	if (*info->ptr == '"' && end_of_token(info))
+		make_new_token(info);
+	else if (*info->ptr == '"')
+		info->state = DULL;
+	else if (*info->ptr == '$')
+		variable_checker(info);
+	else
+		copy_to_buffer(info);
+}
+
+void	single_functions(t_parsing *info)
+{
+	if (*info->ptr == '\'' && end_of_token(info))
+		make_new_token(info);
+	else if (*info->ptr == '\'')
+		info->state = DULL;
+	else
+		copy_to_buffer(info);
+}
+
+void	pipe_functions(t_parsing *info)
+{
+	create_new_pipe(info);
+	if (*info->ptr == ' ')
+		info->state = DULL;
+	else if (*info->ptr == '\'')
+		info->state = IN_SINGLE;
+	else if (*info->ptr == '"')
+		info->state = IN_DOUBLE;
+	else
+	{
+		info->state = IN_WORD;
+		copy_to_buffer(info);
+	}
+}
+
+int	word_functions(t_parsing *info)
+{
+	if (*info->ptr == ' ' || *info->ptr == '|')
+	{
+		make_new_token(info);
+		if (*info->ptr == ' ')
+			info->state = DULL;
+		else
+			info->state = IN_PIPE;
+	}
+	else if (*info->ptr == '"')
+		info->state = IN_DOUBLE;
+	else if (*info->ptr == '\'')
+		info->state = IN_SINGLE;
+	else if (*info->ptr == '$')
+		variable_checker(info);
+	else if (is_redirect(info))
+	{
+		printf("syntax error near unexpected token '%c'\n", *(info->ptr + 1));
+		return (0);
+	}
+	else
+		copy_to_buffer(info);
+	return (1);
 }

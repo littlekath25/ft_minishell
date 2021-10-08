@@ -6,7 +6,7 @@
 /*   By: kfu <kfu@student.codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/10/06 16:34:19 by kfu           #+#    #+#                 */
-/*   Updated: 2021/10/06 20:00:04 by kfu           ########   odam.nl         */
+/*   Updated: 2021/10/08 11:37:42 by kfu           ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,11 @@ static void	set_input(t_command *command, int i)
 static int	choose_redirect(t_command *command, char *line, int i)
 {
 	if (!(ft_strcmp(line, "<<")))
-		printf("DELIMITER\n");
+	{
+		command->delimiter = ft_strdup(command->tokens->items[i + 1]);
+		delete_redirect_token(command->tokens->items, i);
+		delete_redirect_token(command->tokens->items, i);
+	}
 	else if (!(ft_strcmp(line, "<")))
 	{
 		set_input(command, i);

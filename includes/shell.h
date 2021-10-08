@@ -6,7 +6,7 @@
 /*   By: pspijkst <pspijkst@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/05/05 13:17:29 by pspijkst      #+#    #+#                 */
-/*   Updated: 2021/10/08 11:22:54 by kfu           ########   odam.nl         */
+/*   Updated: 2021/10/08 11:35:36 by kfu           ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,6 +117,9 @@ typedef struct s_envvar
 	char	*value;
 	t_bool	is_append;
 }	t_envvar;
+
+// RENMOVE BEFORE EVAL
+void		print_tokens(void);
 
 void		shell_exit(int error);
 void		print_tokens(void);
