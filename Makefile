@@ -1,12 +1,12 @@
 NAME		= 	minishell
 CC			= 	clang
 RM			=	rm -f
-CFLAGS		= 	-Wall -Wextra -g3 -fsanitize=address
+CFLAGS		= 	-Werror -Wall -Wextra
 
 RLINCL		=	-I ~/.brew/opt/readline/include
 RLLIB		=	-L ~/.brew/opt/readline/lib -lreadline
 
-LIBS		=	-Llibft -lft $(RLINCL) $(RLLIB)
+LIBS		=	-Llibft -lft $(RLLIB)
 
 S_PATH		=	src/
 S_SRC		= 	main.c\
