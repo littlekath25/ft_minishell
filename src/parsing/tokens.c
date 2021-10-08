@@ -6,7 +6,7 @@
 /*   By: kfu <kfu@student.codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/07/02 13:58:25 by kfu           #+#    #+#                 */
-/*   Updated: 2021/10/08 10:54:46 by kfu           ########   odam.nl         */
+/*   Updated: 2021/10/08 11:21:38 by kfu           ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	make_new_token(t_parsing *info)
 	info->state = DULL;
 	info->argc++;
 	info->i = 0;
-	ft_bzero(info->buffer, 1024);
+	ft_bzero(info->buffer, info->size);
 }
 
 static int	state_action(t_parsing *info)
@@ -29,6 +29,8 @@ static int	state_action(t_parsing *info)
 	int	ret;
 
 	ret = 1;
+	if (info->i == BUFFER - 1)
+		expand_buffer(info);
 	if (info->state == DULL)
 		dull_functions(info);
 	else if (info->state == IN_SINGLE)

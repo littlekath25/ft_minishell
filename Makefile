@@ -37,8 +37,7 @@ VECT_OBJ	=	$(VECT_SRC:%.c=$(VECT_PATH)%.o)
 P_PATH		=	src/parsing/
 P_SRC		=	create.c\
 				tokens.c\
-				items.c\
-				info.c\
+				expand.c\
 				expand_variable.c\
 				states.c\
 				delimiter.c\

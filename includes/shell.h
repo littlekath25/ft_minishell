@@ -6,7 +6,7 @@
 /*   By: pspijkst <pspijkst@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/05/05 13:17:29 by pspijkst      #+#    #+#                 */
-/*   Updated: 2021/10/08 11:06:59 by kfu           ########   odam.nl         */
+/*   Updated: 2021/10/08 11:22:54 by kfu           ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,10 +81,10 @@ typedef struct s_parsing
 {
 	char			*ptr;
 	enum e_states	state;
-	char			*delimiters;
 	int				argc;
 	int				i;
-	char			buffer[BUFFER];
+	int				size;
+	char			*buffer;
 }	t_parsing;
 
 typedef struct s_command
@@ -106,6 +106,7 @@ typedef struct s_shell
 	char				***environ;
 	t_error_states		error_state;
 	t_command			*dest;
+	t_parsing			*info;
 }	t_shell;
 
 t_shell		*g_shell;
@@ -143,6 +144,7 @@ t_bool		convert_variable(t_parsing *info);
 void		variable_checker(t_parsing *info);
 t_bool		is_redirect(t_parsing *info);
 void		copy_to_buffer(t_parsing *info);
+void		expand_buffer(t_parsing *info);
 
 // ITEM FUNCTIONS
 void		expand_items(t_tokens *tokens);
