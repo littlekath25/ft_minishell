@@ -6,47 +6,11 @@
 /*   By: kfu <kfu@student.codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/06/29 16:42:28 by kfu           #+#    #+#                 */
-/*   Updated: 2021/10/08 11:36:13 by kfu           ########   odam.nl         */
+/*   Updated: 2021/10/08 14:31:26 by pspijkst      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shell.h"
-
-void	print_tokens(void)
-{
-	int i = 0;
-	int	j = 0;
-	t_command	*ptr;
-	t_command	*command_ptr;
-
-	command_ptr = g_shell->cmd;
-	if (command_ptr)
-	{
-		i = 0;
-		while (command_ptr->tokens->items[i])
-		{
-			printf("LINE %i: %s.\n", j, command_ptr->tokens->items[i]);
-			i++;
-		}
-		j++;
-	}
-	i = 0;
-	ptr = g_shell->cmd->pipe;
-	if (ptr)
-	{
-		while (ptr != NULL)
-		{
-			i = 0;
-			while (g_shell->cmd->pipe->tokens->items[i])
-			{
-				printf("PIPE %i: %s\n",j, ptr->tokens->items[i]);
-				i++;
-			}
-			j++;
-			ptr = ptr->pipe;
-		}
-	}
-}
 
 void	shell_exit(int error)
 {

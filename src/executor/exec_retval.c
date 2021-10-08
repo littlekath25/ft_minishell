@@ -4,8 +4,8 @@ static int	get_exit_code(int wstatus)
 {
 	if (WIFEXITED(wstatus))
 		return (WEXITSTATUS(wstatus));
-	 else if (WIFSIGNALED(wstatus))
-	 	return (128 + WTERMSIG(wstatus));
+	else if (WIFSIGNALED(wstatus))
+		return (128 + WTERMSIG(wstatus));
 	else if (WIFSTOPPED(wstatus))
 		return (WSTOPSIG(wstatus));
 	return (-1);
