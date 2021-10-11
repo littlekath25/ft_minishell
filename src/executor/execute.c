@@ -6,12 +6,12 @@
 /*   By: pspijkst <pspijkst@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/05/05 16:38:19 by pspijkst      #+#    #+#                 */
-/*   Updated: 2021/10/08 14:18:47 by pspijkst      ########   odam.nl         */
+/*   Updated: 2021/10/08 19:56:39 by pspijkst      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/shell.h"
-#include "../../includes/libft.h"
+#include "shell.h"
+#include "libft.h"
 #include <sys/wait.h>
 #include <stdio.h>
 #include <unistd.h>
@@ -24,6 +24,8 @@ static void	st_create_pipe(t_command *cmd)
 		shell_exit(err_pipe);
 	cmd->pipe->in_fd = pipefd[0];
 	cmd->out_fd = pipefd[1];
+	cmd->close_fd = pipefd[0];
+	cmd->pipe->close_fd = pipefd[1];
 }
 
 static void	st_exec_builtin(t_command *cmd, int (*f)(char **argv))
@@ -37,7 +39,7 @@ static void	st_exec_builtin(t_command *cmd, int (*f)(char **argv))
 	g_shell->io_fds[1] = STDOUT_FILENO;
 }
 
-static void	st_distribute(t_command *cmd)
+static int	st_distribute(t_command *cmd)
 {
 	int	(*f)(char **argv);
 
@@ -47,17 +49,40 @@ static void	st_distribute(t_command *cmd)
 	if (f != NULL)
 		st_exec_builtin(cmd, f);
 	else
-		exec_bin(cmd);
+		return (exec_bin(cmd));
+	return (-1);
+}
+
+static void	wait_pids(int forks[], int i)
+{
+	int	j;
+
+	j = 0;
+	while (j < i)
+	{
+		wait_and_set_returnvalue(forks[j]);
+		j++;
+	}
 }
 
 void	init_executor(void)
 {
 	t_command	*cmd_list;
+	int			forks[1000];
+	int			retval;
+	int			i;
 
 	cmd_list = g_shell->cmd;
+	i = 0;
 	while (cmd_list)
 	{
-		st_distribute(cmd_list);
+		retval = st_distribute(cmd_list);
+		if (retval != -1)
+		{
+			forks[i] = retval;
+			i++;
+		}
 		cmd_list = cmd_list->pipe;
 	}
+	wait_pids(forks, i);
 }

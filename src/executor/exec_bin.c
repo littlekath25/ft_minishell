@@ -26,11 +26,6 @@ static char	*ft_pathcombine(char *base, char *file)
 	return (path);
 }
 
-static void	exec_abs(char **tokens)
-{
-	execve(*tokens, tokens, *g_shell->environ);
-}
-
 static void	exec_rel(char **tokens)
 {
 	char	*path;
@@ -62,7 +57,15 @@ static void	st_setio(t_command *cmd)
 		dup2(cmd->out_fd, STDOUT_FILENO);
 }
 
-void	exec_bin(t_command *cmd)
+static void	st_closeio(t_command *cmd)
+{
+	if (cmd->in_fd != STDIN_FILENO)
+		close(cmd->in_fd);
+	if (cmd->out_fd != STDOUT_FILENO)
+		close(cmd->out_fd);
+}
+
+int	exec_bin(t_command *cmd)
 {
 	int		pid;
 
@@ -71,18 +74,16 @@ void	exec_bin(t_command *cmd)
 		shell_exit(err_fork);
 	else if (pid == 0)
 	{
+		if (cmd->close_fd != -1)
+			close(cmd->close_fd);
 		st_setio(cmd);
 		if (ft_strcontains(*cmd->tokens->items, '/'))
-			exec_abs(cmd->tokens->items);
+			execve(*cmd->tokens->items, cmd->tokens->items, *g_shell->environ);
 		else
 			exec_rel(cmd->tokens->items);
 		printf("%s: command not found\n", *cmd->tokens->items);
 		exit(COMMAND_NOT_FOUND);
 	}
-	else
-	{
-		wait_and_set_returnvalue(pid);
-		if (cmd->out_fd != STDOUT_FILENO)
-			close(cmd->out_fd);
-	}
+	st_closeio(cmd);
+	return (pid);
 }

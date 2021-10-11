@@ -1,4 +1,0 @@
-ls
-ls -l
-ls -1
-wc -l

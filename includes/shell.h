@@ -6,7 +6,7 @@
 /*   By: pspijkst <pspijkst@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/05/05 13:17:29 by pspijkst      #+#    #+#                 */
-/*   Updated: 2021/10/08 14:26:17 by pspijkst      ########   odam.nl         */
+/*   Updated: 2021/10/08 19:47:09 by pspijkst      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,6 +101,7 @@ typedef struct s_command
 	struct s_command	*pipe;
 	int					in_fd;
 	int					out_fd;
+	int					close_fd;
 	int					append;
 	char				*delimiter;
 	t_tokens			*tokens;
@@ -168,7 +169,7 @@ void		free_command_and_tokens(void);
 
 // Executor
 void		init_executor(void);
-void		exec_bin(t_command *cmd);
+int			exec_bin(t_command *cmd);
 char		*st_split_key(char *arg, t_bool *is_append);
 void		wait_and_set_returnvalue(int pid);
 char		*st_get_new_arg(t_envvar var);

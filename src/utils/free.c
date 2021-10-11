@@ -6,7 +6,7 @@
 /*   By: katherine <katherine@student.codam.nl>       +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/07/24 11:02:23 by katherine     #+#    #+#                 */
-/*   Updated: 2021/10/08 11:06:38 by kfu           ########   odam.nl         */
+/*   Updated: 2021/10/08 20:04:57 by kfu           ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,4 +55,6 @@ void	free_command_and_tokens(void)
 		free_pipes();
 	if (g_shell->cmd->tokens != NULL)
 		free_command();
+	free(g_shell->info->buffer);
+	free(g_shell->info);
 }

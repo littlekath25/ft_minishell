@@ -6,7 +6,7 @@
 /*   By: pspijkst <pspijkst@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/07/01 17:29:26 by pspijkst      #+#    #+#                 */
-/*   Updated: 2021/09/21 16:23:21 by pspijkst      ########   odam.nl         */
+/*   Updated: 2021/10/11 10:00:19 by kfu           ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,9 @@ int	_cd_(char **argv)
 {
 	int	result;
 
+	if (g_shell->io_fds[0] != STDIN_FILENO || \
+	g_shell->io_fds[1] != STDOUT_FILENO)
+		return (0);
 	if (argv[1])
 		result = chdir(argv[1]);
 	else
