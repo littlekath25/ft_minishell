@@ -6,13 +6,13 @@
 /*   By: pspijkst <pspijkst@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/07/19 09:19:39 by pspijkst      #+#    #+#                 */
-/*   Updated: 2021/10/06 20:03:05 by kfu           ########   odam.nl         */
+/*   Updated: 2021/10/13 15:38:03 by pspijkst      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef VECTOR_H
-# include "libft.h"
 # define VECTOR_H
+# include "libft.h"
 
 typedef struct s_vector
 {

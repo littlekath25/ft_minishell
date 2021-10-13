@@ -64,7 +64,7 @@ static char	*st_concat_args(char *old_arg, char *value)
 	return (new_arg);
 }
 
-char	*st_get_new_arg(t_envvar var)
+char	*get_new_arg(t_envvar var)
 {
 	char	*old_arg;
 	char	*new_arg;
@@ -87,7 +87,7 @@ char	*st_get_new_arg(t_envvar var)
 	return (new_arg);
 }
 
-char	*st_split_key(char *arg, t_bool *is_append)
+char	*split_key(char *arg, t_bool *is_append)
 {
 	char	*key;
 	char	*key_end;

@@ -6,7 +6,7 @@
 /*   By: pspijkst <pspijkst@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/05/05 13:17:29 by pspijkst      #+#    #+#                 */
-/*   Updated: 2021/10/08 19:47:09 by pspijkst      ########   odam.nl         */
+/*   Updated: 2021/10/13 16:44:27 by pspijkst      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@
 # include <stdio.h>
 # include <readline/readline.h>
 # include <readline/history.h>
-# include "builtin.h"
 # include "vector.h"
 # include <errno.h>
 # include <sys/stat.h>
@@ -25,6 +24,12 @@
 # include <string.h>
 
 # define BUFFER 1024
+
+typedef struct s_dict
+{
+	char	*key;
+	int		(*f)(char **argv);
+}	t_dict;
 
 typedef enum e_bool
 {
@@ -170,9 +175,7 @@ void		free_command_and_tokens(void);
 // Executor
 void		init_executor(void);
 int			exec_bin(t_command *cmd);
-char		*st_split_key(char *arg, t_bool *is_append);
 void		wait_and_set_returnvalue(int pid);
-char		*st_get_new_arg(t_envvar var);
 
 // UTILS
 t_bool		is_valid_key(char *var);
@@ -181,5 +184,20 @@ void		activate_signals(void);
 void		deactivate_signals(void);
 void		print_error_token(char token);
 void		delete_redirect_token(char **pointers, int i);
+
+// BUILTIN
+void		*get_builtin(const char *key);
+int			env_list_indexof(t_vector *vect, char *key);
+void		export_print(void);
+char		*split_key(char *arg, t_bool *is_append);
+char		*get_new_arg(t_envvar var);
+
+int			_cd_(char **argv);
+int			_echo_(char **argv);
+int			_env_(char **argv);
+int			_exit_(char **argv);
+int			_export_(char **argv);
+int			_pwd_(char **argv);
+int			_unset_(char **argv);
 
 #endif

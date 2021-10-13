@@ -6,7 +6,7 @@
 /*   By: pspijkst <pspijkst@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/07/25 11:51:31 by pspijkst      #+#    #+#                 */
-/*   Updated: 2021/09/21 12:53:34 by pspijkst      ########   odam.nl         */
+/*   Updated: 2021/10/12 12:59:59 by pspijkst      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,5 +59,4 @@ void	init_shell(char **env)
 		shell_exit(err_malloc);
 	g_shell->io_fds[0] = STDIN_FILENO;
 	g_shell->io_fds[1] = STDOUT_FILENO;
-	activate_signals();
 }

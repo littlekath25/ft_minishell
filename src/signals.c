@@ -6,7 +6,7 @@
 /*   By: pspijkst <pspijkst@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/08/01 13:41:05 by pspijkst      #+#    #+#                 */
-/*   Updated: 2021/09/21 17:27:36 by pspijkst      ########   odam.nl         */
+/*   Updated: 2021/10/12 12:57:05 by pspijkst      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ void	reprompt(int i)
 void	static_func(int i)
 {
 	(void)i;
+	printf("\n");
 }
 
 void	activate_signals(void)

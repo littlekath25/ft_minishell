@@ -6,11 +6,10 @@
 /*   By: pspijkst <pspijkst@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/07/01 17:50:10 by pspijkst      #+#    #+#                 */
-/*   Updated: 2021/10/08 14:25:03 by pspijkst      ########   odam.nl         */
+/*   Updated: 2021/10/13 15:42:34 by pspijkst      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "builtin.h"
 #include "shell.h"
 
 static char	*st_split_value(char *arg)
@@ -27,7 +26,7 @@ static t_bool	st_process_arg(char *arg)
 	t_envvar	var;
 	char		*new_arg;
 
-	var.key = st_split_key(arg, &var.is_append);
+	var.key = split_key(arg, &var.is_append);
 	if (is_valid_key(var.key) == false)
 	{
 		if (var.key)
@@ -35,30 +34,11 @@ static t_bool	st_process_arg(char *arg)
 		return (false);
 	}
 	var.value = st_split_value(arg);
-	new_arg = st_get_new_arg(var);
+	new_arg = get_new_arg(var);
 	if (new_arg != NULL)
 		vector_add(g_shell->env_list, new_arg);
 	free(var.key);
 	return (true);
-}
-
-/*
-	Prints all export variables from environment variables list.
-	This includes key-only variables.
-*/
-void	st_print_export(void)
-{
-	char	**env;
-
-	env = *g_shell->environ;
-	if (!env)
-		return ;
-	while (*env)
-	{
-		ft_putstr_fd("declare -x ", g_shell->io_fds[1]);
-		ft_putendl_fd(*env, g_shell->io_fds[1]);
-		env++;
-	}
 }
 
 /*
@@ -72,7 +52,7 @@ int	_export_(char **argv)
 	retval = 0;
 	if (argv[1] == 0)
 	{
-		st_print_export();
+		export_print();
 		return (0);
 	}
 	argv++;
