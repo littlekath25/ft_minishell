@@ -6,7 +6,7 @@
 /*   By: pspijkst <pspijkst@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/05/05 13:17:29 by pspijkst      #+#    #+#                 */
-/*   Updated: 2021/10/13 16:44:27 by pspijkst      ########   odam.nl         */
+/*   Updated: 2021/10/13 18:00:01 by pspijkst      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@
 # include <string.h>
 
 # define BUFFER 1024
+# define HEREDOC_FNAME ".heredoc"
 
 typedef struct s_dict
 {
@@ -142,6 +143,7 @@ void		print_tokens(void);
 void		init_shell(char **env);
 void		init_prompt(void);
 void		init_command(t_command *new);
+void		handle_heredoc(t_command *cmd);
 
 // CREATE FUNCTIONS
 t_parsing	*create_new_info(char *line);
@@ -184,6 +186,7 @@ void		activate_signals(void);
 void		deactivate_signals(void);
 void		print_error_token(char token);
 void		delete_redirect_token(char **pointers, int i);
+char		*read_line(char *prompt);
 
 // BUILTIN
 void		*get_builtin(const char *key);

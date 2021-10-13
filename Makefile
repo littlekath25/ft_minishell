@@ -12,13 +12,15 @@ S_PATH		=	src/
 S_SRC		= 	main.c\
 				init_shell.c\
 				init_prompt.c\
-				signals.c
+				signals.c\
+				heredoc.c
 S_OBJ		=	$(S_SRC:%.c=$(S_PATH)%.o)
 
 U_PATH		=	src/utils/
 U_SRC		= 	error.c\
 				free.c\
-				utils.c
+				utils.c\
+				read_line.c
 U_OBJ		=	$(U_SRC:%.c=$(U_PATH)%.o)
 
 VECT_PATH	=	src/utils/vector/

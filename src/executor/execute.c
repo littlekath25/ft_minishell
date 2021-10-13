@@ -6,7 +6,7 @@
 /*   By: pspijkst <pspijkst@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/05/05 16:38:19 by pspijkst      #+#    #+#                 */
-/*   Updated: 2021/10/13 15:05:19 by pspijkst      ########   odam.nl         */
+/*   Updated: 2021/10/13 18:07:45 by pspijkst      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,10 +22,20 @@ static void	st_create_pipe(t_command *cmd)
 
 	if (pipe(pipefd) == -1)
 		shell_exit(err_pipe);
-	cmd->pipe->in_fd = pipefd[0];
-	cmd->out_fd = pipefd[1];
-	cmd->close_fd = pipefd[0];
-	cmd->pipe->close_fd = pipefd[1];
+	if (cmd->pipe->in_fd == STDIN_FILENO)
+	{
+		cmd->pipe->in_fd = pipefd[0];
+		cmd->close_fd = pipefd[0];
+	}
+	else
+		close(pipefd[0]);
+	if (cmd->out_fd == STDOUT_FILENO)
+	{
+		cmd->out_fd = pipefd[1];
+		cmd->pipe->close_fd = pipefd[1];
+	}
+	else
+		close(pipefd[1]);
 }
 
 static void	st_exec_builtin(t_command *cmd, int (*f)(char **argv))
