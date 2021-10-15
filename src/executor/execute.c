@@ -6,7 +6,7 @@
 /*   By: pspijkst <pspijkst@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/05/05 16:38:19 by pspijkst      #+#    #+#                 */
-/*   Updated: 2021/10/13 18:07:45 by pspijkst      ########   odam.nl         */
+/*   Updated: 2021/10/15 11:55:29 by pspijkst      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ static void	wait_pids(int forks[], int i)
 void	init_executor(void)
 {
 	t_command	*cmd_list;
-	int			forks[1000];
+	int			forks[FORK_MAX];
 	int			retval;
 	int			i;
 
@@ -99,4 +99,5 @@ void	init_executor(void)
 		cmd_list = cmd_list->pipe;
 	}
 	wait_pids(forks, i);
+	unlink(HEREDOC_FNAME);
 }

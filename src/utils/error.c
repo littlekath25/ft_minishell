@@ -6,7 +6,7 @@
 /*   By: kfu <kfu@student.codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/06/29 16:42:28 by kfu           #+#    #+#                 */
-/*   Updated: 2021/10/13 16:42:03 by pspijkst      ########   odam.nl         */
+/*   Updated: 2021/10/15 12:31:56 by pspijkst      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,5 +24,7 @@ void	shell_exit(int error)
 		printf("Fork failed\n");
 	if (error == err_exit)
 		printf("exit\n");
+	if (error == err_open)
+		printf("Open failed\n");
 	exit(0);
 }

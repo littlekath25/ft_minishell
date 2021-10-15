@@ -6,17 +6,25 @@
 /*   By: kfu <kfu@student.codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/10/06 16:34:19 by kfu           #+#    #+#                 */
-/*   Updated: 2021/10/11 10:34:11 by kfu           ########   odam.nl         */
+/*   Updated: 2021/10/15 13:30:35 by pspijkst      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shell.h"
 
-static void	set_delimiter(t_command *command, int i)
+static void	set_delimiter(t_command *cmd, int i)
 {
-	command->delimiter = ft_strdup(command->tokens->items[i + 1]);
-	delete_redirect_token(command->tokens->items, i);
-	delete_redirect_token(command->tokens->items, i);
+	char	*dlmtr_dup;
+
+	dlmtr_dup = ft_strdup(cmd->tokens->items[i + 1]);
+	if (!dlmtr_dup)
+		shell_exit(err_malloc);
+	heredoc_addnew(cmd, dlmtr_dup);
+	if (cmd->in_fd != STDIN_FILENO)
+		close(cmd->in_fd);
+	cmd->in_fd = STDIN_FILENO;
+	delete_redirect_token(cmd->tokens->items, i);
+	delete_redirect_token(cmd->tokens->items, i);
 }
 
 static void	set_output(t_command *command, int i)
@@ -45,10 +53,7 @@ static void	set_input(t_command *command, int i)
 
 	fd = open(command->tokens->items[i + 1], O_RDONLY);
 	if (fd == -1)
-	{
 		printf("%s: %s\n", command->tokens->items[i + 1], strerror(errno));
-		exit(0);
-	}
 	else
 	{
 		command->in_fd = fd;

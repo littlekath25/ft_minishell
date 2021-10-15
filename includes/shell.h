@@ -6,7 +6,7 @@
 /*   By: pspijkst <pspijkst@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/05/05 13:17:29 by pspijkst      #+#    #+#                 */
-/*   Updated: 2021/10/13 18:00:01 by pspijkst      ########   odam.nl         */
+/*   Updated: 2021/10/15 13:59:54 by pspijkst      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@
 
 # define BUFFER 1024
 # define HEREDOC_FNAME ".heredoc"
+# define FORK_MAX 256
 
 typedef struct s_dict
 {
@@ -82,7 +83,8 @@ typedef enum e_errorz
 	err_malloc,
 	err_pipe,
 	err_fork,
-	err_exit
+	err_exit,
+	err_open
 }	t_error;
 
 typedef struct s_tokens
@@ -102,14 +104,20 @@ typedef struct s_parsing
 	char			*buffer;
 }	t_parsing;
 
+typedef struct s_heredoc
+{
+	struct s_heredoc	*next;
+	char				*delimiter;
+}	t_heredoc;
+
 typedef struct s_command
 {
 	struct s_command	*pipe;
 	int					in_fd;
 	int					out_fd;
 	int					close_fd;
+	t_heredoc			*heredocs;
 	int					append;
-	char				*delimiter;
 	t_tokens			*tokens;
 }	t_command;
 
@@ -144,6 +152,7 @@ void		init_shell(char **env);
 void		init_prompt(void);
 void		init_command(t_command *new);
 void		handle_heredoc(t_command *cmd);
+void		heredoc_addnew(t_command *cmd, char *delimiter);
 
 // CREATE FUNCTIONS
 t_parsing	*create_new_info(char *line);
