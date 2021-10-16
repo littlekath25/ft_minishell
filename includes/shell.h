@@ -6,7 +6,7 @@
 /*   By: pspijkst <pspijkst@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/05/05 13:17:29 by pspijkst      #+#    #+#                 */
-/*   Updated: 2021/10/16 11:33:55 by kfu           ########   odam.nl         */
+/*   Updated: 2021/10/16 12:40:18 by kfu           ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -195,7 +195,7 @@ t_bool		is_valid_key_l(char *var, unsigned int l);
 void		activate_signals(void);
 void		deactivate_signals(void);
 void		print_error_token(char token);
-void		delete_redirect_token(char **pointers, int i);
+void		clean_up_tokens(char **pointers, int i);
 char		*read_line(char *prompt);
 
 // BUILTIN

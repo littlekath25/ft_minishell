@@ -6,7 +6,7 @@
 /*   By: pspijkst <pspijkst@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/08/01 13:41:05 by pspijkst      #+#    #+#                 */
-/*   Updated: 2021/10/12 12:57:05 by pspijkst      ########   odam.nl         */
+/*   Updated: 2021/10/16 13:54:13 by kfu           ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,11 @@ void	static_func(int i)
 	printf("\n");
 }
 
+void	quit(void)
+{
+	printf("Quit: 3\n");
+}
+
 void	activate_signals(void)
 {
 	signal(SIGINT, reprompt);
@@ -37,4 +42,5 @@ void	activate_signals(void)
 void	deactivate_signals(void)
 {
 	signal(SIGINT, static_func);
+	signal(SIGQUIT, quit);
 }

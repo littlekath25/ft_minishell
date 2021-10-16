@@ -6,13 +6,13 @@
 /*   By: katherine <katherine@student.codam.nl>       +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/07/28 22:16:18 by katherine     #+#    #+#                 */
-/*   Updated: 2021/10/08 13:52:31 by kfu           ########   odam.nl         */
+/*   Updated: 2021/10/16 12:40:08 by kfu           ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shell.h"
 
-void	delete_redirect_token(char **pointers, int i)
+static void	delete_redirect_token(char **pointers, int i)
 {
 	free(pointers[i]);
 	while (pointers[i + 1] != NULL)
@@ -21,6 +21,12 @@ void	delete_redirect_token(char **pointers, int i)
 		i++;
 	}
 	pointers[i] = NULL;
+}
+
+void	clean_up_tokens(char **pointers, int i)
+{
+	delete_redirect_token(pointers, i);
+	delete_redirect_token(pointers, i);
 }
 
 void	print_error_token(char token)

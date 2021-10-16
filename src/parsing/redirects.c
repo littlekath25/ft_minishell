@@ -6,13 +6,13 @@
 /*   By: kfu <kfu@student.codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/10/06 16:34:19 by kfu           #+#    #+#                 */
-/*   Updated: 2021/10/15 13:30:35 by pspijkst      ########   odam.nl         */
+/*   Updated: 2021/10/16 12:49:56 by kfu           ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shell.h"
 
-static void	set_delimiter(t_command *cmd, int i)
+static int	set_delimiter(t_command *cmd, int i)
 {
 	char	*dlmtr_dup;
 
@@ -23,50 +23,54 @@ static void	set_delimiter(t_command *cmd, int i)
 	if (cmd->in_fd != STDIN_FILENO)
 		close(cmd->in_fd);
 	cmd->in_fd = STDIN_FILENO;
-	delete_redirect_token(cmd->tokens->items, i);
-	delete_redirect_token(cmd->tokens->items, i);
+	clean_up_tokens(cmd->tokens->items, i);
+	return (1);
 }
 
-static void	set_output(t_command *command, int i)
+static int	set_output(t_command *cmd, int i)
 {
 	int	fd;
 
-	if (command->append)
-		fd = open(command->tokens->items[i + 1], \
+	if (cmd->append)
+		fd = open(cmd->tokens->items[i + 1], \
 		O_RDWR | O_CREAT | O_APPEND, 0666);
 	else
-		fd = open(command->tokens->items[i + 1], \
+		fd = open(cmd->tokens->items[i + 1], \
 		O_RDWR | O_CREAT | O_TRUNC, 0666);
 	if (fd == -1)
-		printf("%s: %s\n", command->tokens->items[i + 1], strerror(errno));
-	else
 	{
-		command->out_fd = fd;
-		delete_redirect_token(command->tokens->items, i);
-		delete_redirect_token(command->tokens->items, i);
+		printf("%s: %s\n", cmd->tokens->items[i + 1], strerror(errno));
+		return (-1);
 	}
+	else
+		cmd->out_fd = fd;
+	clean_up_tokens(cmd->tokens->items, i);
+	return (1);
 }
 
-static void	set_input(t_command *command, int i)
+static int	set_input(t_command *cmd, int i)
 {
 	int	fd;
 
-	fd = open(command->tokens->items[i + 1], O_RDONLY);
+	fd = open(cmd->tokens->items[i + 1], O_RDONLY);
 	if (fd == -1)
-		printf("%s: %s\n", command->tokens->items[i + 1], strerror(errno));
-	else
 	{
-		command->in_fd = fd;
-		delete_redirect_token(command->tokens->items, i);
-		delete_redirect_token(command->tokens->items, i);
+		printf("%s: %s\n", cmd->tokens->items[i + 1], strerror(errno));
+		return (-1);
 	}
-	command->append = 0;
+	else
+		cmd->in_fd = fd;
+	clean_up_tokens(cmd->tokens->items, i);
+	cmd->append = 0;
+	return (1);
 }
 
-static int	choose_redirect(t_command *command, char *line, int i)
+static int	choose_redirect(t_command *cmd, char *line, int i)
 {
 	t_redirects	redirect;
+	int			ret;
 
+	ret = 0;
 	redirect = which_redirect(line);
 	if (redirect && i == 0)
 	{
@@ -74,18 +78,16 @@ static int	choose_redirect(t_command *command, char *line, int i)
 		return (-1);
 	}
 	else if (redirect == INPUT)
-		set_input(command, i);
+		ret = set_input(cmd, i);
 	else if (redirect == OUTPUT || redirect == APPEND)
 	{
 		if (redirect == APPEND)
-			command->append = 1;
-		set_output(command, i);
+			cmd->append = 1;
+		ret = set_output(cmd, i);
 	}
 	else if (redirect == DELIMITER)
-		set_delimiter(command, i);
-	else
-		return (0);
-	return (1);
+		ret = set_delimiter(cmd, i);
+	return (ret);
 }
 
 int	set_redirects(void)
@@ -104,10 +106,14 @@ int	set_redirects(void)
 		while (token)
 		{
 			ret = choose_redirect(cmd_ptr, token, i);
-			if (ret == 0)
-				i++;
+			if (ret == 1)
+			{
+				token = cmd_ptr->tokens->items[i];
+				continue ;
+			}
 			else if (ret == -1)
 				return (-1);
+			i++;
 			token = cmd_ptr->tokens->items[i];
 		}
 		cmd_ptr = cmd_ptr->pipe;
