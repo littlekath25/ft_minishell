@@ -6,7 +6,7 @@
 /*   By: pspijkst <pspijkst@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/05/05 13:17:29 by pspijkst      #+#    #+#                 */
-/*   Updated: 2021/10/15 13:59:54 by pspijkst      ########   odam.nl         */
+/*   Updated: 2021/10/16 11:33:55 by kfu           ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@
 # include <sys/stat.h>
 # include <fcntl.h>
 # include <string.h>
+# include <termios.h>
 
 # define BUFFER 1024
 # define HEREDOC_FNAME ".heredoc"
