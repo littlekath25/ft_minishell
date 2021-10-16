@@ -6,7 +6,7 @@
 /*   By: pspijkst <pspijkst@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/08/01 13:41:05 by pspijkst      #+#    #+#                 */
-/*   Updated: 2021/10/16 13:54:13 by kfu           ########   odam.nl         */
+/*   Updated: 2021/10/16 13:56:39 by kfu           ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,9 @@ void	static_func(int i)
 	printf("\n");
 }
 
-void	quit(void)
+void	quit(int i)
 {
+	(void)i;
 	printf("Quit: 3\n");
 }
 
