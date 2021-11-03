@@ -6,7 +6,7 @@
 /*   By: katherine <katherine@student.codam.nl>       +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/07/24 11:02:23 by katherine     #+#    #+#                 */
-/*   Updated: 2021/10/15 13:20:22 by pspijkst      ########   odam.nl         */
+/*   Updated: 2021/11/03 11:47:58 by pspijkst      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,10 @@ static void	free_command(t_command *cmd)
 
 	ft_free_split(cmd->tokens->items);
 	free(cmd->tokens);
-	while (cmd->heredocs)
+	while (g_shell->heredocs)
 	{
-		tmp = cmd->heredocs;
-		cmd->heredocs = cmd->heredocs->next;
+		tmp = g_shell->heredocs;
+		g_shell->heredocs = g_shell->heredocs->next;
 		free(tmp->delimiter);
 		free(tmp);
 	}

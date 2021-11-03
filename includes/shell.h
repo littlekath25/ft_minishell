@@ -6,7 +6,7 @@
 /*   By: pspijkst <pspijkst@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/05/05 13:17:29 by pspijkst      #+#    #+#                 */
-/*   Updated: 2021/10/16 12:40:18 by kfu           ########   odam.nl         */
+/*   Updated: 2021/11/03 12:37:48 by pspijkst      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,7 +117,6 @@ typedef struct s_command
 	int					in_fd;
 	int					out_fd;
 	int					close_fd;
-	t_heredoc			*heredocs;
 	int					append;
 	t_tokens			*tokens;
 }	t_command;
@@ -132,6 +131,8 @@ typedef struct s_shell
 	t_error_states		error_state;
 	t_command			*dest;
 	t_parsing			*info;
+	t_heredoc			*heredocs;
+	struct termios		dfl_attr;
 }	t_shell;
 
 t_shell		*g_shell;
@@ -143,7 +144,7 @@ typedef struct s_envvar
 	t_bool	is_append;
 }	t_envvar;
 
-// RENMOVE BEFORE EVAL
+// REMOVE BEFORE EVAL
 void		print_tokens(void);
 
 void		shell_exit(int error);
@@ -153,7 +154,7 @@ void		init_shell(char **env);
 void		init_prompt(void);
 void		init_command(t_command *new);
 void		handle_heredoc(t_command *cmd);
-void		heredoc_addnew(t_command *cmd, char *delimiter);
+void		heredoc_addnew(char *delimiter);
 
 // CREATE FUNCTIONS
 t_parsing	*create_new_info(char *line);
@@ -180,6 +181,7 @@ t_redirects	which_redirect(char *line);
 // ITEM FUNCTIONS
 void		expand_items(t_tokens *tokens);
 int			set_redirects(void);
+int			iterate_tokens(t_command *cmd_ptr, int i, int ret, char *token);
 
 // FREE FUNCTIONS
 void		free_command_and_tokens(void);

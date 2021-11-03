@@ -6,7 +6,7 @@
 /*   By: kfu <kfu@student.codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/10/06 16:34:19 by kfu           #+#    #+#                 */
-/*   Updated: 2021/10/16 12:49:56 by kfu           ########   odam.nl         */
+/*   Updated: 2021/11/03 12:37:40 by pspijkst      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ static int	set_delimiter(t_command *cmd, int i)
 	dlmtr_dup = ft_strdup(cmd->tokens->items[i + 1]);
 	if (!dlmtr_dup)
 		shell_exit(err_malloc);
-	heredoc_addnew(cmd, dlmtr_dup);
+	heredoc_addnew(dlmtr_dup);
 	if (cmd->in_fd != STDIN_FILENO)
 		close(cmd->in_fd);
 	cmd->in_fd = STDIN_FILENO;
@@ -90,15 +90,8 @@ static int	choose_redirect(t_command *cmd, char *line, int i)
 	return (ret);
 }
 
-int	set_redirects(void)
+int	iterate_tokens(t_command *cmd_ptr, int i, int ret, char *token)
 {
-	t_command	*cmd_ptr;
-	char		*token;
-	int			i;
-	int			ret;
-
-	i = 0;
-	cmd_ptr = g_shell->cmd;
 	while (cmd_ptr)
 	{
 		i = 0;

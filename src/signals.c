@@ -6,7 +6,7 @@
 /*   By: pspijkst <pspijkst@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/08/01 13:41:05 by pspijkst      #+#    #+#                 */
-/*   Updated: 2021/10/16 13:56:39 by kfu           ########   odam.nl         */
+/*   Updated: 2021/11/03 12:20:03 by pspijkst      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,12 +36,18 @@ void	quit(int i)
 
 void	activate_signals(void)
 {
+	struct termios	attributes;
+
 	signal(SIGINT, reprompt);
 	signal(SIGQUIT, SIG_IGN);
+	attributes = g_shell->dfl_attr;
+	attributes.c_lflag &= ~ECHOCTL;
+	tcsetattr(STDIN_FILENO, TCSANOW, &attributes);
 }
 
 void	deactivate_signals(void)
 {
+	tcsetattr(STDIN_FILENO, TCSANOW, &g_shell->dfl_attr);
 	signal(SIGINT, static_func);
 	signal(SIGQUIT, quit);
 }

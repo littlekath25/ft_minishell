@@ -6,7 +6,7 @@
 /*   By: pspijkst <pspijkst@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/07/25 11:51:31 by pspijkst      #+#    #+#                 */
-/*   Updated: 2021/10/16 11:54:19 by kfu           ########   odam.nl         */
+/*   Updated: 2021/11/03 12:19:19 by pspijkst      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,15 +34,6 @@ static char	***get_environ_ptr(void)
 
 #endif
 
-static void	disable_output(void)
-{
-	struct termios	attributes;
-
-	tcgetattr(STDIN_FILENO, &attributes);
-	attributes.c_lflag &= ~ECHOCTL;
-	tcsetattr(STDIN_FILENO, TCSANOW, &attributes);
-}
-
 void	init_shell(char **env)
 {
 	char	*dup;
@@ -68,5 +59,5 @@ void	init_shell(char **env)
 		shell_exit(err_malloc);
 	g_shell->io_fds[0] = STDIN_FILENO;
 	g_shell->io_fds[1] = STDOUT_FILENO;
-	disable_output();
+	tcgetattr(STDIN_FILENO, &g_shell->dfl_attr);
 }

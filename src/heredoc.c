@@ -1,6 +1,6 @@
 #include "shell.h"
 
-void	heredoc_addnew(t_command *cmd, char *delimiter)
+void	heredoc_addnew(char *delimiter)
 {
 	t_heredoc	*new;
 	t_heredoc	*tmp;
@@ -10,11 +10,11 @@ void	heredoc_addnew(t_command *cmd, char *delimiter)
 		shell_exit(err_malloc);
 	new->delimiter = delimiter;
 	new->next = NULL;
-	if (cmd->heredocs == NULL)
-		cmd->heredocs = new;
+	if (g_shell->heredocs == NULL)
+		g_shell->heredocs = new;
 	else
 	{
-		tmp = cmd->heredocs;
+		tmp = g_shell->heredocs;
 		while (tmp->next)
 			tmp = tmp->next;
 		tmp->next = new;
@@ -50,9 +50,9 @@ void	handle_heredoc(t_command *cmd)
 {
 	t_heredoc	*heredoc;
 
-	if (cmd->heredocs != NULL)
+	if (g_shell->heredocs != NULL)
 	{
-		heredoc = cmd->heredocs;
+		heredoc = g_shell->heredocs;
 		while (1)
 		{
 			process_heredoc(heredoc);
