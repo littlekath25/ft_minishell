@@ -1,7 +1,7 @@
 NAME		= 	minishell
 CC			= 	clang
 RM			=	rm -f
-CFLAGS		= 	-Wall -Wextra# -Werror
+CFLAGS		= 	-Wall -Wextra -Werror
 
 RLINCL		=	-I ~/.brew/opt/readline/include
 RLLIB		=	-L ~/.brew/opt/readline/lib -lreadline
@@ -43,7 +43,8 @@ P_SRC		=	create.c\
 				expand_variable.c\
 				checkers.c\
 				states.c\
-				redirects.c
+				redirects.c\
+				redirects2.c
 P_OBJ		=	$(P_SRC:%.c=$(P_PATH)%.o)
 
 EXEC_PATH	=	src/executor/

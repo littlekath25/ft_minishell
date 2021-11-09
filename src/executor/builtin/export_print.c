@@ -41,7 +41,6 @@ static char	**st_env_cpy(char **env)
 		st_insert_sorted(cpy, env[i], lines);
 		i++;
 	}
-	printf("Total lines: %d\n", lines);
 	return (cpy);
 }
 
@@ -57,9 +56,7 @@ void	export_print(void)
 	env = *g_shell->environ;
 	if (!env)
 		return ;
-	printf("before: %p\n", env);
 	env = st_env_cpy(env);
-	printf("after: %p\n", env);
 	i = 0;
 	while (env[i])
 	{
@@ -67,6 +64,5 @@ void	export_print(void)
 		ft_putendl_fd(env[i], g_shell->io_fds[1]);
 		i++;
 	}
-	printf("printed: %d\n", i);
 	free(env);
 }

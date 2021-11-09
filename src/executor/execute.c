@@ -6,7 +6,7 @@
 /*   By: pspijkst <pspijkst@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/05/05 16:38:19 by pspijkst      #+#    #+#                 */
-/*   Updated: 2021/10/15 11:55:29 by pspijkst      ########   odam.nl         */
+/*   Updated: 2021/11/03 15:11:15 by pspijkst      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,17 +40,19 @@ static void	st_create_pipe(t_command *cmd)
 
 static void	st_exec_builtin(t_command *cmd, int (*f)(char **argv))
 {
-	if (cmd->close_fd != -1)
-		close(cmd->close_fd);
 	g_shell->io_fds[0] = cmd->in_fd;
 	g_shell->io_fds[1] = cmd->out_fd;
 	g_shell->returnstatus = f(cmd->tokens->items);
-	if (cmd->out_fd != STDOUT_FILENO)
-		close(cmd->out_fd);
-	if (cmd->in_fd != STDIN_FILENO)
-		close(cmd->in_fd);
-	g_shell->io_fds[0] = STDIN_FILENO;
-	g_shell->io_fds[1] = STDOUT_FILENO;
+	if (g_shell->io_fds[1] != STDOUT_FILENO)
+	{
+		close(g_shell->io_fds[1]);
+		g_shell->io_fds[1] = STDOUT_FILENO;
+	}
+	if (g_shell->io_fds[0] != STDIN_FILENO)
+	{
+		close(g_shell->io_fds[0]);
+		g_shell->io_fds[0] = STDIN_FILENO;
+	}
 }
 
 static int	st_distribute(t_command *cmd)

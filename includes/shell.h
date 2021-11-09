@@ -6,7 +6,7 @@
 /*   By: pspijkst <pspijkst@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/05/05 13:17:29 by pspijkst      #+#    #+#                 */
-/*   Updated: 2021/11/03 12:37:48 by pspijkst      ########   odam.nl         */
+/*   Updated: 2021/11/03 15:59:31 by kfu           ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,8 @@ typedef enum e_errorz
 	err_pipe,
 	err_fork,
 	err_exit,
-	err_open
+	err_open,
+	err_pwd
 }	t_error;
 
 typedef struct s_tokens
@@ -181,7 +182,7 @@ t_redirects	which_redirect(char *line);
 // ITEM FUNCTIONS
 void		expand_items(t_tokens *tokens);
 int			set_redirects(void);
-int			iterate_tokens(t_command *cmd_ptr, int i, int ret, char *token);
+int			iterate_tokens(int ret, char *token);
 
 // FREE FUNCTIONS
 void		free_command_and_tokens(void);

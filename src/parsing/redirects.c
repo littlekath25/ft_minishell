@@ -6,7 +6,7 @@
 /*   By: kfu <kfu@student.codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/10/06 16:34:19 by kfu           #+#    #+#                 */
-/*   Updated: 2021/11/03 12:37:40 by pspijkst      ########   odam.nl         */
+/*   Updated: 2021/11/03 14:54:36 by pspijkst      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,8 +90,12 @@ static int	choose_redirect(t_command *cmd, char *line, int i)
 	return (ret);
 }
 
-int	iterate_tokens(t_command *cmd_ptr, int i, int ret, char *token)
+int	iterate_tokens(int ret, char *token)
 {
+	t_command	*cmd_ptr;
+	int			i;
+
+	cmd_ptr = g_shell->cmd;
 	while (cmd_ptr)
 	{
 		i = 0;
