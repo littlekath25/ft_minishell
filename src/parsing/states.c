@@ -6,7 +6,7 @@
 /*   By: kfu <kfu@student.codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/09/21 15:30:16 by kfu           #+#    #+#                 */
-/*   Updated: 2021/10/08 14:14:48 by kfu           ########   odam.nl         */
+/*   Updated: 2021/11/09 22:58:01 by katherine     ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ int	dull_functions(t_parsing *info)
 	else if (*info->ptr == '$')
 		variable_checker(info);
 	else if (is_redirect(info))
-		make_new_token(info);
+		return (set_redirects(info));
 	else
 	{
 		info->state = IN_WORD;
@@ -72,11 +72,6 @@ int	pipe_functions(t_parsing *info)
 		info->state = IN_SINGLE;
 	else if (*info->ptr == '"')
 		info->state = IN_DOUBLE;
-	else if (is_redirect(info))
-	{
-		print_error_token(*(info->ptr + 1));
-		return (0);
-	}
 	else
 	{
 		info->state = IN_WORD;
@@ -102,10 +97,7 @@ int	word_functions(t_parsing *info)
 	else if (*info->ptr == '$')
 		variable_checker(info);
 	else if (is_redirect(info))
-	{
-		printf("syntax error near unexpected token '%c'\n", *(info->ptr + 1));
-		return (0);
-	}
+		return (set_redirects(info));
 	else
 		copy_to_buffer(info);
 	return (1);

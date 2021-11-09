@@ -1,7 +1,7 @@
 NAME		= 	minishell
 CC			= 	clang
 RM			=	rm -f
-CFLAGS		= 	-Wall -Wextra -Werror
+CFLAGS		= 	-Wall -Wextra #-Werror
 
 RLINCL		=	-I ~/.brew/opt/readline/include
 RLLIB		=	-L ~/.brew/opt/readline/lib -lreadline

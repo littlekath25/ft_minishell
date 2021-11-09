@@ -6,7 +6,7 @@
 /*   By: pspijkst <pspijkst@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/05/05 13:17:29 by pspijkst      #+#    #+#                 */
-/*   Updated: 2021/11/03 15:59:31 by kfu           ########   odam.nl         */
+/*   Updated: 2021/11/09 23:45:50 by katherine     ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,7 +118,6 @@ typedef struct s_command
 	int					in_fd;
 	int					out_fd;
 	int					close_fd;
-	int					append;
 	t_tokens			*tokens;
 }	t_command;
 
@@ -181,7 +180,7 @@ t_redirects	which_redirect(char *line);
 
 // ITEM FUNCTIONS
 void		expand_items(t_tokens *tokens);
-int			set_redirects(void);
+int			set_redirects(t_parsing *info);
 int			iterate_tokens(int ret, char *token);
 
 // FREE FUNCTIONS
