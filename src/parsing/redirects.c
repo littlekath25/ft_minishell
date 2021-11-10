@@ -6,7 +6,7 @@
 /*   By: kfu <kfu@student.codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/10/06 16:34:19 by kfu           #+#    #+#                 */
-/*   Updated: 2021/11/10 10:35:18 by katherine     ########   odam.nl         */
+/*   Updated: 2021/11/10 10:58:15 by kfu           ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ static void	get_next_token(char **filename, t_parsing *info)
 	char	*tmp;
 	int		len;
 	int		i;
-	
+
 	len = 0;
 	i = 0;
 	while (*info->ptr == ' ')
