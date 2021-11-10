@@ -43,8 +43,7 @@ P_SRC		=	create.c\
 				expand_variable.c\
 				checkers.c\
 				states.c\
-				redirects.c\
-				redirects2.c
+				redirects.c
 P_OBJ		=	$(P_SRC:%.c=$(P_PATH)%.o)
 
 EXEC_PATH	=	src/executor/

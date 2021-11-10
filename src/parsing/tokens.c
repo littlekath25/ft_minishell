@@ -6,7 +6,7 @@
 /*   By: kfu <kfu@student.codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/07/02 13:58:25 by kfu           #+#    #+#                 */
-/*   Updated: 2021/10/08 14:13:58 by kfu           ########   odam.nl         */
+/*   Updated: 2021/11/10 10:33:09 by katherine     ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,8 +48,8 @@ int	fill_in_tokens(t_parsing *info)
 {
 	while (*info->ptr)
 	{
-		if (!state_action(info))
-			return (0);
+		if (state_action(info) == -1)
+			return (-1);
 		info->ptr++;
 	}
 	if (info->state == IN_WORD)
