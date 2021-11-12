@@ -6,13 +6,13 @@
 /*   By: katherine <katherine@student.codam.nl>       +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/07/24 11:02:23 by katherine     #+#    #+#                 */
-/*   Updated: 2021/11/03 15:11:25 by pspijkst      ########   odam.nl         */
+/*   Updated: 2021/11/11 11:01:28 by pspijkst      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shell.h"
 
-void	free_heredocs(t_heredoc *head)
+static void	free_heredocs(t_heredoc *head)
 {
 	t_heredoc	*tmp;
 
@@ -25,7 +25,20 @@ void	free_heredocs(t_heredoc *head)
 	}
 }
 
-void	free_commands(t_command *head)
+static void	free_redirects(t_redirect *head)
+{
+	t_redirect	*tmp;
+
+	while (head)
+	{
+		tmp = head;
+		head = head->next;
+		free(tmp->fname);
+		free(tmp);
+	}
+}
+
+static void	free_commands(t_command *head)
 {
 	t_command	*tmp;
 
@@ -33,6 +46,7 @@ void	free_commands(t_command *head)
 	{
 		tmp = head;
 		head = head->pipe;
+		free_redirects(tmp->redirects);
 		ft_free_split(tmp->tokens->items);
 		free(tmp->tokens);
 		free(tmp);

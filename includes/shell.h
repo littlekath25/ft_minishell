@@ -6,7 +6,7 @@
 /*   By: pspijkst <pspijkst@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/05/05 13:17:29 by pspijkst      #+#    #+#                 */
-/*   Updated: 2021/11/09 23:45:50 by katherine     ########   odam.nl         */
+/*   Updated: 2021/11/12 18:40:23 by kfu           ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,15 +58,6 @@ typedef enum e_error_states
 	OUT_OF_RANGE = 256
 }	t_error_states;
 
-typedef enum e_redirects
-{
-	NONE,
-	INPUT,
-	OUTPUT,
-	APPEND,
-	DELIMITER
-}	t_redirects;
-
 typedef enum e_states
 {
 	DULL,
@@ -96,11 +87,36 @@ typedef struct s_tokens
 	char	**items;
 }	t_tokens;
 
+typedef enum e_redirects
+{
+	rdr_input,
+	rdr_output,
+	rdr_append,
+	rdr_heredoc
+}	t_rdrs;
+
+typedef struct s_rdr
+{
+	struct s_rdr	*next;
+	t_rdrs			type;
+	char			*fname;
+}	t_redirect;
+
+typedef struct s_command
+{
+	struct s_command	*pipe;
+	int					in_fd;
+	int					out_fd;
+	int					close_fd;
+	t_tokens			*tokens;
+	t_redirect			*redirects;
+}	t_command;
+
 typedef struct s_parsing
 {
 	char			*ptr;
+	t_command		*current_cmd;
 	enum e_states	state;
-	int				argc;
 	int				i;
 	int				size;
 	char			*buffer;
@@ -112,15 +128,6 @@ typedef struct s_heredoc
 	char				*delimiter;
 }	t_heredoc;
 
-typedef struct s_command
-{
-	struct s_command	*pipe;
-	int					in_fd;
-	int					out_fd;
-	int					close_fd;
-	t_tokens			*tokens;
-}	t_command;
-
 typedef struct s_shell
 {
 	int					io_fds[2];
@@ -129,7 +136,6 @@ typedef struct s_shell
 	t_vector			*env_list;
 	char				***environ;
 	t_error_states		error_state;
-	t_command			*dest;
 	t_parsing			*info;
 	t_heredoc			*heredocs;
 	struct termios		dfl_attr;
@@ -144,11 +150,9 @@ typedef struct s_envvar
 	t_bool	is_append;
 }	t_envvar;
 
-// REMOVE BEFORE EVAL
-void		print_tokens(void);
-
 void		shell_exit(int error);
-void		print_tokens(void);
+void		print_perror(char *prefix);
+void		print_err_syntax(void);
 
 void		init_shell(char **env);
 void		init_prompt(void);
@@ -159,29 +163,29 @@ void		heredoc_addnew(char *delimiter);
 // CREATE FUNCTIONS
 t_parsing	*create_new_info(char *line);
 void		create_new_command_and_tokens(t_command **dest);
-int			create_commands_list(char *line);
+t_bool		create_commands_list(char *line);
 void		create_new_pipe(t_parsing *info);
 
 // PARSE FUNCTIONS
 void		make_new_token(t_parsing *info);
-int			dull_functions(t_parsing *info);
+t_bool		dull_functions(t_parsing *info);
 void		double_functions(t_parsing *info);
 void		single_functions(t_parsing *info);
-int			pipe_functions(t_parsing *info);
-int			word_functions(t_parsing *info);
-int			fill_in_tokens(t_parsing *info);
+t_bool		pipe_functions(t_parsing *info);
+t_bool		word_functions(t_parsing *info);
+t_bool		fill_in_tokens(t_parsing *info);
 t_bool		end_of_token(t_parsing *info);
 t_bool		convert_variable(t_parsing *info);
 void		variable_checker(t_parsing *info);
 t_bool		is_redirect(t_parsing *info);
 void		copy_to_buffer(t_parsing *info);
 void		expand_buffer(t_parsing *info);
-t_redirects	which_redirect(char *line);
 
 // ITEM FUNCTIONS
 void		expand_items(t_tokens *tokens);
-int			set_redirects(t_parsing *info);
+t_bool		set_redirects(t_parsing *info);
 int			iterate_tokens(int ret, char *token);
+char		*get_filename(t_parsing *info);
 
 // FREE FUNCTIONS
 void		free_command_and_tokens(void);
@@ -190,6 +194,8 @@ void		free_command_and_tokens(void);
 void		init_executor(void);
 int			exec_bin(t_command *cmd);
 void		wait_and_set_returnvalue(int pid);
+t_bool		handle_redirects(t_command *cmd);
+void		close_unused_fds(t_command *cmd);
 
 // UTILS
 t_bool		is_valid_key(char *var);

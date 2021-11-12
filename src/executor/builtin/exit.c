@@ -6,7 +6,7 @@
 /*   By: pspijkst <pspijkst@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/07/01 17:48:13 by pspijkst      #+#    #+#                 */
-/*   Updated: 2021/10/13 16:39:13 by pspijkst      ########   odam.nl         */
+/*   Updated: 2021/11/11 11:20:03 by pspijkst      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,9 @@ static t_bool	str_isdigit(char *str)
 */
 int	_exit_(char **argv)
 {
+	if (g_shell->io_fds[0] != STDIN_FILENO || \
+		g_shell->io_fds[1] != STDOUT_FILENO)
+		return (0);
 	printf("exit\n");
 	if (argv[1])
 	{

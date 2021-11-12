@@ -6,7 +6,7 @@
 /*   By: kfu <kfu@student.codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/09/21 15:05:41 by kfu           #+#    #+#                 */
-/*   Updated: 2021/11/10 10:32:12 by katherine     ########   odam.nl         */
+/*   Updated: 2021/11/10 16:31:13 by pspijkst      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,10 @@ t_parsing	*create_new_info(char *line)
 		shell_exit(err_malloc);
 	new->ptr = line;
 	new->state = DULL;
-	new->argc = 0;
 	new->size = BUFFER;
 	new->buffer = (char *)ft_calloc(sizeof(char), BUFFER + 1);
+	if (!new->buffer)
+		shell_exit(err_malloc);
 	g_shell->info = new;
 	return (new);
 }
@@ -36,7 +37,7 @@ static t_tokens	*create_new_token(void)
 	if (!new)
 		shell_exit(err_malloc);
 	new->size = 0;
-	new->allocated = 15;
+	new->allocated = 1;
 	new->items = (char **)ft_calloc(new->allocated, sizeof(char *));
 	if (!new->items)
 		shell_exit(err_malloc);
@@ -69,14 +70,12 @@ void	create_new_command_and_tokens(t_command **dest)
 	*dest = new_command;
 }
 
-int	create_commands_list(char *line)
+t_bool	create_commands_list(char *line)
 {
 	t_parsing	*info;
 
 	info = create_new_info(line);
 	create_new_command_and_tokens(&g_shell->cmd);
-	g_shell->dest = g_shell->cmd;
-	if (fill_in_tokens(info) == -1)
-		return (0);
-	return (1);
+	info->current_cmd = g_shell->cmd;
+	return (fill_in_tokens(info));
 }

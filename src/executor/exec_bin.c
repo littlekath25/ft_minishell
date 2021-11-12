@@ -57,7 +57,7 @@ static void	st_setio(t_command *cmd)
 		dup2(cmd->out_fd, STDOUT_FILENO);
 }
 
-static void	st_closeio(t_command *cmd)
+void	close_unused_fds(t_command *cmd)
 {
 	if (cmd->in_fd != STDIN_FILENO)
 		close(cmd->in_fd);
@@ -74,6 +74,8 @@ int	exec_bin(t_command *cmd)
 		shell_exit(err_fork);
 	else if (pid == 0)
 	{
+		if (handle_redirects(cmd) == false)
+			exit(1);
 		if (cmd->close_fd != -1)
 			close(cmd->close_fd);
 		st_setio(cmd);
@@ -81,9 +83,10 @@ int	exec_bin(t_command *cmd)
 			execve(*cmd->tokens->items, cmd->tokens->items, *g_shell->environ);
 		else
 			exec_rel(cmd->tokens->items);
-		printf("%s: command not found\n", *cmd->tokens->items);
+		ft_putstr_fd(*cmd->tokens->items, STDOUT_FILENO);
+		ft_putstr_fd(": command not found\n", STDOUT_FILENO);
 		exit(COMMAND_NOT_FOUND);
 	}
-	st_closeio(cmd);
+	close_unused_fds(cmd);
 	return (pid);
 }

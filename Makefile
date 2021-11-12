@@ -43,13 +43,15 @@ P_SRC		=	create.c\
 				expand_variable.c\
 				checkers.c\
 				states.c\
-				redirects.c
+				redirects.c\
+				redirects2.c
 P_OBJ		=	$(P_SRC:%.c=$(P_PATH)%.o)
 
 EXEC_PATH	=	src/executor/
 EXEC_SRC	=	execute.c\
 				exec_bin.c\
-				exec_retval.c
+				exec_retval.c\
+				redirect.c
 EXEC_OBJ	=	$(EXEC_SRC:%.c=$(EXEC_PATH)%.o)
 
 BLTIN_PATH	=	src/executor/builtin/

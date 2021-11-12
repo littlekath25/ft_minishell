@@ -6,7 +6,7 @@
 /*   By: katherine <katherine@student.codam.nl>       +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/07/28 22:16:18 by katherine     #+#    #+#                 */
-/*   Updated: 2021/10/16 12:40:08 by kfu           ########   odam.nl         */
+/*   Updated: 2021/11/12 18:36:15 by kfu           ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,8 @@ void	print_error_token(char token)
 
 void	copy_to_buffer(t_parsing *info)
 {
+	if (info->i >= info->size)
+		expand_buffer(info);
 	ft_memcpy(&info->buffer[info->i], info->ptr, 1);
 	info->i++;
 }

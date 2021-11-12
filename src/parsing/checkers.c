@@ -6,7 +6,7 @@
 /*   By: katherine <katherine@student.codam.nl>       +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/08/09 11:21:01 by katherine     #+#    #+#                 */
-/*   Updated: 2021/11/09 22:59:27 by katherine     ########   odam.nl         */
+/*   Updated: 2021/11/10 13:12:30 by pspijkst      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +21,9 @@ t_bool	is_redirect(t_parsing *info)
 
 void	create_new_pipe(t_parsing *info)
 {
-	info->argc = 0;
 	info->i = 0;
-	create_new_command_and_tokens(&g_shell->dest->pipe);
-	g_shell->dest = g_shell->dest->pipe;
+	create_new_command_and_tokens(&info->current_cmd->pipe);
+	info->current_cmd = info->current_cmd->pipe;
 }
 
 void	variable_checker(t_parsing *info)
