@@ -6,7 +6,7 @@
 /*   By: pspijkst <pspijkst@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/09/21 18:34:05 by pspijkst      #+#    #+#                 */
-/*   Updated: 2021/11/03 16:12:27 by kfu           ########   odam.nl         */
+/*   Updated: 2021/11/15 20:37:41 by katherine     ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,6 +104,6 @@ t_bool	convert_variable(t_parsing *info)
 	else
 		new = ft_strdup("$");
 	split_variable(new);
-	info->i += ft_strlen(info->buffer);
+	info->i = ft_strlen(info->buffer);
 	return (true);
 }

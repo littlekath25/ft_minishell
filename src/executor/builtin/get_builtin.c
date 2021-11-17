@@ -6,7 +6,7 @@
 /*   By: pspijkst <pspijkst@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/06/29 17:27:24 by pspijkst      #+#    #+#                 */
-/*   Updated: 2021/10/13 15:43:22 by pspijkst      ########   odam.nl         */
+/*   Updated: 2021/11/17 10:06:37 by pspijkst      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,8 @@ void	*get_builtin(const char *key)
 	int				i;
 
 	i = 0;
+	if (!key)
+		return (NULL);
 	while (i < 7)
 	{
 		if (ft_strcmp(builtins[i].key, key) == 0)

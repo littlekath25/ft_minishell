@@ -6,31 +6,11 @@
 /*   By: kfu <kfu@student.codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/05/05 15:51:53 by kfu           #+#    #+#                 */
-/*   Updated: 2021/11/12 14:31:01 by kfu           ########   odam.nl         */
+/*   Updated: 2021/11/17 13:51:10 by pspijkst      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shell.h"
-
-void	print_tokens(void)
-{
-	t_command	*cmd;
-	int			i;
-
-	cmd = g_shell->cmd;
-	while (cmd)
-	{
-		printf("Command tokens:\n");
-		i = 0;
-		while (cmd->tokens->items[i])
-		{
-			printf("%s\n", cmd->tokens->items[i]);
-			i++;
-		}
-		cmd = cmd->pipe;
-	}
-	printf("\n");
-}
 
 void	init_prompt(void)
 {
@@ -48,11 +28,8 @@ void	init_prompt(void)
 			if (create_commands_list(line) == true)
 			{
 				handle_heredoc(g_shell->cmd);
-				if (g_shell->cmd->tokens->items[0] != NULL)
-				{
-					deactivate_signals();
-					init_executor();
-				}
+				deactivate_signals();
+				init_executor();
 			}
 			free_command_and_tokens();
 		}

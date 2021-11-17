@@ -8,6 +8,7 @@ static t_bool	handle_in(t_command *cmd, t_redirect *rdr)
 	if (fd == -1)
 	{
 		print_perror(rdr->fname);
+		g_shell->returnstatus = 1;
 		return (false);
 	}
 	if (cmd->in_fd != STDIN_FILENO)
@@ -27,6 +28,7 @@ static t_bool	handle_out(t_command *cmd, t_redirect *rdr)
 	if (fd == -1)
 	{
 		print_perror(rdr->fname);
+		g_shell->returnstatus = 1;
 		return (false);
 	}
 	if (cmd->out_fd != STDOUT_FILENO)
@@ -55,4 +57,12 @@ t_bool	handle_redirects(t_command *cmd)
 		rdr = rdr->next;
 	}
 	return (true);
+}
+
+void	close_unused_fds(t_command *cmd)
+{
+	if (cmd->in_fd != STDIN_FILENO)
+		close(cmd->in_fd);
+	if (cmd->out_fd != STDOUT_FILENO)
+		close(cmd->out_fd);
 }

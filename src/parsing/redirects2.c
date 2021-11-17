@@ -6,7 +6,7 @@
 /*   By: kfu <kfu@student.codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/11/12 13:56:35 by kfu           #+#    #+#                 */
-/*   Updated: 2021/11/12 14:30:54 by kfu           ########   odam.nl         */
+/*   Updated: 2021/11/17 10:57:46 by pspijkst      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@ static t_bool	word_file_functions(t_parsing *info)
 		info->state = IN_SINGLE;
 	else if (is_redirect(info))
 		return (false);
+	else if (*info->ptr == '$')
+		variable_checker(info);
 	else
 		copy_to_buffer(info);
 	return (true);
@@ -29,8 +31,9 @@ static t_bool	single_file_functions(t_parsing *info)
 {
 	if (*info->ptr == '\'')
 	{
-		info->ptr++;
-		return (false);
+		if (*(info->ptr + 1) == ' ' || *(info->ptr + 1) == '\0')
+			return (false);
+		info->state = DULL;
 	}
 	else
 		copy_to_buffer(info);
@@ -41,9 +44,12 @@ static t_bool	double_file_functions(t_parsing *info)
 {
 	if (*info->ptr == '"')
 	{
-		info->ptr++;
-		return (false);
+		if (*(info->ptr + 1) == ' ' || *(info->ptr + 1) == '\0')
+			return (false);
+		info->state = DULL;
 	}
+	else if (*info->ptr == '$')
+		variable_checker(info);
 	else
 		copy_to_buffer(info);
 	return (true);
@@ -65,8 +71,10 @@ char	*get_filename(t_parsing *info)
 	t_bool	status;
 
 	filename = NULL;
-	while (*info->ptr != ' ' && *info->ptr)
+	while (*info->ptr)
 	{
+		if (*info->ptr == ' ' && info->state == DULL)
+			break ;
 		status = write_to_buffer(info);
 		if (status == false)
 			break ;

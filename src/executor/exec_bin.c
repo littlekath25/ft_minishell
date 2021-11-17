@@ -26,7 +26,18 @@ static char	*ft_pathcombine(char *base, char *file)
 	return (path);
 }
 
-static void	exec_rel(char **tokens)
+static void	exec_absolute_path(t_command *cmd)
+{
+	execve(*cmd->tokens->items, cmd->tokens->items, *g_shell->environ);
+	print_perror(cmd->tokens->items[0]);
+	if (errno == EACCES)
+		exit(CANNOT_EXECUTE);
+	else if (errno == ENOENT)
+		exit(COMMAND_NOT_FOUND);
+	exit(1);
+}
+
+static void	exec_relative_path(char **tokens)
 {
 	char	*path;
 	char	**paths;
@@ -47,6 +58,10 @@ static void	exec_rel(char **tokens)
 		i++;
 	}
 	ft_free_split(paths);
+	ft_putstr_fd("minishell: ", STDOUT_FILENO);
+	ft_putstr_fd(*tokens, STDOUT_FILENO);
+	ft_putstr_fd(": command not found\n", STDOUT_FILENO);
+	exit(COMMAND_NOT_FOUND);
 }
 
 static void	st_setio(t_command *cmd)
@@ -55,14 +70,6 @@ static void	st_setio(t_command *cmd)
 		dup2(cmd->in_fd, STDIN_FILENO);
 	if (cmd->out_fd != STDOUT_FILENO)
 		dup2(cmd->out_fd, STDOUT_FILENO);
-}
-
-void	close_unused_fds(t_command *cmd)
-{
-	if (cmd->in_fd != STDIN_FILENO)
-		close(cmd->in_fd);
-	if (cmd->out_fd != STDOUT_FILENO)
-		close(cmd->out_fd);
 }
 
 int	exec_bin(t_command *cmd)
@@ -76,16 +83,11 @@ int	exec_bin(t_command *cmd)
 	{
 		if (handle_redirects(cmd) == false)
 			exit(1);
-		if (cmd->close_fd != -1)
-			close(cmd->close_fd);
 		st_setio(cmd);
 		if (ft_strcontains(*cmd->tokens->items, '/'))
-			execve(*cmd->tokens->items, cmd->tokens->items, *g_shell->environ);
+			exec_absolute_path(cmd);
 		else
-			exec_rel(cmd->tokens->items);
-		ft_putstr_fd(*cmd->tokens->items, STDOUT_FILENO);
-		ft_putstr_fd(": command not found\n", STDOUT_FILENO);
-		exit(COMMAND_NOT_FOUND);
+			exec_relative_path(cmd->tokens->items);
 	}
 	close_unused_fds(cmd);
 	return (pid);

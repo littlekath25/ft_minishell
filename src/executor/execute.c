@@ -6,14 +6,12 @@
 /*   By: pspijkst <pspijkst@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/05/05 16:38:19 by pspijkst      #+#    #+#                 */
-/*   Updated: 2021/11/11 11:18:10 by pspijkst      ########   odam.nl         */
+/*   Updated: 2021/11/17 17:47:46 by pspijkst      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shell.h"
-#include "libft.h"
 #include <sys/wait.h>
-#include <stdio.h>
 #include <unistd.h>
 
 static void	st_create_pipe(t_command *cmd)
@@ -22,20 +20,8 @@ static void	st_create_pipe(t_command *cmd)
 
 	if (pipe(pipefd) == -1)
 		shell_exit(err_pipe);
-	if (cmd->pipe->in_fd == STDIN_FILENO)
-	{
-		cmd->pipe->in_fd = pipefd[0];
-		cmd->close_fd = pipefd[0];
-	}
-	else
-		close(pipefd[0]);
-	if (cmd->out_fd == STDOUT_FILENO)
-	{
-		cmd->out_fd = pipefd[1];
-		cmd->pipe->close_fd = pipefd[1];
-	}
-	else
-		close(pipefd[1]);
+	cmd->pipe->in_fd = pipefd[0];
+	cmd->out_fd = pipefd[1];
 }
 
 static void	st_exec_builtin(t_command *cmd, int (*f)(char **argv))
@@ -92,10 +78,12 @@ void	init_executor(void)
 	int			forks[FORK_MAX];
 	int			retval;
 	int			i;
+	int			j;
 
 	cmd_list = g_shell->cmd;
 	i = 0;
-	while (cmd_list)
+	j = 0;
+	while (cmd_list && j < FORK_MAX)
 	{
 		retval = st_distribute(cmd_list);
 		if (retval != -1)
@@ -104,7 +92,10 @@ void	init_executor(void)
 			i++;
 		}
 		cmd_list = cmd_list->pipe;
+		j++;
 	}
+	if (j == FORK_MAX)
+		ft_putstr_fd("minishell: maximum amount of forks reached\n", STDOUT_FILENO);
 	wait_pids(forks, i);
 	unlink(HEREDOC_FNAME);
 }

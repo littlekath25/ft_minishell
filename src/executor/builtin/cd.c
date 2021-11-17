@@ -6,7 +6,7 @@
 /*   By: pspijkst <pspijkst@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/07/01 17:29:26 by pspijkst      #+#    #+#                 */
-/*   Updated: 2021/10/11 10:00:19 by kfu           ########   odam.nl         */
+/*   Updated: 2021/11/17 11:16:04 by pspijkst      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,19 +20,22 @@
 */
 int	_cd_(char **argv)
 {
-	int	result;
+	char	*path;
 
 	if (g_shell->io_fds[0] != STDIN_FILENO || \
 	g_shell->io_fds[1] != STDOUT_FILENO)
 		return (0);
 	if (argv[1])
-		result = chdir(argv[1]);
+		path = argv[1];
 	else
-		result = chdir(getenv("HOME"));
-	if (result == -1)
+		path = getenv("HOME");
+	if (path != NULL && path[0] != '\0')
 	{
-		printf("%s: %s: No such file or directory\n", argv[0], argv[1]);
-		return (1);
+		if (chdir(path) == -1)
+		{
+			printf("%s: %s: No such file or directory\n", argv[0], argv[1]);
+			return (1);
+		}
 	}
 	return (0);
 }
