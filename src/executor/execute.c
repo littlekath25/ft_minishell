@@ -6,7 +6,7 @@
 /*   By: pspijkst <pspijkst@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/05/05 16:38:19 by pspijkst      #+#    #+#                 */
-/*   Updated: 2021/11/17 17:47:46 by pspijkst      ########   odam.nl         */
+/*   Updated: 2021/11/17 20:20:26 by pspijkst      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,8 @@ static void	st_create_pipe(t_command *cmd)
 	if (pipe(pipefd) == -1)
 		shell_exit(err_pipe);
 	cmd->pipe->in_fd = pipefd[0];
+	cmd->pipe->unused_fd = pipefd[1];
+	cmd->unused_fd = pipefd[0];
 	cmd->out_fd = pipefd[1];
 }
 
@@ -28,7 +30,7 @@ static void	st_exec_builtin(t_command *cmd, int (*f)(char **argv))
 {
 	if (handle_redirects(cmd) == false)
 	{
-		close_unused_fds(cmd);
+		close_non_stdio(cmd);
 		return ;
 	}
 	g_shell->io_fds[0] = cmd->in_fd;
@@ -95,7 +97,7 @@ void	init_executor(void)
 		j++;
 	}
 	if (j == FORK_MAX)
-		ft_putstr_fd("minishell: maximum amount of forks reached\n", STDOUT_FILENO);
+		ft_putstr_fd("minishell: maximum amount of forks\n", STDOUT_FILENO);
 	wait_pids(forks, i);
 	unlink(HEREDOC_FNAME);
 }

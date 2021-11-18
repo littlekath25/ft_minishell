@@ -6,7 +6,7 @@
 /*   By: pspijkst <pspijkst@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/05/05 13:17:29 by pspijkst      #+#    #+#                 */
-/*   Updated: 2021/11/17 12:12:39 by pspijkst      ########   odam.nl         */
+/*   Updated: 2021/11/17 20:17:20 by pspijkst      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,6 +107,7 @@ typedef struct s_command
 	struct s_command	*pipe;
 	int					in_fd;
 	int					out_fd;
+	int					unused_fd;
 	t_tokens			*tokens;
 	t_redirect			*redirects;
 }	t_command;
@@ -194,7 +195,8 @@ void		init_executor(void);
 int			exec_bin(t_command *cmd);
 void		wait_and_set_returnvalue(int pid);
 t_bool		handle_redirects(t_command *cmd);
-void		close_unused_fds(t_command *cmd);
+void		close_non_stdio(t_command *cmd);
+void		close_unused_fd(t_command *cmd);
 
 // UTILS
 t_bool		is_valid_key(char *var);

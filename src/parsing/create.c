@@ -6,7 +6,7 @@
 /*   By: kfu <kfu@student.codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/09/21 15:05:41 by kfu           #+#    #+#                 */
-/*   Updated: 2021/11/17 12:12:54 by pspijkst      ########   odam.nl         */
+/*   Updated: 2021/11/17 20:10:57 by pspijkst      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,7 @@ static t_command	*create_new_command(void)
 	new->tokens = NULL;
 	new->in_fd = 0;
 	new->out_fd = 1;
+	new->unused_fd = -1;
 	return (new);
 }
 

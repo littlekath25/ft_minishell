@@ -81,6 +81,7 @@ int	exec_bin(t_command *cmd)
 		shell_exit(err_fork);
 	else if (pid == 0)
 	{
+		close_unused_fd(cmd);
 		if (handle_redirects(cmd) == false)
 			exit(1);
 		st_setio(cmd);
@@ -89,6 +90,6 @@ int	exec_bin(t_command *cmd)
 		else
 			exec_relative_path(cmd->tokens->items);
 	}
-	close_unused_fds(cmd);
+	close_non_stdio(cmd);
 	return (pid);
 }

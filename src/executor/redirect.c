@@ -59,10 +59,17 @@ t_bool	handle_redirects(t_command *cmd)
 	return (true);
 }
 
-void	close_unused_fds(t_command *cmd)
+void	close_non_stdio(t_command *cmd)
 {
 	if (cmd->in_fd != STDIN_FILENO)
 		close(cmd->in_fd);
 	if (cmd->out_fd != STDOUT_FILENO)
 		close(cmd->out_fd);
+}
+
+void	close_unused_fd(t_command *cmd)
+{
+	if (cmd->unused_fd != -1)
+		if (cmd->unused_fd != cmd->in_fd && cmd->unused_fd != cmd->out_fd)
+			close(cmd->unused_fd);
 }
